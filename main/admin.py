@@ -1,3 +1,10 @@
 from django.contrib import admin
+from .models import news,Profile
 
-# Register your models here.
+
+admin.site.register(Profile)
+
+@admin.register(news)
+class newsAdmin(admin.ModelAdmin):
+    list_display=("title","date",)
+    ordring=("date")
