@@ -1,5 +1,24 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django_jalali.db import models as jmodels
+
+class PostImage(models.Model):
+    title = models.CharField(max_length=20)
+    image = models.ImageField()
+
+    def __str__(self):
+        return self.title
+
+
+class Event(models.Model):
+    title = models.CharField(max_length=30)
+    content = models.TextField()
+    # please add a location field to this
+    date = jmodels.jDateField()  # when is the event
+    unitl = jmodels.jDateField()  # when singup for the event finishes
+
+    def __str__(self):
+        return self.title
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -30,7 +49,7 @@ class news(models.Model):
     title=models.CharField(max_length=50,blank=False,null=False)
     text=models.TextField()
     image=models.ImageField(upload_to="image")
-    date=models.DateField()
+    date=jmodels.jDateField()
 
     def __str__(self):
         return "{}".format(self.title)
