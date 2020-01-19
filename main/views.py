@@ -34,6 +34,18 @@ def index(request):
     return render(request, "index.html")
 
 
+def profile(request):
+    return render(request, "profile.html")
+
+
+def contact(request):
+    return render(request, "contact.html")
+
+
+def category(request):
+    return render(request, "category.html")
+
+
 @require_POST
 @csrf_exempt
 def Signin(request):
