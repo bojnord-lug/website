@@ -1,12 +1,12 @@
 from django.contrib import admin
-from .models import Comment, Event, news, Profile, Category, PostImage, SubComment
+from .models import Category, Comment, Event, news, Profile, PostImage, SubComment
 
 
 admin.site.register(news)
+admin.site.register(Category)
 admin.site.register(Comment)
 admin.site.register(Event)
 admin.site.register(Profile)
-admin.site.register(Category)
 admin.site.register(PostImage)
 admin.site.register(SubComment)
 '''@admin.register(Comment)
