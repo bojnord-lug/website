@@ -215,30 +215,38 @@
                                 </div><!-- end row -->
 
                                 <hr class="invis">
-                                {% for item in all_events %}
+                                <div id="bloglist">
+                                {% for item in page_obj %}
+                                
                                 <div class="blog-box row">
                                     <div class="col-md-4">
                                         <div class="post-media">
                                             <a href="single.html" title="">
-                                                <img src="{{item.image}}" alt="" class="img-fluid">
+                                                <img src="{{item.image}}" alt="" class="img-fluid" />
                                                 <div class="hovereffect"></div>
                                             </a>
-                                        </div><!-- end media -->
-                                    </div><!-- end col -->
-
+                                        </div>
+                                        <!-- end media -->
+                                    </div>
+                                    <!-- end col -->
+                                
                                     <div class="blog-meta big-meta col-md-8">
                                         <span class="bg-aqua"><a href="garden-category.html" title="">دورهمی</a></span>
                                         <h4><a href="single.html" title="">{{item.title}}</a></h4>
                                         <p>{{item.content}}</p>
-                                        <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i>
-                                                ۳۲۳۲</a></small>
+                                        <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i> ۳۲۳۲</a></small>
                                         <small><a href="single.html" title="">{{item.date}}</a></small>
                                         <small><a href="#" title="">ارائه: {{item.presenter}}</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
-
-                                <hr class="invis">
+                                    </div>
+                                    <!-- end meta -->
+                                </div>
+                                <!-- end blog-box -->
+                                
+                                <hr class="invis" />
                                 {% endfor %}
+
+                                </div>
+
                                 
                             </div><!-- end blog-list -->
                         </div><!-- end page-wrapper -->
@@ -249,13 +257,14 @@
                             <div class="col-md-12">
                                 <nav aria-label="Page navigation">
                                     <ul class="pagination justify-content-start">
-                                        <li class="page-item"><a class="page-link" href="#">۱</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">۲</a></li>
-                                        <li class="page-item"><a class="page-link" href="#">۳</a></li>
-                                        
-                                        <li class="page-item">
+                                        {% for num in num_pages %}
+                                        <li onclick="getPagination('{{num|add:1}}')" class="page-item"><span class="page-link">{{num|add:1}}</span></li>
+                                        {% endfor %}
+                                        {%if num_pages|length > 1 %}
+                                        <li onclick="nextPage()" class="page-item">
                                             <a class="page-link" href="#">بعدی</a>
                                         </li>
+                                        {%endif%}
                                     </ul>
                                 </nav>
                             </div><!-- end col -->
@@ -499,6 +508,9 @@
     <script src="{% static 'js/tether.min.js'%}"></script>
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
     <script src="{% static 'js/custom.js'%}"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/custom1.js'%}"></script>
+
 
 </body>
 

@@ -66,6 +66,7 @@ class news(models.Model):
         to=Category, on_delete=models.SET_NULL, null=True)
     author = models.CharField(
         max_length=50, blank=False, null=False, default="not specified")
+    tags = models.TextField(default="not specified")
 
     def __str__(self):
         return "{}".format(self.title)
