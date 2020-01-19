@@ -163,14 +163,13 @@
                     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                         <div class="page-wrapper">
                             <div class="blog-title-area">
-                                <span class="color-green"><a href="garden-category.html" title="">برنامه
-                                        نویسی</a></span>
+                                <span class="color-green"><a href="garden-category.html" title="">{{post.category.title}}</a></span>
 
-                                <h3>نصب و راه اندازی داکر و فراهم کردن محیط برنامه نویسی</h3>
+                                <h3>{{post.title}}</h3>
 
                                 <div class="blog-meta big-meta">
-                                    <small><a href="single.html" title="">۱۳۹۸/۰۹/۱۹</a></small>
-                                    <small><a href="blog-author.html" title="">توسط حسین باژن</a></small>
+                                    <small><a href="single.html" title="">{{post.date}}</a></small>
+                                    <small><a href="blog-author.html" title="">توسط {{post.author}}</a></small>
                                     <small><a href="#" title=""><i class="fa fa-eye"></i> ۳۳۲۱</a></small>
                                 </div><!-- end meta -->
 
@@ -187,66 +186,22 @@
                             </div><!-- end title -->
 
                             <div class="single-post-media">
-                                <img src="{% static 'upload/garden_single_01.jpg'%}" alt="" class="img-fluid">
+                                <img src="{{post.image}}" alt="" class="img-fluid">
                             </div><!-- end media -->
 
                             <div class="blog-content">
                                 <div class="pp">
-                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                        گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
-                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
-                                        کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان
-                                        جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه
-                                        ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می
-                                        توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به
-                                        پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته
-                                        اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
-
-                                    <h3><strong>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده
-                                            از طراحان گرافیک است.</strong></h3>
-
-                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                        گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
-                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
-                                        کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان
-                                        جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه
-                                        ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این صورت می
-                                        توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و شرایط سخت تایپ به
-                                        پایان رسد وزمان مورد نیاز شامل حروفچینی دستاوردهای اصلی و جوابگوی سوالات پیوسته
-                                        اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.</p>
-
-                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                        گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
-                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
-                                        کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان
-                                        جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه
-                                        ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. </p>
-
+                                    <p>{{post.text}}</p>
                                 </div><!-- end pp -->
 
-                                <img src="{% static 'upload/garden_single_02.jpg'%}" alt="" class="img-fluid img-fullwidth">
-
-                                <div class="pp">
-                                    <h3><strong>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده
-                                            از طراحان گرافیک است.
-                                        </strong></h3>
-
-                                    <p>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                        گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و
-                                        برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای
-                                        کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان
-                                        جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه
-                                        ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. </p>
-                                </div><!-- end pp -->
                             </div><!-- end content -->
 
                             <div class="blog-title-area">
                                 <div class="tag-cloud-single">
                                     <span>تگ‌ها</span>
-                                    <small><a href="#" title="">لاراول</a></small>
-                                    <small><a href="#" title="">داکر</a></small>
-                                    <small><a href="#" title="">برنامه نویسی</a></small>
-                                    <small><a href="#" title="">لینوکس</a></small>
+                                {% for tag in tags %}
+                                    <small><a href="#" title="">{{tag}}</a></small>
+                                {% endfor %}
                                 </div><!-- end meta -->
 
                                 <div class="post-sharing">
@@ -281,7 +236,7 @@
                                     </div><!-- end col -->
 
                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                        <h4><a href="#">حسین باژن</a></h4>
+                                        <h4><a href="#">{{post.author}}</a></h4>
                                         <p>برنامه نویس وب</p>
 
                                         <div class="topsocial">
@@ -444,34 +399,15 @@
                                 <h2 class="widget-title">پست های اخیر</h2>
                                 <div class="blog-list-widget">
                                     <div class="list-group">
-                                        <a href="single.html"
-                                            class="list-group-item list-group-item-action flex-column align-items-start">
+                                        {% for item in latest_news %}
+                                        <a href="single.html" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="{% static 'upload/garden_sq_09.jpg'%}" alt="" class="img-fluid float-left">
-                                                <h5 class="mb-1">نصب و راه اندازی پراکسی سرور</h5>
-                                                <small>۱۳۹۸/۰۹/۱۸</small>
+                                                <img src="{{item.image}}" alt="" height="55" width="55" class="float-left">
+                                                <h5 class="mb-1">{{item.title}}</h5>
+                                                <small>{{item.date}}</small>
                                             </div>
                                         </a>
-
-                                        <a href="single.html"
-                                            class="list-group-item list-group-item-action flex-column align-items-start">
-                                            <div class="w-100 justify-content-between">
-                                                <img src="{% static 'upload/garden_sq_06.jpg'%}" alt="" class="img-fluid float-left">
-                                                <h5 class="mb-1">آموزش مقدماتی تست نفوذ (سنجش
-                                                    آسیب‌پذیری) و ...</h5>
-                                                <small>۱۳۹۸/۰۹/۱۸</small>
-                                            </div>
-                                        </a>
-
-                                        <a href="single.html"
-                                            class="list-group-item list-group-item-action flex-column align-items-start">
-                                            <div class="w-100 last-item justify-content-between">
-                                                <img src="{% static 'upload/garden_sq_02.jpg'%}" alt="" class="img-fluid float-left">
-                                                <h5 class="mb-1">نصب و راه اندازی داکر و فراهم کردن
-                                                    محیط برنامه نویسی</h5>
-                                                <small>۱۳۹۸/۰۹/۱۸</small>
-                                            </div>
-                                        </a>
+                                        {% endfor %}
                                     </div>
                                 </div><!-- end blog-list -->
                             </div><!-- end widget -->
