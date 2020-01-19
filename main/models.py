@@ -13,7 +13,7 @@ class PostImage(models.Model):
 class Event(models.Model):
     title = models.CharField(max_length=30)
     content = models.TextField()
-    location = models.TextField()
+    location = models.TextField() # where is it
     date = jmodels.jDateField()  # when is the event
     unitl = jmodels.jDateField()  # when singup for the event finishes
 
