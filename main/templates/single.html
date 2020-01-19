@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,32 +16,32 @@
 <meta name="author" content="">
 
 <!-- Site Icons -->
-<link rel="shortcut icon" href="images/favicon.png" type="image/x-icon" />
-<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<link rel="shortcut icon" href="{% static 'images/favicon.png'%}" type="image/x-icon" />
+<link rel="apple-touch-icon" href="{% static 'images/apple-touch-icon.png'%}">
 
 <!-- Design fonts -->
 <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
 
 <!-- Bootstrap core CSS -->
-<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
 
 <!-- Custom font -->
-<link href="css/fonts.css" rel="stylesheet">
+<link href="{% static 'css/fonts.css'%}" rel="stylesheet">
 
 <!-- FontAwesome Icons core CSS -->
-<link href="css/font-awesome.min.css" rel="stylesheet">
+<link href="{% static 'css/font-awesome.min.css'%}" rel="stylesheet">
 
 <!-- Custom styles for this template -->
-<link href="css/style.css" rel="stylesheet">
+<link href="{% static 'css/style.css'%}" rel="stylesheet">
 
 <!-- Responsive styles for this template -->
-<link href="css/responsive.css" rel="stylesheet">
+<link href="{% static 'css/responsive.css'%}" rel="stylesheet">
 
 <!-- Colors for this template -->
-<link href="css/colors.css" rel="stylesheet">
+<link href="{% static 'css/colors.css'%}" rel="stylesheet">
 
 <!-- Version Garden CSS for this template -->
-<link href="css/version/garden.css" rel="stylesheet">
+<link href="{% static 'css/version/garden.css'%}" rel="stylesheet">
 
 <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -106,7 +107,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="logo">
-                            <a href="index.html"><img src="images/version/garden-logo.png" alt=""></a>
+                            <a href="index.html"><img src="{% static 'images/version/garden-logo.png'%}" alt=""></a>
                         </div><!-- end logo -->
                     </div>
                 </div><!-- end row -->
@@ -186,7 +187,7 @@
                             </div><!-- end title -->
 
                             <div class="single-post-media">
-                                <img src="upload/garden_single_01.jpg" alt="" class="img-fluid">
+                                <img src="{% static 'upload/garden_single_01.jpg'%}" alt="" class="img-fluid">
                             </div><!-- end media -->
 
                             <div class="blog-content">
@@ -223,7 +224,7 @@
 
                                 </div><!-- end pp -->
 
-                                <img src="upload/garden_single_02.jpg" alt="" class="img-fluid img-fullwidth">
+                                <img src="{% static 'upload/garden_single_02.jpg'%}" alt="" class="img-fluid img-fullwidth">
 
                                 <div class="pp">
                                     <h3><strong>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده
@@ -264,7 +265,7 @@
                                 <div class="col-lg-12">
                                     <div class="banner-spot clearfix">
                                         <div class="banner-img">
-                                            <img src="upload/banner_01.jpg" alt="" class="img-fluid">
+                                            <img src="{% static 'upload/banner_01.jpg'%}" alt="" class="img-fluid">
                                         </div><!-- end banner-img -->
                                     </div><!-- end banner -->
                                 </div><!-- end col -->
@@ -276,7 +277,7 @@
                                 <h4 class="small-title">درباره نویسنده</h4>
                                 <div class="row">
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                        <img src="upload/author.jpg" alt="" class="img-fluid rounded-circle">
+                                        <img src="{% static 'upload/author.jpg'%}" alt="" class="img-fluid rounded-circle">
                                     </div><!-- end col -->
 
                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
@@ -311,7 +312,7 @@
                                         <div class="blog-box">
                                             <div class="post-media">
                                                 <a href="single.html" title="">
-                                                    <img src="upload/garden_single_03.jpg" alt="" class="img-fluid">
+                                                    <img src="{% static 'upload/garden_single_03.jpg'%}" alt="" class="img-fluid">
                                                     <div class="hovereffect">
                                                         <span class=""></span>
                                                     </div><!-- end hover -->
@@ -330,7 +331,7 @@
                                         <div class="blog-box">
                                             <div class="post-media">
                                                 <a href="single.html" title="">
-                                                    <img src="upload/garden_single_02.jpg" alt="" class="img-fluid">
+                                                    <img src="{% static 'upload/garden_single_02.jpg'%}" alt="" class="img-fluid">
                                                     <div class="hovereffect">
                                                         <span class=""></span>
                                                     </div><!-- end hover -->
@@ -356,7 +357,7 @@
                                         <div class="comments-list">
                                             <div class="media">
                                                 <a class="media-left" href="#">
-                                                    <img src="upload/author.jpg" alt="" class="rounded-circle">
+                                                    <img src="{% static 'upload/author.jpg'%}" alt="" class="rounded-circle">
                                                 </a>
                                                 <div class="media-body">
                                                     <h4 class="media-heading user_name">محمد جعفری <small>۵ روز
@@ -371,7 +372,7 @@
                                             </div>
                                             <div class="media">
                                                 <a class="media-left" href="#">
-                                                    <img src="upload/author_01.jpg" alt="" class="rounded-circle">
+                                                    <img src="{% static 'upload/author_01.jpg'%}" alt="" class="rounded-circle">
                                                 </a>
                                                 <div class="media-body">
 
@@ -388,7 +389,7 @@
                                             </div>
                                             <div class="media last-child">
                                                 <a class="media-left" href="#">
-                                                    <img src="upload/author_02.jpg" alt="" class="rounded-circle">
+                                                    <img src="{% static 'upload/author_02.jpg'%}" alt="" class="rounded-circle">
                                                 </a>
                                                 <div class="media-body">
 
@@ -446,7 +447,7 @@
                                         <a href="single.html"
                                             class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="upload/garden_sq_09.jpg" alt="" class="img-fluid float-left">
+                                                <img src="{% static 'upload/garden_sq_09.jpg'%}" alt="" class="img-fluid float-left">
                                                 <h5 class="mb-1">نصب و راه اندازی پراکسی سرور</h5>
                                                 <small>۱۳۹۸/۰۹/۱۸</small>
                                             </div>
@@ -455,7 +456,7 @@
                                         <a href="single.html"
                                             class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="upload/garden_sq_06.jpg" alt="" class="img-fluid float-left">
+                                                <img src="{% static 'upload/garden_sq_06.jpg'%}" alt="" class="img-fluid float-left">
                                                 <h5 class="mb-1">آموزش مقدماتی تست نفوذ (سنجش
                                                     آسیب‌پذیری) و ...</h5>
                                                 <small>۱۳۹۸/۰۹/۱۸</small>
@@ -465,7 +466,7 @@
                                         <a href="single.html"
                                             class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 last-item justify-content-between">
-                                                <img src="upload/garden_sq_02.jpg" alt="" class="img-fluid float-left">
+                                                <img src="{% static 'upload/garden_sq_02.jpg'%}" alt="" class="img-fluid float-left">
                                                 <h5 class="mb-1">نصب و راه اندازی داکر و فراهم کردن
                                                     محیط برنامه نویسی</h5>
                                                 <small>۱۳۹۸/۰۹/۱۸</small>
@@ -479,7 +480,7 @@
                                 <h2 class="widget-title">بنر مناسبتی (جشن ۳ سالگی)</h2>
                                 <div class="banner-spot clearfix">
                                     <div class="banner-img">
-                                        <img src="upload/banner_04.jpg" alt="" class="img-fluid">
+                                        <img src="{% static 'upload/banner_04.jpg'%}" alt="" class="img-fluid">
                                     </div><!-- end banner-img -->
                                 </div><!-- end banner -->
                             </div><!-- end widget -->
@@ -487,15 +488,15 @@
                             <div class="widget">
                                 <h2 class="widget-title">آلبوم تصاویر</h2>
                                 <div class="instagram-wrapper clearfix">
-                                    <a href="#"><img src="upload/garden_sq_01.jpg" alt="" class="img-fluid"></a>
-                                    <a href="#"><img src="upload/garden_sq_02.jpg" alt="" class="img-fluid"></a>
-                                    <a href="#"><img src="upload/garden_sq_03.jpg" alt="" class="img-fluid"></a>
-                                    <a href="#"><img src="upload/garden_sq_04.jpg" alt="" class="img-fluid"></a>
-                                    <a href="#"><img src="upload/garden_sq_05.jpg" alt="" class="img-fluid"></a>
-                                    <a href="#"><img src="upload/garden_sq_06.jpg" alt="" class="img-fluid"></a>
-                                    <a href="#"><img src="upload/garden_sq_07.jpg" alt="" class="img-fluid"></a>
-                                    <a href="#"><img src="upload/garden_sq_08.jpg" alt="" class="img-fluid"></a>
-                                    <a href="#"><img src="upload/garden_sq_09.jpg" alt="" class="img-fluid"></a>
+                                    <a href="#"><img src="{% static 'upload/garden_sq_01.jpg'%}" alt="" class="img-fluid"></a>
+                                    <a href="#"><img src="{% static 'upload/garden_sq_02.jpg'%}" alt="" class="img-fluid"></a>
+                                    <a href="#"><img src="{% static 'upload/garden_sq_03.jpg'%}" alt="" class="img-fluid"></a>
+                                    <a href="#"><img src="{% static 'upload/garden_sq_04.jpg'%}" alt="" class="img-fluid"></a>
+                                    <a href="#"><img src="{% static 'upload/garden_sq_05.jpg'%}" alt="" class="img-fluid"></a>
+                                    <a href="#"><img src="{% static 'upload/garden_sq_06.jpg'%}" alt="" class="img-fluid"></a>
+                                    <a href="#"><img src="{% static 'upload/garden_sq_07.jpg'%}" alt="" class="img-fluid"></a>
+                                    <a href="#"><img src="{% static 'upload/garden_sq_08.jpg'%}" alt="" class="img-fluid"></a>
+                                    <a href="#"><img src="{% static 'upload/garden_sq_09.jpg'%}" alt="" class="img-fluid"></a>
                                 </div><!-- end Instagram wrapper -->
                             </div><!-- end widget -->
 
@@ -523,7 +524,7 @@
                     <div class="col-lg-8 offset-lg-2">
                         <div class="widget">
                             <div class="footer-text text-center">
-                                <a href="index.html"><img src="images/version/garden-footer-logo.png" alt=""
+                                <a href="index.html"><img src="{% static 'images/version/garden-footer-logo.png'%}" alt=""
                                         class="img-fluid"></a>
                                 <p>گروه کاربران گنو/لینوکس بجنورد یا «بجنوردلاگ» گروهی مستقل از کاربران کامپیوتر
                                     علاقه‌مند به گنو/لینوکس ساکن بجنورد است با هدف گسترش فرهنگ‌سازی در استفاده از
@@ -574,10 +575,10 @@
 
     <!-- Core JavaScript
     ================================================== -->
-    <script src="js/jquery.min.js"></script>
-    <script src="js/tether.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/custom.js"></script>
+    <script src="{% static 'js/jquery.min.js'%}"></script>
+    <script src="{% static 'js/tether.min.js'%}"></script>
+    <script src="{% static 'js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'js/custom.js'%}"></script>
 
 </body>
 
