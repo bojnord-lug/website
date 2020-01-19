@@ -10,5 +10,6 @@ urlpatterns = [
 
     path("category/", views.category, name='category'),
 
-    path("contact/", views.contact, name='single'),
+    path("single/", views.single, name='single'),
+
 ]

@@ -46,6 +46,10 @@ def category(request):
     return render(request, "category.html")
 
 
+def single(request):
+    return render(request, "single.html")
+
+
 @require_POST
 @csrf_exempt
 def Signin(request):
