@@ -15,8 +15,9 @@ class Event(models.Model):
     title = models.CharField(max_length=30)
     content = models.TextField()
     location = models.TextField()  # where is it
-    date = jmodels.jDateField()  # when is the event
-    unitl = jmodels.jDateField()  # when singup for the event finishes
+    image = models.ImageField(upload_to="static/image")
+    date = models.DateField()  # when is the event
+    unitl = models.DateField()  # when singup for the event finishes
 
     def __str__(self):
         return self.title
@@ -51,16 +52,24 @@ class Comment(models.Model):
         return self.user.first_name
 
 
+class Category(models.Model):
+    title = models.CharField(max_length=50, blank=False, null=False)
+
+
 class news(models.Model):
     title = models.CharField(max_length=50, blank=False, null=False)
     text = models.TextField()
-    image = models.ImageField(upload_to="image")
-    date = jmodels.jDateField()
-    category = models.ForeignKey(models.category)
+    image = models.ImageField(upload_to="static/image")
+    date = models.DateField()
+    category = models.ForeignKey(
+        to=Category, on_delete=models.SET_NULL, null=True)
+    author = models.CharField(
+        max_length=50, blank=False, null=False, default="not specified")
 
     def __str__(self):
         return "{}".format(self.title)
 
-
-class category(models.Model):
-    title = models.CharField(max_length=50, blank=False, null=False)
+    class Meta:
+        verbose_name = 'news'
+        verbose_name_plural = 'news'
+        ordering = ['date']
