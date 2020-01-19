@@ -1,21 +1,29 @@
 from django.shortcuts import render, redirect, reverse, HttpResponseRedirect
-
+from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-
+from django.http import HttpResponse
 from .forms import Log_in, Sign_in
 from .models import news, Profile, Event
 
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.views.decorators.http import require_GET
+import json
 
 
+@csrf_exempt
 def index(request):
     all_news = list(news.objects.order_by("-date").all()[:3])
     three_events = list(Event.objects.order_by("-date").all()[:3])
     all_events = list(Event.objects.order_by("-date").all()[3:])
-    return render(request, 'index.html', {"news": all_news, "events": three_events, "all_events": all_events})
+    page_obj = Paginator(all_events, 3)
+    if request.method == 'POST':
+        page = page_obj.page(int(request.body.decode()))
+        return HttpResponse(render(request, 'ajax.html', {"page_obj": page.object_list, "num_pages": range(page_obj.num_pages)}))
+    page = page_obj.page(1)
+
+    return render(request, 'index.html', {"news": all_news, "events": three_events, "all_events": all_events, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages)})
 
 
 def login_user(request):
