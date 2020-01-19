@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
 from .forms import Log_in, Sign_in
-from .models import news, Profile, Category
+from .models import news, Profile, Event
 
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
@@ -13,8 +13,9 @@ from django.views.decorators.http import require_GET
 
 def index(request):
     all_news = list(news.objects.order_by("-date").all()[:3])
-    print(all_news)
-    return render(request, 'indextest.html', {"news": all_news})
+    three_events = list(Event.objects.order_by("-date").all()[:3])
+    all_events = list(Event.objects.order_by("-date").all()[3:])
+    return render(request, 'index.html', {"news": all_news, "events": three_events, "all_events": all_events})
 
 
 def login_user(request):

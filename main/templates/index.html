@@ -152,56 +152,24 @@
         <section class="section first-section">
             <div class="container-fluid">
                 <div class="masonry-blog clearfix">
-                    <div class="left-side">
+                    {% for item in news%}
+                    <div class="{% cycle 'left-side' 'center-side' 'right-side hidden-md-down' %}">
                         <div class="masonry-box post-media">
-                            <img src="{% static 'upload/garden_cat_01.jpg' %}" alt="" class="img-fluid">
+                            <img src="{{item.image}}" alt="" width="534" height="468">
                             <div class="shadoweffect">
                                 <div class="shadow-desc">
                                     <div class="blog-meta">
-                                        <span class="bg-aqua"><a href="blog-category-01.html" title="">امنیت</a></span>
-                                        <h4><a href="single.html" title="">آموزش مقدماتی تست نفوذ (سنجش
-                                                آسیب‌پذیری) و ارزیابی امنیتی </a></h4>
-                                        <small><a href="single.html" title="">۱۳۹۸/۰۹/۱۸</a></small>
-                                        <small><a href="#" title="">توسط محمد جعفری</a></small>
+                                        <span class="bg-aqua"><a href="blog-category-01.html" title="">{{item.category.title}}</a></span>
+                                        <h4><a href="single.html" title="">{{item.title}}</a></h4>
+                                        <small><a href="single.html" title="">{{item.date}}</a></small>
+                                        <small><a href="#" title="">توسط {{item.author}}</a></small>
                                     </div><!-- end meta -->
                                 </div><!-- end shadow-desc -->
                             </div><!-- end shadow -->
                         </div><!-- end post-media -->
                     </div><!-- end left-side -->
-
-                    <div class="center-side">
-                        <div class="masonry-box post-media">
-                            <img src="{% static 'upload/garden_cat_02.jpg' %}" alt="" class="img-fluid">
-                            <div class="shadoweffect">
-                                <div class="shadow-desc">
-                                    <div class="blog-meta">
-                                        <span class="bg-aqua"><a href="blog-category-01.html" title="">برنامه
-                                                نویسی</a></span>
-                                        <h4><a href="single.html" title="">نصب و راه اندازی داکر و فراهم کردن
-                                                محیط برنامه نویسی</a></h4>
-                                        <small><a href="single.html" title="">۱۳۹۸/۰۹/۱۸</a></small>
-                                        <small><a href="#" title="">توسط حسین باژن</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end shadow-desc -->
-                            </div><!-- end shadow -->
-                        </div><!-- end post-media -->
-                    </div><!-- end left-side -->
-
-                    <div class="right-side hidden-md-down">
-                        <div class="masonry-box post-media">
-                            <img src="{% static 'upload/garden_cat_03.jpg' %}" alt="" class="img-fluid">
-                            <div class="shadoweffect">
-                                <div class="shadow-desc">
-                                    <div class="blog-meta">
-                                        <span class="bg-aqua"><a href="blog-category-01.html" title="">شبکه</a></span>
-                                        <h4><a href="single.html" title="">نصب و راه اندازی پراکسی سرور </a></h4>
-                                        <small><a href="single.html" title="">۱۳۹۸/۰۹/۱۸</a></small>
-                                        <small><a href="#" title="">توسط امین ایمانی</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end shadow-desc -->
-                            </div><!-- end shadow -->
-                        </div><!-- end post-media -->
-                    </div><!-- end right-side -->
+                    {% endfor %}
+                    
                 </div><!-- end masonry -->
             </div>
         </section>
@@ -212,11 +180,12 @@
                     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                         <div class="page-wrapper">
                             <div class="blog-list clearfix">
+                                {% for item in events %}
                                 <div class="blog-box row">
                                     <div class="col-md-4">
                                         <div class="post-media">
                                             <a href="single.html" title="">
-                                                <img src="{% static 'upload/garden_sq_01.jpg' %}" alt="" class="img-fluid">
+                                                <img src="{{item.image}}" alt="" class="img-fluid">
                                                 <div class="hovereffect"></div>
                                             </a>
                                         </div><!-- end media -->
@@ -224,75 +193,17 @@
 
                                     <div class="blog-meta big-meta col-md-8">
                                         <span class="bg-aqua"><a href="garden-category.html" title="">دورهمی</a></span>
-                                        <h4><a href="single.html" title="">بیست و نهمین دورهمی کاربران گنو لینوکس
-                                                بجنورد</a></h4>
-                                        <p> ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                            گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم
-                                            است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود
-                                            ابزارهای کاربردی می باشد. </p>
+                                        <h4><a href="single.html" title="">{{item.title}}</a></h4>
+                                        <p>{{item.content}}</p>
                                         <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i>
                                                 ۳۲۳۲</a></small>
-                                        <small><a href="single.html" title="">۱۳۹۸/۰۹/۱۸</a></small>
-                                        <small><a href="#" title="">ارائه: محمد امین کریمان</a></small>
+                                        <small><a href="single.html" title="">{{item.date}}</a></small>
+                                        <small><a href="#" title="">ارائه: {{item.presenter}}</a></small>
                                     </div><!-- end meta -->
                                 </div><!-- end blog-box -->
 
                                 <hr class="invis">
-
-                                <div class="blog-box row">
-                                    <div class="col-md-4">
-                                        <div class="post-media">
-                                            <a href="single.html" title="">
-                                                <img src="{% static 'upload/garden_sq_02.jpg'%}" alt="" class="img-fluid">
-                                                <div class="hovereffect"></div>
-                                            </a>
-                                        </div><!-- end media -->
-                                    </div><!-- end col -->
-
-                                    <div class="blog-meta big-meta col-md-8">
-                                        <span class="bg-aqua"><a href="garden-category.html" title="">دورهمی</a></span>
-                                        <h4><a href="single.html" title="">بیست و نهمین دورهمی کاربران گنو لینوکس
-                                                بجنورد</a></h4>
-                                        <p> ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                            گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم
-                                            است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود
-                                            ابزارهای کاربردی می باشد. </p>
-                                        <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i>
-                                                ۳۲۳۲</a></small>
-                                        <small><a href="single.html" title="">۱۳۹۸/۰۹/۱۸</a></small>
-                                        <small><a href="#" title="">ارائه: محمد امین کریمان</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
-
-                                <hr class="invis">
-
-                                <div class="blog-box row">
-                                    <div class="col-md-4">
-                                        <div class="post-media">
-                                            <a href="single.html" title="">
-                                                <img src="{% static 'upload/garden_sq_03.jpg'%}" alt="" class="img-fluid">
-                                                <div class="hovereffect"></div>
-                                            </a>
-                                        </div><!-- end media -->
-                                    </div><!-- end col -->
-
-                                    <div class="blog-meta big-meta col-md-8">
-                                        <span class="bg-aqua"><a href="garden-category.html" title="">دورهمی</a></span>
-                                        <h4><a href="single.html" title="">بیست و نهمین دورهمی کاربران گنو لینوکس
-                                                بجنورد</a></h4>
-                                        <p> ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                            گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم
-                                            است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود
-                                            ابزارهای کاربردی می باشد. </p>
-                                        <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i>
-                                                ۳۲۳۲</a></small>
-                                        <small><a href="single.html" title="">۱۳۹۸/۰۹/۱۸</a></small>
-                                        <small><a href="#" title="">ارائه: محمد امین کریمان</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
-
-                                <hr class="invis">
-
+                                {% endfor %}
                                 <div class="row">
                                     <div class="col-lg-10 offset-lg-1">
                                         <div class="banner-spot clearfix">
@@ -304,12 +215,12 @@
                                 </div><!-- end row -->
 
                                 <hr class="invis">
-
+                                {% for item in all_events %}
                                 <div class="blog-box row">
                                     <div class="col-md-4">
                                         <div class="post-media">
                                             <a href="single.html" title="">
-                                                <img src="{% static 'upload/garden_sq_04.jpg'%}" alt="" class="img-fluid">
+                                                <img src="{{item.image}}" alt="" class="img-fluid">
                                                 <div class="hovereffect"></div>
                                             </a>
                                         </div><!-- end media -->
@@ -317,126 +228,18 @@
 
                                     <div class="blog-meta big-meta col-md-8">
                                         <span class="bg-aqua"><a href="garden-category.html" title="">دورهمی</a></span>
-                                        <h4><a href="single.html" title="">بیست و نهمین دورهمی کاربران گنو لینوکس
-                                                بجنورد</a></h4>
-                                        <p> ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                            گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم
-                                            است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود
-                                            ابزارهای کاربردی می باشد. </p>
+                                        <h4><a href="single.html" title="">{{item.title}}</a></h4>
+                                        <p>{{item.content}}</p>
                                         <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i>
                                                 ۳۲۳۲</a></small>
-                                        <small><a href="single.html" title="">۱۳۹۸/۰۹/۱۸</a></small>
-                                        <small><a href="#" title="">ارائه: محمد امین کریمان</a></small>
+                                        <small><a href="single.html" title="">{{item.date}}</a></small>
+                                        <small><a href="#" title="">ارائه: {{item.presenter}}</a></small>
                                     </div><!-- end meta -->
                                 </div><!-- end blog-box -->
 
                                 <hr class="invis">
-
-                                <div class="blog-box row">
-                                    <div class="col-md-4">
-                                        <div class="post-media">
-                                            <a href="single.html" title="">
-                                                <img src="{% static 'upload/garden_sq_05.jpg'%}" alt="" class="img-fluid">
-                                                <div class="hovereffect"></div>
-                                            </a>
-                                        </div><!-- end media -->
-                                    </div><!-- end col -->
-
-                                    <div class="blog-meta big-meta col-md-8">
-                                        <span class="bg-aqua"><a href="garden-category.html" title="">دورهمی</a></span>
-                                        <h4><a href="single.html" title="">بیست و نهمین دورهمی کاربران گنو لینوکس
-                                                بجنورد</a></h4>
-                                        <p> ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                            گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم
-                                            است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود
-                                            ابزارهای کاربردی می باشد. </p>
-                                        <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i>
-                                                ۳۲۳۲</a></small>
-                                        <small><a href="single.html" title="">۱۳۹۸/۰۹/۱۸</a></small>
-                                        <small><a href="#" title="">ارائه: محمد امین کریمان</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
-
-                                <hr class="invis">
-
-                                <div class="blog-box row">
-                                    <div class="col-md-4">
-                                        <div class="post-media">
-                                            <a href="single.html" title="">
-                                                <img src="{% static 'upload/garden_sq_06.jpg'%}" alt="" class="img-fluid">
-                                                <div class="hovereffect"></div>
-                                            </a>
-                                        </div><!-- end media -->
-                                    </div><!-- end col -->
-
-                                    <div class="blog-meta big-meta col-md-8">
-                                        <span class="bg-aqua"><a href="garden-category.html" title="">دورهمی</a></span>
-                                        <h4><a href="single.html" title="">بیست و نهمین دورهمی کاربران گنو لینوکس
-                                                بجنورد</a></h4>
-                                        <p> ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                            گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم
-                                            است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود
-                                            ابزارهای کاربردی می باشد. </p>
-                                        <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i>
-                                                ۳۲۳۲</a></small>
-                                        <small><a href="single.html" title="">۱۳۹۸/۰۹/۱۸</a></small>
-                                        <small><a href="#" title="">ارائه: محمد امین کریمان</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
-
-                                <hr class="invis">
-
-                                <div class="blog-box row">
-                                    <div class="col-md-4">
-                                        <div class="post-media">
-                                            <a href="single.html" title="">
-                                                <img src="{% static 'upload/garden_sq_07.jpg' %}" alt="" class="img-fluid">
-                                                <div class="hovereffect"></div>
-                                            </a>
-                                        </div><!-- end media -->
-                                    </div><!-- end col -->
-
-                                    <div class="blog-meta big-meta col-md-8">
-                                        <span class="bg-aqua"><a href="garden-category.html" title="">دورهمی</a></span>
-                                        <h4><a href="single.html" title="">بیست و نهمین دورهمی کاربران گنو لینوکس
-                                                بجنورد</a></h4>
-                                        <p> ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                            گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم
-                                            است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود
-                                            ابزارهای کاربردی می باشد. </p>
-                                        <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i>
-                                                ۳۲۳۲</a></small>
-                                        <small><a href="single.html" title="">۱۳۹۸/۰۹/۱۸</a></small>
-                                        <small><a href="#" title="">ارائه: محمد امین کریمان</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
-
-                                <hr class="invis">
-
-                                <div class="blog-box row">
-                                    <div class="col-md-4">
-                                        <div class="post-media">
-                                            <a href="single.html" title="">
-                                                <img src="{% static 'upload/garden_sq_08.jpg'%}" alt="" class="img-fluid">
-                                                <div class="hovereffect"></div>
-                                            </a>
-                                        </div><!-- end media -->
-                                    </div><!-- end col -->
-
-                                    <div class="blog-meta big-meta col-md-8">
-                                        <span class="bg-aqua"><a href="garden-category.html" title="">دورهمی</a></span>
-                                        <h4><a href="single.html" title="">بیست و نهمین دورهمی کاربران گنو لینوکس
-                                                بجنورد</a></h4>
-                                        <p> ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان
-                                            گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم
-                                            است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود
-                                            ابزارهای کاربردی می باشد. </p>
-                                        <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i>
-                                                ۳۲۳۲</a></small>
-                                        <small><a href="single.html" title="">۱۳۹۸/۰۹/۱۸</a></small>
-                                        <small><a href="#" title="">ارائه: محمد امین کریمان</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end blog-box -->
+                                {% endfor %}
+                                
                             </div><!-- end blog-list -->
                         </div><!-- end page-wrapper -->
 
@@ -475,34 +278,16 @@
                                 <h2 class="widget-title">پست های اخیر</h2>
                                 <div class="blog-list-widget">
                                     <div class="list-group">
+                                        {% for item in news %}
                                         <a href="single.html"
                                             class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="{% static 'upload/garden_sq_09.jpg'%}" alt="" class="img-fluid float-left">
-                                                <h5 class="mb-1">نصب و راه اندازی پراکسی سرور</h5>
-                                                <small>۱۳۹۸/۰۹/۱۸</small>
+                                                <img src="{{item.image}}" alt="" height="55" width="55" class="float-left">
+                                                <h5 class="mb-1">{{item.title}}</h5>
+                                                <small>{{item.date}}</small>
                                             </div>
                                         </a>
-
-                                        <a href="single.html"
-                                            class="list-group-item list-group-item-action flex-column align-items-start">
-                                            <div class="w-100 justify-content-between">
-                                                <img src="{% static 'upload/garden_sq_06.jpg'%}" alt="" class="img-fluid float-left">
-                                                <h5 class="mb-1">آموزش مقدماتی تست نفوذ (سنجش
-                                                    آسیب‌پذیری) و ...</h5>
-                                                <small>۱۳۹۸/۰۹/۱۸</small>
-                                            </div>
-                                        </a>
-
-                                        <a href="single.html"
-                                            class="list-group-item list-group-item-action flex-column align-items-start">
-                                            <div class="w-100 last-item justify-content-between">
-                                                <img src="{% static 'upload/garden_sq_02.jpg'%}" alt="" class="img-fluid float-left">
-                                                <h5 class="mb-1">نصب و راه اندازی داکر و فراهم کردن
-                                                    محیط برنامه نویسی</h5>
-                                                <small>۱۳۹۸/۰۹/۱۸</small>
-                                            </div>
-                                        </a>
+                                        {% endfor %}
                                     </div>
                                 </div><!-- end blog-list -->
                             </div><!-- end widget -->

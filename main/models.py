@@ -15,7 +15,8 @@ class Event(models.Model):
     title = models.CharField(max_length=30)
     content = models.TextField()
     location = models.TextField()  # where is it
-    image = models.ImageField(upload_to="static/image")
+    image = models.ImageField(upload_to="static/image/")
+    presenter = models.TextField(default="not specified")
     date = models.DateField()  # when is the event
     unitl = models.DateField()  # when singup for the event finishes
 
