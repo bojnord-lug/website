@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from .forms import Log_in, Sign_in
-from .models import news, Profile, Event
+from .models import news, Profile, Event, Category
 
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
@@ -49,11 +49,25 @@ def contact(request):
 
 
 def category(request):
-    return render(request, "category.html")
+    latest_news = list(news.objects.order_by("-date").all()[:3])
+    categoryName = Category.objects.get(pk=request.GET.get("id"))
+    all_news = list(news.objects.order_by(
+        "-date").filter(category=request.GET.get("id")))
+    page_obj = Paginator(all_news, 3)
+    if request.method == 'POST':
+        page = page_obj.page(int(request.body.decode()))
+        return HttpResponse(render(request, 'ajax.html', {"page_obj": page.object_list, "num_pages": range(page_obj.num_pages)}))
+    page = page_obj.page(1)
+
+    return render(request, 'category.html', {"categoryName": categoryName, "latest_news": latest_news, "all_news": all_news, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages)})
 
 
 def single(request):
-    return render(request, "single.html")
+    latest_news = list(news.objects.order_by("-date").all()[:3])
+
+    post = news.objects.get(pk=request.GET.get("id"))
+    tags = post.tags.split(",")
+    return render(request, "single.html", {"post": post, "tags": tags, "latest_news": latest_news})
 
 
 @require_POST
