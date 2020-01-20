@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from .forms import Log_in, Sign_in
-from .models import Post, Profile, Event, Category, Comment
+from .models import Post, Profile, Event, Category, Comment, EventImage
 
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
@@ -18,6 +18,7 @@ def index(request):
     all_Posts = list(Post.objects.order_by("-date").all()[:3])
     three_events = list(Event.objects.order_by("-date").all()[:3])
     all_events = list(Event.objects.order_by("-date").all()[3:])
+    event_images = EventImage.objects.all()[:9]
     page_obj = Paginator(all_events, 3)
     if request.method == 'POST':
         page = page_obj.page(int(request.body.decode()))
@@ -26,7 +27,11 @@ def index(request):
     most_recent_categories =  sorted([i for i in Category.objects.all()], 
                                         key=lambda x: x.post_set.count())[::-1][:5]
 
+<<<<<<< HEAD
     return render(request, 'index.html', {"Posts": all_Posts, "events": three_events, "all_events": all_events, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages), 'recent_categories': most_recent_categories})
+=======
+    return render(request, 'index.html', {"event_images": event_images, "Posts": all_Posts, "events": three_events, "all_events": all_events, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages)})
+>>>>>>> 2a83085f6d631662f32bd123d23730355b2a1480
 
 
 def login_user(request):
@@ -56,6 +61,8 @@ def category(request):
     categoryName = Category.objects.get(pk=request.GET.get("id"))
     all_Posts = list(Post.objects.order_by(
         "-date").filter(category=request.GET.get("id")))
+    event_images = EventImage.objects.all()[:9]
+
     page_obj = Paginator(all_Posts, 3)
     if request.method == 'POST':
         page = page_obj.page(int(request.body.decode()))
@@ -65,7 +72,7 @@ def category(request):
     most_recent_categories =  sorted([i for i in Category.objects.all()], 
                                         key=lambda x: x.post_set.count())[::-1][:5]
 
-    return render(request, 'category.html', {"categoryName": categoryName, "latest_Posts": latest_Posts, "all_Posts": all_Posts, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages), 'recent_categories': most_recent_categories})
+    return render(request, 'category.html', {"event_images": event_images, "categoryName": categoryName, "latest_Posts": latest_Posts, "all_Posts": all_Posts, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages), 'recent_categories': most_recent_categories})
 
 
 def single(request):
@@ -73,15 +80,20 @@ def single(request):
     post = Post.objects.get(pk=request.GET.get("id"))
     author_Posts = list(Post.objects.order_by(
         "-date").filter(author=post.author.id)[:2])
-
+    event_images = EventImage.objects.all()[:9]
     comments = list(Comment.objects.order_by(
         "-date").filter(post=post.id))
+    date_format = "%Y-%m-%d"
+    for item in comments:
+        a = datetime.strptime(str(datetime.now().date()), date_format)
+        b = datetime.strptime(str(item.date), date_format)
+        delta = b - a
+        item.date = abs(delta.days)
 
     most_recent_categories =  sorted([i for i in Category.objects.all()], 
                                         key=lambda x: x.post_set.count())[::-1][:5]
 
-    return render(request, "single.html", {"comments": comments, "author_Posts": author_Posts, "post": post, "latest_Posts": latest_Posts, 'recent_categories': most_recent_categories, 'categories': post.category.all()})
-
+    return render(request, "single.html", {"event_images": event_images, "comments": comments, "author_Posts": author_Posts, "post": post, "tags": tags, "latest_Posts": latest_Posts, 'recent_categories': most_recent_categories, 'categories': post.category.all()})
 
 
 @require_POST

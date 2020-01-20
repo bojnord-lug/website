@@ -260,15 +260,9 @@
                             <div class="widget">
                                 <h2 class="widget-title">آلبوم تصاویر</h2>
                                 <div class="instagram-wrapper clearfix">
-                                    <a href="#"><img src="{% static 'upload/garden_sq_01.jpg'%}" alt="" class="img-fluid"></a>
-                                    <a href="#"><img src="{% static 'upload/garden_sq_02.jpg'%}" alt="" class="img-fluid"></a>
-                                    <a href="#"><img src="{% static 'upload/garden_sq_03.jpg'%}" alt="" class="img-fluid"></a>
-                                    <a href="#"><img src="{% static 'upload/garden_sq_04.jpg'%}" alt="" class="img-fluid"></a>
-                                    <a href="#"><img src="{% static 'upload/garden_sq_05.jpg'%}" alt="" class="img-fluid"></a>
-                                    <a href="#"><img src="{% static 'upload/garden_sq_06.jpg'%}" alt="" class="img-fluid"></a>
-                                    <a href="#"><img src="{% static 'upload/garden_sq_07.jpg'%}" alt="" class="img-fluid"></a>
-                                    <a href="#"><img src="{% static 'upload/garden_sq_08.jpg'%}" alt="" class="img-fluid"></a>
-                                    <a href="#"><img src="{% static 'upload/garden_sq_09.jpg'%}" alt="" class="img-fluid"></a>
+                                    {%for item in event_images%}
+                                    <a href="{{item.path}}"><img src="{{item.path}}" alt="" height="80" width="80"></a>
+                                    {%endfor%}
                                 </div><!-- end Instagram wrapper -->
                             </div><!-- end widget -->
 
