@@ -21,6 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('main.urls'))
 ]
-urlpatterns += i18n_patterns(
-    path('admin/', admin.site.urls),
-)
+# urlpatterns += i18n_patterns(
+#     path('admin/', admin.site.urls),
+# )
