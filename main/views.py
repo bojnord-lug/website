@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from .forms import Log_in, Sign_in
-from .models import Post, Profile, Event, Category
+from .models import Post, Profile, Event, Category, Comment
 
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
@@ -64,10 +64,13 @@ def category(request):
 
 def single(request):
     latest_Posts = list(Post.objects.order_by("-date").all()[:3])
-
     post = Post.objects.get(pk=request.GET.get("id"))
+    author_Posts = list(Post.objects.order_by(
+        "-date").filter(author=post.author.id)[:2])
     tags = post.tags.split(",")
-    return render(request, "single.html", {"post": post, "tags": tags, "latest_Posts": latest_Posts})
+    comments = list(Comment.objects.order_by(
+        "-date").filter(post=post.id))
+    return render(request, "single.html", {"comments": comments, "author_Posts": author_Posts, "post": post, "tags": tags, "latest_Posts": latest_Posts})
 
 
 @require_POST

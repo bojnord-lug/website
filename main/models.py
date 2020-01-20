@@ -3,20 +3,39 @@ from django.contrib.auth.models import User
 from django_jalali.db import models as jmodels
 
 
-class PostImage(models.Model):
-    title = models.CharField(max_length=20)
-    image = models.ImageField()
+class Banners(models.Model):
+    title = models.CharField(max_length=100)
+    image = models.ImageField(upload_to="static/image/banners")
 
     def __str__(self):
         return self.title
+
+
+class Authors(models.Model):
+    name = models.CharField(max_length=60)
+    image = models.ImageField(upload_to="static/image/authors")
+    specialty = models.TextField()
+    aboutme = models.TextField()
+    facebook = models.CharField(max_length=30)
+    twitter = models.CharField(max_length=30)
+    youtube = models.CharField(max_length=30)
+    instagram = models.CharField(max_length=30)
+    website = models.CharField(max_length=80)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Author'
+        verbose_name_plural = 'Authors'
 
 
 class Event(models.Model):
     title = models.CharField(max_length=30)
     content = models.TextField()
     location = models.TextField()  # where is it
-    image = models.ImageField(upload_to="static/image/")
-    presenter = models.TextField(default="not specified")
+    image = models.ImageField(upload_to="static/image/event")
+    presenter = models.ForeignKey(Authors, on_delete=models.CASCADE)
     date = models.DateField()  # when is the event
     time = models.TimeField()  # when singup for the event finishes
 
@@ -33,7 +52,7 @@ class Profile(models.Model):
 
 
 class SubComment(models.Model):
-    author = models.TextField()
+    author = models.CharField(max_length=60)
     text = models.TextField()
 
     def __str__(self):
@@ -55,8 +74,7 @@ class Post(models.Model):
     date = models.DateField()
     category = models.ForeignKey(
         to=Category, on_delete=models.SET_NULL, null=True)
-    author = models.CharField(
-        max_length=50, blank=False, null=False, default="not specified")
+    author = models.ForeignKey(Authors, on_delete=models.CASCADE)
     tags = models.TextField(default="not specified")
 
     def __str__(self):
@@ -72,28 +90,12 @@ class Comment(models.Model):
     author = models.CharField(max_length=60)
     text = models.TextField()
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    date = models.DateField()
     subcomments = models.ManyToManyField(SubComment)
 
     def __str__(self):
         return self.text
 
-    def __str__(self):
-        return self.user.first_name
-
     class Meta:
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'
-
-
-class Authors(models.Model):
-    name = models.CharField(max_length=60)
-    specialty = models.TextField()
-    facebook = models.TextField()
-    twitter = models.TextField()
-    youtube = models.TextField()
-    instagram = models.TextField()
-    website = models.TextField()
-
-    class Meta:
-        verbose_name = 'Author'
-        verbose_name_plural = 'Authors'
