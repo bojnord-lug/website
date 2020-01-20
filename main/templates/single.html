@@ -296,11 +296,10 @@
                                             {%for item in comments%}
                                             <div class="media">
                                                 <a class="media-left" href="#">
-                                                    <img src="{% static 'upload/author.jpg'%}" alt="" class="rounded-circle">
+                                                    <img src="{% static 'upload/authorComment.svg'%}" alt="" class="rounded-circle">
                                                 </a>
                                                 <div class="media-body">
-                                                    <h4 class="media-heading user_name">{{item.author}} <small>۵ روز
-                                                            قبل</small></h4>
+                                                    <h4 class="media-heading user_name">{{item.author}} <small>{{item.date}} روز قبل</small></h4>
                                                     <p>{{item.text}}</p>
                                                     <a href="#" class="btn btn-primary btn-sm">پاسخ</a>
                                                 </div>
