@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django_jalali.db import models as jmodels
-
-
+from hitcount.models import HitCountMixin, HitCount
+from django.contrib.contenttypes.fields import GenericRelation
 class Banners(models.Model):
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to="static/image/banners")
@@ -70,16 +70,17 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
 
-class Post(models.Model):
+class Post(models.Model, HitCountMixin):
     title = models.CharField(max_length=50, blank=False, null=False)
     text = models.TextField()
     image = models.ImageField(upload_to="static/image")
     date = models.DateField()
     category = models.ManyToManyField(Category)
     author = models.ForeignKey(Authors, on_delete=models.CASCADE)
-
+    hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',
+                                related_query_name='hit_count_generic_relation')
     def __str__(self):
-        return "{}".format(self.title)
+        return self.title
 
     class Meta:
         verbose_name = 'Post'
