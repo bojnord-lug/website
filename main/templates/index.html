@@ -159,7 +159,9 @@
                             <div class="shadoweffect">
                                 <div class="shadow-desc">
                                     <div class="blog-meta">
-                                        <span class="bg-aqua"><a href="category?id={{item.category.id}}" title="">{{item.category.title}}</a></span>
+                                        {% for c in item.category.all %}
+                                        <span class="bg-aqua"><a href="category?id={{ c.id }}" title="">{{ c.title }}</a></span>
+                                        {% endfor %}
                                         <h4><a href="single?id={{item.id}}" title="">{{item.title}}</a></h4>
                                         <small><a href="single?id={{item.id}}" title="">{{item.date}}</a></small>
                                         <small><a href="#" title="">توسط {{item.author}}</a></small>
@@ -196,7 +198,7 @@
                                         <h4><a href="single.html" title="">{{item.title}}</a></h4>
                                         <p>{{item.content}}</p>
                                         <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i>
-                                                ۳۲۳۲</a></small>
+                                                {{ item.hit_count.hits }}</a></small>
                                         <small><a href="single.html" title="">{{item.date}}</a></small>
                                         <small><a href="#" title="">ارائه: {{item.presenter}}</a></small>
                                     </div><!-- end meta -->
