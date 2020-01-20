@@ -10,6 +10,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 from django.views.decorators.http import require_GET
 import json
+from datetime import datetime
 
 
 @csrf_exempt
@@ -68,6 +69,7 @@ def single(request):
     author_Posts = list(Post.objects.order_by(
         "-date").filter(author=post.author.id)[:2])
     tags = post.tags.split(",")
+
     comments = list(Comment.objects.order_by(
         "-date").filter(post=post.id))
 
@@ -76,6 +78,7 @@ def single(request):
 
 
     return render(request, "single.html", {"comments": comments, "author_Posts": author_Posts, "post": post, "tags": tags, "latest_Posts": latest_Posts, 'recent_categories': most_recent_categories})
+
 
 
 @require_POST
