@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from .forms import Log_in, Sign_in
-from .models import news, Profile, Event, Category
+from .models import Post, Profile, Event, Category
 
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
@@ -14,7 +14,7 @@ import json
 
 @csrf_exempt
 def index(request):
-    all_news = list(news.objects.order_by("-date").all()[:3])
+    all_Posts = list(Post.objects.order_by("-date").all()[:3])
     three_events = list(Event.objects.order_by("-date").all()[:3])
     all_events = list(Event.objects.order_by("-date").all()[3:])
     page_obj = Paginator(all_events, 3)
@@ -23,7 +23,7 @@ def index(request):
         return HttpResponse(render(request, 'ajax.html', {"page_obj": page.object_list, "num_pages": range(page_obj.num_pages)}))
     page = page_obj.page(1)
 
-    return render(request, 'index.html', {"news": all_news, "events": three_events, "all_events": all_events, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages)})
+    return render(request, 'index.html', {"Posts": all_Posts, "events": three_events, "all_events": all_events, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages)})
 
 
 def login_user(request):
@@ -49,25 +49,25 @@ def contact(request):
 
 
 def category(request):
-    latest_news = list(news.objects.order_by("-date").all()[:3])
+    latest_Posts = list(Post.objects.order_by("-date").all()[:3])
     categoryName = Category.objects.get(pk=request.GET.get("id"))
-    all_news = list(news.objects.order_by(
+    all_Posts = list(Post.objects.order_by(
         "-date").filter(category=request.GET.get("id")))
-    page_obj = Paginator(all_news, 3)
+    page_obj = Paginator(all_Posts, 3)
     if request.method == 'POST':
         page = page_obj.page(int(request.body.decode()))
         return HttpResponse(render(request, 'ajax.html', {"page_obj": page.object_list, "num_pages": range(page_obj.num_pages)}))
     page = page_obj.page(1)
 
-    return render(request, 'category.html', {"categoryName": categoryName, "latest_news": latest_news, "all_news": all_news, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages)})
+    return render(request, 'category.html', {"categoryName": categoryName, "latest_Posts": latest_Posts, "all_Posts": all_Posts, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages)})
 
 
 def single(request):
-    latest_news = list(news.objects.order_by("-date").all()[:3])
+    latest_Posts = list(Post.objects.order_by("-date").all()[:3])
 
-    post = news.objects.get(pk=request.GET.get("id"))
+    post = Post.objects.get(pk=request.GET.get("id"))
     tags = post.tags.split(",")
-    return render(request, "single.html", {"post": post, "tags": tags, "latest_news": latest_news})
+    return render(request, "single.html", {"post": post, "tags": tags, "latest_Posts": latest_Posts})
 
 
 @require_POST

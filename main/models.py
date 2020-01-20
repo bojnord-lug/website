@@ -18,7 +18,7 @@ class Event(models.Model):
     image = models.ImageField(upload_to="static/image/")
     presenter = models.TextField(default="not specified")
     date = models.DateField()  # when is the event
-    unitl = models.DateField()  # when singup for the event finishes
+    time = models.TimeField()  # when singup for the event finishes
 
     def __str__(self):
         return self.title
@@ -33,31 +33,22 @@ class Profile(models.Model):
 
 
 class SubComment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    text = models.TextField(max_length=60)
+    author = models.TextField()
+    text = models.TextField()
 
     def __str__(self):
         return self.text
-
-
-class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    text = models.TextField(max_length=60)
-    # post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    subcomments = models.ManyToManyField(SubComment)
-
-    def __str__(self):
-        return self.text
-
-    def __str__(self):
-        return self.user.first_name
 
 
 class Category(models.Model):
     title = models.CharField(max_length=50, blank=False, null=False)
 
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
 
-class news(models.Model):
+
+class Post(models.Model):
     title = models.CharField(max_length=50, blank=False, null=False)
     text = models.TextField()
     image = models.ImageField(upload_to="static/image")
@@ -72,6 +63,37 @@ class news(models.Model):
         return "{}".format(self.title)
 
     class Meta:
-        verbose_name = 'news'
-        verbose_name_plural = 'news'
+        verbose_name = 'Post'
+        verbose_name_plural = 'Posts'
         ordering = ['date']
+
+
+class Comment(models.Model):
+    author = models.CharField(max_length=60)
+    text = models.TextField()
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    subcomments = models.ManyToManyField(SubComment)
+
+    def __str__(self):
+        return self.text
+
+    def __str__(self):
+        return self.user.first_name
+
+    class Meta:
+        verbose_name = 'Comment'
+        verbose_name_plural = 'Comments'
+
+
+class Authors(models.Model):
+    name = models.CharField(max_length=60)
+    specialty = models.TextField()
+    facebook = models.TextField()
+    twitter = models.TextField()
+    youtube = models.TextField()
+    instagram = models.TextField()
+    website = models.TextField()
+
+    class Meta:
+        verbose_name = 'Author'
+        verbose_name_plural = 'Authors'
