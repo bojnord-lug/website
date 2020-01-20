@@ -99,3 +99,15 @@ class Comment(models.Model):
     class Meta:
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'
+
+
+class EventImage(models.Model):
+    path = models.ImageField(upload_to="static/image/event")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.event
+
+    class Meta:
+        verbose_name = 'EventImage'
+        verbose_name_plural = 'EventImages'
