@@ -62,6 +62,9 @@ class SubComment(models.Model):
 class Category(models.Model):
     title = models.CharField(max_length=50, blank=False, null=False)
 
+    def __str__(self):
+        return self.title
+
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
@@ -106,7 +109,7 @@ class EventImage(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.event
+        return self.event.title
 
     class Meta:
         verbose_name = 'EventImage'
