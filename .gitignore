@@ -2,4 +2,4 @@ static/image
 db.sqlite3
 main/__pycache__
 main/migrations
-LUG/__pycache
+LUG/__pycache__
