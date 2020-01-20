@@ -70,7 +70,12 @@ def single(request):
     tags = post.tags.split(",")
     comments = list(Comment.objects.order_by(
         "-date").filter(post=post.id))
-    return render(request, "single.html", {"comments": comments, "author_Posts": author_Posts, "post": post, "tags": tags, "latest_Posts": latest_Posts})
+
+    most_recent_categories =  sorted([i for i in Category.objects.all()], 
+                                        key=lambda x: x.post_set.count())[:5]
+
+
+    return render(request, "single.html", {"comments": comments, "author_Posts": author_Posts, "post": post, "tags": tags, "latest_Posts": latest_Posts, 'recent_categories': most_recent_categories})
 
 
 @require_POST
