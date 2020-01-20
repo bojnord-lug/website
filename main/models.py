@@ -16,11 +16,11 @@ class Authors(models.Model):
     image = models.ImageField(upload_to="static/image/authors")
     specialty = models.TextField()
     aboutme = models.TextField()
-    facebook = models.CharField(max_length=30)
-    twitter = models.CharField(max_length=30)
-    youtube = models.CharField(max_length=30)
-    instagram = models.CharField(max_length=30)
-    website = models.CharField(max_length=80)
+    facebook = models.CharField(max_length=30, null=True, blank=True)
+    twitter = models.CharField(max_length=30, null=True, blank=True)
+    youtube = models.CharField(max_length=30, null=True, blank=True)
+    instagram = models.CharField(max_length=30, null=True, blank=True)
+    website = models.CharField(max_length=80, null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -74,10 +74,8 @@ class Post(models.Model):
     text = models.TextField()
     image = models.ImageField(upload_to="static/image")
     date = models.DateField()
-    category = models.ForeignKey(
-        to=Category, on_delete=models.SET_NULL, null=True)
+    category = models.ManyToManyField(Category)
     author = models.ForeignKey(Authors, on_delete=models.CASCADE)
-    tags = models.TextField(default="not specified")
 
     def __str__(self):
         return "{}".format(self.title)
