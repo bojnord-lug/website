@@ -199,8 +199,8 @@
                             <div class="blog-title-area">
                                 <div class="tag-cloud-single">
                                     <span>تگ‌ها</span>
-                                {% for tag in tags %}
-                                    <small><a href="#" title="">{{tag}}</a></small>
+                                {% for tag in categories %}
+                                    <small><a href="category?id={{ tag.id }}" title="">{{ tag.title }}</a></small>
                                 {% endfor %}
                                 </div><!-- end meta -->
 

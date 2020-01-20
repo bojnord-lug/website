@@ -276,11 +276,9 @@
                                 <h2 class="widget-title">بهترین دسته بندی ها</h2>
                                 <div class="link-widget">
                                     <ul>
-                                        <li><a href="#">برنامه نویسی <span>(۳۲)</span></a></li>
-                                        <li><a href="#">شبکه <span>(۱۲)</span></a></li>
-                                        <li><a href="#">امنیت <span>(۴۳)</span></a></li>
-                                        <li><a href="#">تست نفوذ <span>(۳۳)</span></a></li>
-                                        <li><a href="#">بحث آزاد <span>(۶۵)</span></a></li>
+                                        {% for category in recent_categories %}
+                                        <li><a href="category?id={{ category.id }}">{{ category.title }}<span>({{ category.post_set.count }})</span></a></li>
+                                        {% endfor %}
                                     </ul>
                                 </div><!-- end link-widget -->
                             </div><!-- end widget -->

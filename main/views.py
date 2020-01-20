@@ -23,8 +23,10 @@ def index(request):
         page = page_obj.page(int(request.body.decode()))
         return HttpResponse(render(request, 'ajax.html', {"page_obj": page.object_list, "num_pages": range(page_obj.num_pages)}))
     page = page_obj.page(1)
+    most_recent_categories =  sorted([i for i in Category.objects.all()], 
+                                        key=lambda x: x.post_set.count())[::-1][:5]
 
-    return render(request, 'index.html', {"Posts": all_Posts, "events": three_events, "all_events": all_events, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages)})
+    return render(request, 'index.html', {"Posts": all_Posts, "events": three_events, "all_events": all_events, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages), 'recent_categories': most_recent_categories})
 
 
 def login_user(request):
@@ -60,7 +62,10 @@ def category(request):
         return HttpResponse(render(request, 'ajax.html', {"page_obj": page.object_list, "num_pages": range(page_obj.num_pages)}))
     page = page_obj.page(1)
 
-    return render(request, 'category.html', {"categoryName": categoryName, "latest_Posts": latest_Posts, "all_Posts": all_Posts, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages)})
+    most_recent_categories =  sorted([i for i in Category.objects.all()], 
+                                        key=lambda x: x.post_set.count())[::-1][:5]
+
+    return render(request, 'category.html', {"categoryName": categoryName, "latest_Posts": latest_Posts, "all_Posts": all_Posts, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages), 'recent_categories': most_recent_categories})
 
 
 def single(request):
@@ -68,16 +73,14 @@ def single(request):
     post = Post.objects.get(pk=request.GET.get("id"))
     author_Posts = list(Post.objects.order_by(
         "-date").filter(author=post.author.id)[:2])
-    tags = post.tags.split(",")
 
     comments = list(Comment.objects.order_by(
         "-date").filter(post=post.id))
 
     most_recent_categories =  sorted([i for i in Category.objects.all()], 
-                                        key=lambda x: x.post_set.count())[:5]
+                                        key=lambda x: x.post_set.count())[::-1][:5]
 
-
-    return render(request, "single.html", {"comments": comments, "author_Posts": author_Posts, "post": post, "tags": tags, "latest_Posts": latest_Posts, 'recent_categories': most_recent_categories})
+    return render(request, "single.html", {"comments": comments, "author_Posts": author_Posts, "post": post, "latest_Posts": latest_Posts, 'recent_categories': most_recent_categories, 'categories': post.category.all()})
 
 
 
