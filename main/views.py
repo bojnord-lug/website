@@ -81,7 +81,11 @@ def single(request):
         b = datetime.strptime(str(item.date), date_format)
         delta = b - a
         item.date = abs(delta.days)
-    return render(request, "single.html", {"event_images": event_images, "comments": comments, "author_Posts": author_Posts, "post": post, "tags": tags, "latest_Posts": latest_Posts})
+
+    most_recent_categories = sorted([i for i in Category.objects.all()],
+                                    key=lambda x: x.post_set.count())[:5]
+
+    return render(request, "single.html", {"event_images": event_images, "comments": comments, "author_Posts": author_Posts, "post": post, "tags": tags, "latest_Posts": latest_Posts, 'recent_categories': most_recent_categories})
 
 
 @require_POST
