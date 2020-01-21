@@ -11,6 +11,7 @@ urlpatterns = [
     path("category", views.category, name='category'),
 
     path("single", views.single, name='single'),
+    path("event", views.event, name='event'),
     path("bloglist/", views.index)
 
 ]
