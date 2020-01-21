@@ -174,8 +174,12 @@
                                     <!-- end col -->
                                 
                                     <div class="blog-meta big-meta col-md-8">
-                                        <span class="bg-aqua"><a href="garden-category.html" title="">{{item.category.id}}</a></span>
                                         <h4><a href="post?id={{item.id}}" title="">{{item.title}}</a></h4>
+                                        {% for c in item.category.all %}
+                                        <span class="bg-aqua"><a href="category?id={{ c.id }}" title="">{{ c.title }}</a></span>
+                                        {% endfor %}
+                                        <br>
+                                        <br>
                                         <p>{{item.text}}</p>
                                         <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i> {% get_hit_count for item %}</a></small>
                                         <small><a href="post?id={{item.id}}" title="">{{item.date}}</a></small>
@@ -445,7 +449,7 @@
     <script src="{% static 'js/tether.min.js'%}"></script>
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
     <script src="{% static 'js/custom.js'%}"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="{% static 'js/axios.min.js'%}"></script>
     <script type="text/javascript" src="{% static 'js/custom1.js'%}"></script>
 
 

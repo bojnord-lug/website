@@ -14,5 +14,5 @@ class SubmitComment(forms.Form):
     name = forms.CharField(max_length=20)
     text = forms.Textarea()
     email = forms.EmailField()
-    website = forms.CharField(max_length=30)    
+    website = forms.CharField(max_length=30, required=False)    
     post = forms.IntegerField()

@@ -145,7 +145,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <h2><i class="fa fa-leaf bg-green"></i> بلاگ/h2>
+                        <h2><i class="fa fa-leaf bg-green"></i> بلاگ</h2>
                     </div><!-- end col -->
                     <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">
                         <ol class="breadcrumb">
@@ -163,25 +163,12 @@
                     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                         <div class="page-wrapper">
                             <div class="blog-title-area">
-                                <span class="color-green"><a href="garden-category.html" title="">{{post.category.title}}</a></span>
-
                                 <h3>{{post.title}}</h3>
-
                                 <div class="blog-meta big-meta">
                                     <small><a href="single.html" title="">{{post.date}}</a></small>
                                     <small><a href="blog-author.html" title="">توسط {{post.author.name}}</a></small>
                                     <small><a href="#" title=""><i class="fa fa-eye"></i> {{ hits }}</a></small>
                                 </div><!-- end meta -->
-
-                                <div class="post-sharing">
-                                    <ul class="list-inline">
-                                        <li><a href="#" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i>
-                                                <span class="down-mobile">ارسال به فیسبوک</span></a></li>
-                                        <li><a href="https://twitter.com/share?text={{post.title}}&url=http://bojnordlug.ir/post?id={{post.id}}" target="blank" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i>
-                                                <span class="down-mobile">ارسال به توییتر</span></a></li>
-                                        
-                                    </ul>
-                                </div><!-- end post-sharing -->
                             </div><!-- end title -->
 
                             <div class="single-post-media">
@@ -315,12 +302,21 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <form class="form-wrapper">
+                                            {% if not request.user.is_authenticated %}
                                             <input type="text" class="form-control" placeholder="نام شما"
                                                 id="comment_name">
                                             <input type="text" class="form-control" placeholder="ایمیل"
                                                 id="comment_email">
                                             <input type="text" class="form-control" placeholder="وب سایت"
                                                 id="comment_website">
+                                            {% else %}
+                                            <input type="text" class="hide" value="{{ request.user.first_name }}"
+                                                id="comment_name">
+                                            <input type="text" class="hide" value="{{ request.user.email }}"
+                                                id="comment_email">
+                                            <input type="text" value="" class="hide"
+                                                id="comment_website">
+                                            {% endif %}
                                             <textarea class="form-control" placeholder="پیام شما"
                                                 id="comment_message"></textarea>
                                             <button type="submit" class="btn btn-primary" id="submit">ارسال دیدگاه</button>
@@ -471,26 +467,25 @@
         var website = $("#comment_website").val();
         var email = $("#comment_email").val();
         var post = {{ post.id }};
-    
-    $.ajax({
-        type: "POST",
-        data: { name: name, text: text, website: website, email: email, post: post, csrfmiddlewaretoken: '{{ csrf_token }}' },
-        url: "/submit_comment",
-        success: function (msg) {
-            if (msg != 'ok') {
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    timer: 5000,
-                    title: 'دیدگاه شما با موفقیت ارسال شد',
-                    text: 'دیدگاه شما پس از بررسی در وبسایت قرار میگیرد',
-                    footer: 'با تشکر از شما',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
+        $.ajax({
+            type: "POST",
+            data: { name: name, text: text, website: website, email: email, post: post, csrfmiddlewaretoken: '{{ csrf_token }}' },
+            url: "/submit_comment",
+            success: function (msg) {
+                if (msg != 'ok') {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        timer: 5000,
+                        title: 'دیدگاه شما با موفقیت ارسال شد',
+                        text: 'دیدگاه شما پس از بررسی در وبسایت قرار میگیرد',
+                        footer: 'با تشکر از شما',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
             }
-        }
-    });
+        });
     });
 </script>
 
