@@ -1,7 +1,7 @@
 from django.contrib import admin
-from .models import EventImage, Authors, Category, Comment, Event, Post, Profile, Banners, SubComment
+from .models import NewsLetter, EventImage, Authors, Category, Comment, Event, Post, Profile, Banners, SubComment
 
-
+admin.site.register(NewsLetter)
 admin.site.register(Post)
 admin.site.register(EventImage)
 admin.site.register(Category)
