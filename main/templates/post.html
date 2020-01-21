@@ -177,7 +177,7 @@
                                     <ul class="list-inline">
                                         <li><a href="#" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i>
                                                 <span class="down-mobile">ارسال به فیسبوک</span></a></li>
-                                        <li><a href="#" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i>
+                                        <li><a href="https://twitter.com/share?text={{post.title}}&url=http://bojnordlug.ir/post?id={{post.id}}" target="blank" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i>
                                                 <span class="down-mobile">ارسال به توییتر</span></a></li>
                                         <li><a href="#" class="gp-button btn btn-primary"><i
                                                     class="fa fa-google-plus"></i></a></li>
@@ -203,12 +203,12 @@
                                     <small><a href="category?id={{ tag.id }}" title="">{{ tag.title }}</a></small>
                                 {% endfor %}
                                 </div><!-- end meta -->
-
+                                
                                 <div class="post-sharing">
                                     <ul class="list-inline">
-                                        <li><a href="#" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i>
+                                        <li><a href="#" class="fb-button btn btn-primary"  data-show-count="false"><i class="fa fa-facebook"></i>
                                                 <span class="down-mobile">ارسال به فیسبوک</span></a></li>
-                                        <li><a href="#" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i>
+                                        <li><a href="https://twitter.com/share?text={{post.title}}&url=http://bojnordlug.ir/post?id={{post.id}}" target="blank" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i>
                                                 <span class="down-mobile">ارسال به توییتر</span></a></li>
                                         <li><a href="#" class="gp-button btn btn-primary"><i
                                                     class="fa fa-google-plus"></i></a></li>
@@ -453,6 +453,8 @@
     <script src="{% static 'js/tether.min.js'%}"></script>
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
     <script src="{% static 'js/custom.js'%}"></script>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
 
 </body>
 
