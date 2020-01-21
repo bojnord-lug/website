@@ -123,8 +123,8 @@
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content: center !important;">
                             <ul class="navbar-nav">
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="index.html">صفحه اصلی <span class="sr-only">(current)</span></a>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/">صفحه اصلی <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="category.html">گالری تصاویر</a>
@@ -145,12 +145,12 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <h2><i class="fa fa-leaf bg-green"></i> بلاگ</h2>
+                        <h2><i class="fa fa-leaf bg-green"></i> دورهمی ها</h2>
                     </div><!-- end col -->
                     <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li>
-                            <li class="breadcrumb-item active">بلاگ</li>
+                            <li class="breadcrumb-item active">دورهمی ها</li>
                         </ol>
                     </div><!-- end col -->
                 </div><!-- end row -->
@@ -268,7 +268,7 @@
                                     <div class="col-lg-6">
                                         <div class="blog-box">
                                             <div class="post-media">
-                                                <a href="single?id={{item.id}}" title="">
+                                                <a href="post?id={{item.id}}" title="">
                                                     <img src="{{item.image}}" alt="" width="357" height="205" class="img-fluid">
                                                     <div class="hovereffect">
                                                         <span class=""></span>
@@ -276,7 +276,7 @@
                                                 </a>
                                             </div><!-- end media -->
                                             <div class="blog-meta">
-                                                <h4><a href="single?id={{item.id}}" title="">{{item.title}}</a>
+                                                <h4><a href="post?id={{item.id}}" title="">{{item.title}}</a>
                                                 </h4>
                                                 <small><a href="blog-category-01.html" title="">{{item.author.name}}</a></small>
                                                 <small><a href="blog-category-01.html" title="">{{item.date}}</a></small>
@@ -334,11 +334,14 @@
                         <div class="sidebar">
                             <div class="widget">
                                 <h2 class="widget-title">جستجو</h2>
-                                <form class="form-inline search-form">
+                                <form id="myform" action="/search" method="GET" class="form-inline search-form">
+                            
                                     <div class="form-group">
-                                        <input type="text" class="form-control" placeholder="جستجو در سایت">
+                                        <input name="search_term" type="text" class="form-control" placeholder="جستجو در سایت" />
                                     </div>
-                                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                                    <button onclick="document.getElementById('myform').submit();" type="submit" class="btn btn-primary"><i
+                                            class="fa fa-search"></i></button>
+                            
                                 </form>
                             </div><!-- end widget -->
 
@@ -347,7 +350,7 @@
                                 <div class="blog-list-widget">
                                     <div class="list-group">
                                         {% for item in latest_Posts %}
-                                        <a href="single.html" class="list-group-item list-group-item-action flex-column align-items-start">
+                                        <a href="post?id={{item.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
                                                 <img src="{{item.image}}" alt="" height="55" width="55" class="float-left">
                                                 <h5 class="mb-1">{{item.title}}</h5>

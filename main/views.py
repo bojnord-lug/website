@@ -91,7 +91,7 @@ def category(request):
     return render(request, 'category.html', {"event_images": event_images, "categoryName": categoryName, "latest_Posts": latest_Posts, "all_Posts": all_Posts, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages), 'recent_categories': most_recent_categories})
 
 
-def single(request):
+def post(request):
     post = Post.objects.get(pk=request.GET.get("id"))
     hit_count = HitCount.objects.get_for_object(post)
     res = HitCountMixin.hit_count(request, hit_count)  # count hit

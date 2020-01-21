@@ -164,8 +164,8 @@
                                         {% for c in item.category.all %}
                                         <span class="bg-aqua"><a href="category?id={{ c.id }}" title="">{{ c.title }}</a></span>
                                         {% endfor %}
-                                        <h4><a href="single?id={{item.id}}" title="">{{item.title}}</a></h4>
-                                        <small><a href="single?id={{item.id}}" title="">{{item.date}}</a></small>
+                                        <h4><a href="post?id={{item.id}}" title="">{{item.title}}</a></h4>
+                                        <small><a href="post?id={{item.id}}" title="">{{item.date}}</a></small>
                                         <small><a href="#" title="">توسط {{item.author}}</a></small>
                                     </div><!-- end meta -->
                                 </div><!-- end shadow-desc -->
@@ -259,7 +259,7 @@
                                 <div class="blog-list-widget">
                                     <div class="list-group">
                                         {% for item in Posts %}
-                                        <a href="single.html"
+                                        <a href="post?id={{item.id}}"
                                             class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
                                                 <img src="{{item.image}}" alt="" height="55" width="55" class="float-left">
