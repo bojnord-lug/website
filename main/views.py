@@ -87,7 +87,22 @@ def single(request):
     most_recent_categories = sorted([i for i in Category.objects.all()],
                                     key=lambda x: x.post_set.count())[::-1][:5]
 
-    return render(request, "single.html", {"event_images": event_images, "comments": comments, "author_Posts": author_Posts, "post": post, "latest_Posts": latest_Posts, 'recent_categories': most_recent_categories, 'categories': post.category.all(), 'hits': post.hit_count.hits})
+    return render(request, "post.html", {"event_images": event_images, "comments": comments, "author_Posts": author_Posts, "post": post, "latest_Posts": latest_Posts, 'recent_categories': most_recent_categories, 'categories': post.category.all(), 'hits': post.hit_count.hits})
+
+
+def event(request):
+    event = Event.objects.get(pk=request.GET.get("id"))
+    latest_Posts = list(Post.objects.order_by("-date").all()[:3])
+    author_Posts = list(Post.objects.order_by(
+        "-date").filter(author=event.presenter.id)[:2])
+    event_images = EventImage.objects.all()[:9]
+    comments = list(Comment.objects.order_by(
+        "-date").filter(post=event.id))
+
+    most_recent_categories = sorted([i for i in Category.objects.all()],
+                                    key=lambda x: x.post_set.count())[::-1][:5]
+
+    return render(request, "event.html", {"event_images": event_images, "comments": comments, "author_Posts": author_Posts, "event": event, "latest_Posts": latest_Posts, 'recent_categories': most_recent_categories})
 
 
 @require_POST

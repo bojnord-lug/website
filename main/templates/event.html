@@ -163,14 +163,13 @@
                     <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                         <div class="page-wrapper">
                             <div class="blog-title-area">
-                                <span class="color-green"><a href="garden-category.html" title="">{{post.category.title}}</a></span>
+                                <span class="color-green"><a href="garden-category.html" title="">دورهمی</a></span>
 
-                                <h3>{{post.title}}</h3>
+                                <h3>{{event.title}}</h3>
 
                                 <div class="blog-meta big-meta">
-                                    <small><a href="single.html" title="">{{post.date}}</a></small>
-                                    <small><a href="blog-author.html" title="">توسط {{post.author.name}}</a></small>
-                                    <small><a href="#" title=""><i class="fa fa-eye"></i> {{ hits }}</a></small>
+                                    <small><a href="single.html" title="">{{event.date}}</a></small>
+                                    <small><a href="blog-author.html" title="">ارائه {{event.presenter.name}}</a></small>
                                 </div><!-- end meta -->
 
                                 <div class="post-sharing">
@@ -186,12 +185,12 @@
                             </div><!-- end title -->
 
                             <div class="single-post-media">
-                                <img src="{{post.image}}" alt="" class="img-fluid">
+                                <img src="{{event.image}}" alt="" class="img-fluid">
                             </div><!-- end media -->
 
                             <div class="blog-content">
                                 <div class="pp">
-                                    <p>{{post.text}}</p>
+                                    <p>{{event.content}}</p>
                                 </div><!-- end pp -->
 
                             </div><!-- end content -->
@@ -229,28 +228,28 @@
                             <hr class="invis1">
 
                             <div class="custombox authorbox clearfix">
-                                <h4 class="small-title">درباره نویسنده</h4>
+                                <h4 class="small-title">درباره ارائه کننده</h4>
                                 <div class="row">
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                        <img src="{{post.author.image}}" alt="" class="img-fluid rounded-circle">
+                                        <img src="{{event.presenter.image}}" alt="" class="img-fluid rounded-circle">
                                     </div><!-- end col -->
 
                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                        <h4><a href="#">{{post.author.name}}</a></h4>
-                                        <p>{{post.author.specialty}}</p>
+                                        <h4><a href="#">{{event.presenter.name}}</a></h4>
+                                        <p>{{event.presenter.specialty}}</p>
 
                                         <div class="topsocial">
-                                            <a href="https://facebook.com/{{post.author.facebook}}" data-toggle="tooltip" data-placement="bottom"
+                                            <a href="https://facebook.com/{{event.presenter.facebook}}" data-toggle="tooltip" data-placement="bottom"
                                                 title="Facebook"><i class="fa fa-facebook"></i></a>
-                                            <a href="https://youtube.com/{{post.author.youtube}}" data-toggle="tooltip" data-placement="bottom" title="Youtube"><i
+                                            <a href="https://youtube.com/{{event.presenter.youtube}}" data-toggle="tooltip" data-placement="bottom" title="Youtube"><i
                                                     class="fa fa-youtube"></i></a>
                                             <a href="#" data-toggle="tooltip" data-placement="bottom"
                                                 title="Pinterest"><i class="fa fa-pinterest"></i></a>
-                                            <a href="https://twitter.com/{{post.author.twitter}}" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i
+                                            <a href="https://twitter.com/{{event.presenter.twitter}}" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i
                                                     class="fa fa-twitter"></i></a>
-                                            <a href="https://instagram.com/{{post.author.instagram}}" data-toggle="tooltip" data-placement="bottom"
+                                            <a href="https://instagram.com/{{event.presenter.instagram}}" data-toggle="tooltip" data-placement="bottom"
                                                 title="Instagram"><i class="fa fa-instagram"></i></a>
-                                            <a href="{{post.author.website}}" data-toggle="tooltip" data-placement="bottom" title="Website"><i
+                                            <a href="{{event.presenter.website}}" data-toggle="tooltip" data-placement="bottom" title="Website"><i
                                                     class="fa fa-link"></i></a>
                                         </div><!-- end social -->
 
