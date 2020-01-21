@@ -9,3 +9,10 @@ class Sign_in(forms.Form):
 class Log_in(forms.Form):
     username=forms.CharField(max_length=14)
     passwd=forms.CharField()
+
+class SubmitComment(forms.Form):
+    name = forms.CharField(max_length=20)
+    text = forms.Textarea()
+    email = forms.EmailField()
+    website = forms.CharField(max_length=30)    
+    post = forms.IntegerField()

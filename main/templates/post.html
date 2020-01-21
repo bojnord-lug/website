@@ -315,11 +315,15 @@
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <form class="form-wrapper">
-                                            <input type="text" class="form-control" placeholder="نام شما">
-                                            <input type="text" class="form-control" placeholder="ایمیل">
-                                            <input type="text" class="form-control" placeholder="وب سایت">
-                                            <textarea class="form-control" placeholder="پیام شما"></textarea>
-                                            <button type="submit" class="btn btn-primary">ارسال دیدگاه</button>
+                                            <input type="text" class="form-control" placeholder="نام شما"
+                                                id="comment_name">
+                                            <input type="text" class="form-control" placeholder="ایمیل"
+                                                id="comment_email">
+                                            <input type="text" class="form-control" placeholder="وب سایت"
+                                                id="comment_website">
+                                            <textarea class="form-control" placeholder="پیام شما"
+                                                id="comment_message"></textarea>
+                                            <button type="submit" class="btn btn-primary" id="submit">ارسال دیدگاه</button>
                                         </form>
                                     </div>
                                 </div>
@@ -454,7 +458,39 @@
     <script src="{% static 'js/tether.min.js'%}"></script>
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
     <script src="{% static 'js/custom.js'%}"></script>
-    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <!-- <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
+    <script src="{% static 'js/sweetalert2.min.js'%}"></script>
+<script>
+    $("#submit").click(
+    function() {
+        // var name = document.getElementById("comment_name").innerHTML;
+        var name = $("#comment_name").val();
+        var text = $("#comment_message").val();
+        var website = $("#comment_website").val();
+        var email = $("#comment_email").val();
+        var post = {{ post.id }};
+    
+    $.ajax({
+        type: "POST",
+        data: { name: name, text: text, website: website, email: email, post: post, csrfmiddlewaretoken: '{{ csrf_token }}' },
+        url: "/submit_comment",
+        success: function (msg) {
+            if (msg != 'ok') {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    timer: 5000,
+                    title: 'دیدگاه شما با موفقیت ارسال شد',
+                    text: 'دیدگاه شما پس از بررسی در وبسایت قرار میگیرد',
+                    footer: 'با تشکر از شما',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        }
+    });
+    });
+</script>
 
 
 </body>

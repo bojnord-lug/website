@@ -53,14 +53,6 @@ class Profile(models.Model):
     profile_picture = models.ImageField(upload_to='profile_pictures/')
 
 
-class SubComment(models.Model):
-    author = models.CharField(max_length=60)
-    text = models.TextField()
-
-    def __str__(self):
-        return self.text
-
-
 class Category(models.Model):
     title = models.CharField(max_length=50, blank=False, null=False)
 
@@ -90,13 +82,12 @@ class Post(models.Model, HitCountMixin):
         verbose_name_plural = 'Posts'
         ordering = ['date']
 
-
 class Comment(models.Model):
     author = models.CharField(max_length=60)
     text = models.TextField()
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    date = models.DateField()
-    subcomments = models.ManyToManyField(SubComment)
+    date = models.DateField(auto_now=True)
+    approved = models.BooleanField(default=False, verbose_name='تایید شده')
 
     def __str__(self):
         return self.text
@@ -104,6 +95,14 @@ class Comment(models.Model):
     class Meta:
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'
+
+class SubComment(models.Model):
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)
+    author = models.CharField(max_length=60)
+    text = models.TextField()
+
+    def __str__(self):
+        return self.text
 
 
 class EventImage(models.Model):

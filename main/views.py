@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect, reverse, HttpResponseRedirect
+from django.shortcuts import render, redirect, reverse, HttpResponseRedirect, Http404, get_object_or_404
 from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from .forms import Log_in, Sign_in
+from .forms import Log_in, Sign_in, SubmitComment
 from .models import Post, Profile, Event, Category, Comment, EventImage
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
@@ -100,7 +100,7 @@ def post(request):
         "-date").filter(author=post.author.id)[:2])
     event_images = EventImage.objects.all()[:9]
     comments = list(Comment.objects.order_by(
-        "-date").filter(post=post.id))
+        "-date").filter(post=post.id, approved=True))
 
     most_recent_categories = sorted([i for i in Category.objects.all()],
                                     key=lambda x: x.post_set.count())[::-1][:5]
@@ -158,3 +158,18 @@ def Login(request):
             return redirect("/")
     else:
         return render(request, "login_form.html", {"error": "please complate the form corectly ..."})
+
+def add_comment(request):
+    if request.method=="POST":
+        print(request.POST)
+        comment_form = SubmitComment(request.POST)
+        print(comment_form.is_valid())
+        if comment_form.is_valid():
+            print(request.POST['post'])
+            post = get_object_or_404(Post, pk=request.POST['post'])
+            
+            comment = Comment(author=request.POST['name'], text=request.POST['text'],
+                                post=post, approved=False)
+            comment.save()
+            return HttpResponse('ok')
+    return Http404()
