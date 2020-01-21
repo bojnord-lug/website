@@ -3,8 +3,13 @@ from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse
+<<<<<<< HEAD
 from .forms import Log_in, Sign_in, SubmitComment
 from .models import Post, Profile, Event, Category, Comment, EventImage
+=======
+from .forms import Log_in, Sign_in
+from .models import Post, Profile, Event, Category, Comment, EventImage, NewsLetter
+>>>>>>> af1a32119bc53e957940d11696fde30ef20de25b
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
 from django.views.decorators.csrf import csrf_exempt
@@ -173,3 +178,9 @@ def add_comment(request):
             comment.save()
             return HttpResponse('ok')
     return Http404()
+
+@csrf_exempt
+def newsletter(request):
+    email = NewsLetter(email=request.body.decode(), date=datetime.now())
+    email.save()
+    return HttpResponse(status=200)
