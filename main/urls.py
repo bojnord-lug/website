@@ -14,5 +14,6 @@ urlpatterns = [
     path("post", views.post, name='post'),
     path("event", views.event, name='event'),
     path("bloglist/", views.index),
-    path("submit_comment", views.add_comment)
+    path("submit_comment", views.add_comment),
+    path("saveEmail/", views.newsletter)
 ]

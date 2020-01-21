@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import EventImage, Authors, Category, Comment, Event, Post, Profile, Banners, SubComment
+from .models import NewsLetter, EventImage, Authors, Category, Comment, Event, Post, Profile, Banners, SubComment
 
 def approve(admin_model, request, query):
     query.update(approved=True)
@@ -9,6 +9,7 @@ class CommentAdmin(admin.ModelAdmin):
     list_display = ('author', 'text')
     actions = [approve]
 
+admin.site.register(NewsLetter)
 admin.site.register(Post)
 admin.site.register(EventImage)
 admin.site.register(Category)

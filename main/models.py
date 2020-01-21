@@ -115,3 +115,12 @@ class EventImage(models.Model):
     class Meta:
         verbose_name = 'EventImage'
         verbose_name_plural = 'EventImages'
+
+
+class NewsLetter(models.Model):
+    email = models.CharField(max_length=80)
+    date = models.DateField()
+
+    class Meta:
+        verbose_name = 'NewsLetter'
+        verbose_name_plural = 'NewsLetters'
