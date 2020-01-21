@@ -15,21 +15,22 @@ from datetime import datetime
 
 # hit_count = HitCount.objects.get_for_object(Post)
 
+
 @csrf_exempt
 def index(request):
     all_Posts = list(Post.objects.order_by("-date").all()[:3])
-    three_events = list(Event.objects.order_by("-date").all()[:3])
-    all_events = list(Event.objects.order_by("-date").all()[3:])
+    all_events = list(Event.objects.order_by("-date").all())
     event_images = EventImage.objects.all()[:9]
     page_obj = Paginator(all_events, 3)
     if request.method == 'POST':
         page = page_obj.page(int(request.body.decode()))
         return HttpResponse(render(request, 'ajax.html', {"page_obj": page.object_list, "num_pages": range(page_obj.num_pages)}))
     page = page_obj.page(1)
-    most_recent_categories =  sorted([i for i in Category.objects.all()], 
-                                        key=lambda x: x.post_set.count())[::-1][:5]
+    most_recent_categories = sorted([i for i in Category.objects.all()],
+                                    key=lambda x: x.post_set.count())[::-1][:5]
 
-    return render(request, 'index.html', {"event_images": event_images, "Posts": all_Posts, "events": three_events, "all_events": all_events, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages), 'recent_categories': most_recent_categories})
+    return render(request, 'index.html', {"event_images": event_images, "Posts": all_Posts, "all_events": all_events, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages), 'recent_categories': most_recent_categories})
+
 
 def login_user(request):
     if request.method == 'POST':
@@ -66,8 +67,8 @@ def category(request):
         return HttpResponse(render(request, 'ajax.html', {"page_obj": page.object_list, "num_pages": range(page_obj.num_pages)}))
     page = page_obj.page(1)
 
-    most_recent_categories =  sorted([i for i in Category.objects.all()], 
-                                        key=lambda x: x.post_set.count())[::-1][:5]
+    most_recent_categories = sorted([i for i in Category.objects.all()],
+                                    key=lambda x: x.post_set.count())[::-1][:5]
 
     return render(request, 'category.html', {"event_images": event_images, "categoryName": categoryName, "latest_Posts": latest_Posts, "all_Posts": all_Posts, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages), 'recent_categories': most_recent_categories})
 
@@ -75,16 +76,16 @@ def category(request):
 def single(request):
     post = Post.objects.get(pk=request.GET.get("id"))
     hit_count = HitCount.objects.get_for_object(post)
-    res = HitCountMixin.hit_count(request, hit_count) # count hit
+    res = HitCountMixin.hit_count(request, hit_count)  # count hit
     latest_Posts = list(Post.objects.order_by("-date").all()[:3])
     author_Posts = list(Post.objects.order_by(
         "-date").filter(author=post.author.id)[:2])
     event_images = EventImage.objects.all()[:9]
     comments = list(Comment.objects.order_by(
         "-date").filter(post=post.id))
-    
-    most_recent_categories =  sorted([i for i in Category.objects.all()], 
-                                        key=lambda x: x.post_set.count())[::-1][:5]
+
+    most_recent_categories = sorted([i for i in Category.objects.all()],
+                                    key=lambda x: x.post_set.count())[::-1][:5]
 
     return render(request, "single.html", {"event_images": event_images, "comments": comments, "author_Posts": author_Posts, "post": post, "latest_Posts": latest_Posts, 'recent_categories': most_recent_categories, 'categories': post.category.all(), 'hits': post.hit_count.hits})
 
