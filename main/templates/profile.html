@@ -297,9 +297,9 @@
 
                                 <div class="newsletter-widget text-center">
                                     <form class="form-inline">
-                                        <input type="text" class="form-control" placeholder="ایمیل خود را وارد کنید">
-                                        <button type="submit" class="btn btn-primary"> <i
-                                                class="fa fa-envelope-open-o"></i> عضویت در خبرنامه</button>
+                                        <input id="newsletterEmail" type="text" class="form-control" placeholder="ایمیل خود را وارد کنید">
+                                        <button onclick="saveEmail()" type="button" class="btn btn-primary"> <i class="fa fa-envelope-open-o"></i> عضویت در
+                                            خبرنامه</button>
                                     </form>
                                 </div><!-- end newsletter -->
                             </div><!-- end footer-text -->
@@ -334,6 +334,8 @@
     <script src="{% static 'js/tether.min.js'%}"></script>
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
     <script src="{% static 'js/custom.js'%}"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="{% static 'js/custom1.js'%}"></script>
 
 </body>
 

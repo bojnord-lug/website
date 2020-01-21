@@ -13,6 +13,7 @@ urlpatterns = [
 
     path("post", views.post, name='post'),
     path("event", views.event, name='event'),
-    path("bloglist/", views.index)
+    path("bloglist/", views.index),
+    path("saveEmail/", views.newsletter)
 
 ]

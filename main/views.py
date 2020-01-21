@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from .forms import Log_in, Sign_in
-from .models import Post, Profile, Event, Category, Comment, EventImage
+from .models import Post, Profile, Event, Category, Comment, EventImage, NewsLetter
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
 from django.views.decorators.csrf import csrf_exempt
@@ -158,3 +158,10 @@ def Login(request):
             return redirect("/")
     else:
         return render(request, "login_form.html", {"error": "please complate the form corectly ..."})
+
+
+@csrf_exempt
+def newsletter(request):
+    email = NewsLetter(email=request.body.decode(), date=datetime.now())
+    email.save()
+    return HttpResponse(status=200)
