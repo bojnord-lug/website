@@ -151,33 +151,6 @@
             </div><!-- end container -->
         </header><!-- end header -->
 
-        <section class="section first-section">
-            <div class="container-fluid">
-                <div class="masonry-blog clearfix">
-                    {% for item in Posts%}
-                    <div class="{% cycle 'left-side' 'center-side' 'right-side hidden-md-down' %}">
-                        <div class="masonry-box post-media">
-                            <img src="{{item.image}}" alt="" width="534" height="468">
-                            <div class="shadoweffect">
-                                <div class="shadow-desc">
-                                    <div class="blog-meta">
-                                        {% for c in item.category.all %}
-                                        <span class="bg-aqua"><a href="category?id={{ c.id }}" title="">{{ c.title }}</a></span>
-                                        {% endfor %}
-                                        <h4><a href="single?id={{item.id}}" title="">{{item.title}}</a></h4>
-                                        <small><a href="single?id={{item.id}}" title="">{{item.date}}</a></small>
-                                        <small><a href="#" title="">توسط {{item.author}}</a></small>
-                                    </div><!-- end meta -->
-                                </div><!-- end shadow-desc -->
-                            </div><!-- end shadow -->
-                        </div><!-- end post-media -->
-                    </div><!-- end left-side -->
-                    {% endfor %}
-                    
-                </div><!-- end masonry -->
-            </div>
-        </section>
-
         <section class="section wb">
             <div class="container">
                 <div class="row">
@@ -201,12 +174,12 @@
                                     <!-- end col -->
                                 
                                     <div class="blog-meta big-meta col-md-8">
-                                        <span class="bg-aqua"><a href="garden-category.html" title="">دورهمی</a></span>
+                                        <span class="bg-aqua"><a href="garden-category.html" title="">{{item.category.id}}</a></span>
                                         <h4><a href="event?id={{item.id}}" title="">{{item.title}}</a></h4>
-                                        <p>{{item.content}}</p>
+                                        <p>{{item.text}}</p>
                                         <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i> {% get_hit_count for item %}</a></small>
                                         <small><a href="event?id={{item.id}}" title="">{{item.date}}</a></small>
-                                        <small><a href="#" title="">ارائه: {{item.presenter}}</a></small>
+                                        <small><a href="#" title="">توسط: {{item.author.name}}</a></small>
                                     </div>
                                     <!-- end meta -->
                                 </div>
@@ -244,13 +217,11 @@
                         <div class="sidebar">
                             <div class="widget">
                                 <h2 class="widget-title">جستجو</h2>
-                                <form id="myform" action="/search" method="GET" class="form-inline search-form">
-
+                                <form class="form-inline search-form">
                                     <div class="form-group">
-                                        <input name="search_term" type="text" class="form-control" placeholder="جستجو در سایت"/>
+                                        <input type="text" class="form-control" placeholder="جستجو در سایت">
                                     </div>
-                                    <button onclick="document.getElementById('myform').submit();" type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-
+                                    <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                                 </form>
                             </div><!-- end widget -->
 
@@ -320,7 +291,7 @@
                                     نرم‌افزارهای آزاد و متن باز.</p>
                                 <div class="social">
                                     <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i
-                                            class="fa fa-facebook"></div></a>
+                                            class="fa fa-facebook"></i></a>
                                     <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i
                                             class="fa fa-twitter"></i></a>
                                     <a href="#" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i

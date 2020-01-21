@@ -32,6 +32,24 @@ def index(request):
     return render(request, 'index.html', {"event_images": event_images, "Posts": all_Posts, "all_events": all_events, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages), 'recent_categories': most_recent_categories})
 
 
+@csrf_exempt
+def search(request):
+    all_Posts = list(Post.objects.order_by("-date").all()[:3])
+    search_result = list(Post.objects.order_by(
+        "-date").filter(text__icontains=request.GET.get("search_term")).all())
+    print(vars(search_result[0]))
+    event_images = EventImage.objects.all()[:9]
+    page_obj = Paginator(search_result, 3)
+    if request.method == 'POST':
+        page = page_obj.page(int(request.body.decode()))
+        return HttpResponse(render(request, 'ajax.html', {"page_obj": page.object_list, "num_pages": range(page_obj.num_pages)}))
+    page = page_obj.page(1)
+    most_recent_categories = sorted([i for i in Category.objects.all()],
+                                    key=lambda x: x.post_set.count())[::-1][:5]
+
+    return render(request, 'search.html', {"event_images": event_images, "Posts": all_Posts, "search_result": search_result, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages), 'recent_categories': most_recent_categories})
+
+
 def login_user(request):
     if request.method == 'POST':
         email = request.POST.get('email')
