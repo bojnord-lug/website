@@ -56,9 +56,9 @@
         <div class="collapse top-search" id="collapseExample">
             <div class="card card-block">
                 <div class="newsletter-widget text-center">
-                    <form class="form-inline">
-                        <input type="text" class="form-control" placeholder="دنبال چی میگردی؟">
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
+                    <form id="topform" action="/search" method="GET" class="form-inline">
+                        <input name="search_term" type="text" class="form-control" placeholder="دنبال چی میگردی؟" style="color: white;">
+                        <button  onclick="document.getElementById('topform').submit();" type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
                     </form>
                 </div><!-- end newsletter -->
             </div>
@@ -179,8 +179,7 @@
                                                 <span class="down-mobile">ارسال به فیسبوک</span></a></li>
                                         <li><a href="https://twitter.com/share?text={{post.title}}&url=http://bojnordlug.ir/post?id={{post.id}}" target="blank" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i>
                                                 <span class="down-mobile">ارسال به توییتر</span></a></li>
-                                        <li><a href="#" class="gp-button btn btn-primary"><i
-                                                    class="fa fa-google-plus"></i></a></li>
+                                        
                                     </ul>
                                 </div><!-- end post-sharing -->
                             </div><!-- end title -->
@@ -210,8 +209,7 @@
                                                 <span class="down-mobile">ارسال به فیسبوک</span></a></li>
                                         <li><a href="https://twitter.com/share?text={{post.title}}&url=http://bojnordlug.ir/post?id={{post.id}}" target="blank" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i>
                                                 <span class="down-mobile">ارسال به توییتر</span></a></li>
-                                        <li><a href="#" class="gp-button btn btn-primary"><i
-                                                    class="fa fa-google-plus"></i></a></li>
+                                       
                                     </ul>
                                 </div><!-- end post-sharing -->
                             </div><!-- end title -->
