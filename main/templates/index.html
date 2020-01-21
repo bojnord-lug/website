@@ -1,4 +1,6 @@
 {% load static %}
+{% load hitcount_tags %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -202,7 +204,7 @@
                                         <span class="bg-aqua"><a href="garden-category.html" title="">دورهمی</a></span>
                                         <h4><a href="single.html" title="">{{item.title}}</a></h4>
                                         <p>{{item.content}}</p>
-                                        <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i> ۳۲۳۲</a></small>
+                                        <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i> {% get_hit_count for item %}</a></small>
                                         <small><a href="single.html" title="">{{item.date}}</a></small>
                                         <small><a href="#" title="">ارائه: {{item.presenter}}</a></small>
                                     </div>
