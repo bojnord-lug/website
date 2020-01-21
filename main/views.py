@@ -36,8 +36,7 @@ def index(request):
 def search(request):
     all_Posts = list(Post.objects.order_by("-date").all()[:3])
     search_result = list(Post.objects.order_by(
-        "-date").filter(text__icontains=request.GET.get("search_term")).all())
-    print(vars(search_result[0]))
+        "-date").filter(text__icontains=request.GET.get("search_term"), title__icontains=request.GET.get("search_term")).all())
     event_images = EventImage.objects.all()[:9]
     page_obj = Paginator(search_result, 3)
     if request.method == 'POST':
@@ -161,11 +160,8 @@ def Login(request):
 
 def add_comment(request):
     if request.method=="POST":
-        print(request.POST)
         comment_form = SubmitComment(request.POST)
-        print(comment_form.is_valid())
         if comment_form.is_valid():
-            print(request.POST['post'])
             post = get_object_or_404(Post, pk=request.POST['post'])
             
             comment = Comment(author=request.POST['name'], text=request.POST['text'],
