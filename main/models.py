@@ -34,6 +34,7 @@ class Authors(models.Model):
 
 class Event(models.Model):
     title = models.CharField(max_length=30)
+    event_type = models.CharField(max_length=100, default="دورهمی", null=True)
     content = models.TextField()
     location = models.TextField()  # where is it
     image = models.ImageField(upload_to="static/image/event")
@@ -82,6 +83,7 @@ class Post(models.Model, HitCountMixin):
         verbose_name_plural = 'Posts'
         ordering = ['date']
 
+
 class Comment(models.Model):
     author = models.CharField(max_length=60)
     text = models.TextField()
@@ -95,6 +97,7 @@ class Comment(models.Model):
     class Meta:
         verbose_name = 'Comment'
         verbose_name_plural = 'Comments'
+
 
 class SubComment(models.Model):
     comment = models.ForeignKey(Comment, on_delete=models.CASCADE)

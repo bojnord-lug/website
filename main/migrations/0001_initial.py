@@ -18,7 +18,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Authors',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=60)),
                 ('image', models.ImageField(upload_to='static/image/authors')),
                 ('specialty', models.TextField()),
@@ -37,7 +38,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Banners',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=100)),
                 ('image', models.ImageField(upload_to='static/image/banners')),
             ],
@@ -45,7 +47,8 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Category',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=50)),
             ],
             options={
@@ -56,20 +59,25 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Event',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=30)),
                 ('content', models.TextField()),
                 ('location', models.TextField()),
                 ('image', models.ImageField(upload_to='static/image/event')),
                 ('date', models.DateField()),
                 ('time', models.TimeField()),
-                ('presenter', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.Authors')),
+                ('presenter', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='main.Authors')),
+                ('event_type', models.CharField(
+                    max_length=100, default="دورهمی", null=True)),
             ],
         ),
         migrations.CreateModel(
             name='SubComment',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('author', models.CharField(max_length=60)),
                 ('text', models.TextField()),
             ],
@@ -77,21 +85,26 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Profile',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('profession', models.CharField(max_length=20)),
-                ('profile_picture', models.ImageField(upload_to='profile_pictures/')),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
+                ('profile_picture', models.ImageField(
+                    upload_to='profile_pictures/')),
+                ('user', models.OneToOneField(
+                    on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
             name='Post',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=50)),
                 ('text', models.TextField()),
                 ('image', models.ImageField(upload_to='static/image')),
                 ('date', models.DateField()),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.Authors')),
+                ('author', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='main.Authors')),
                 ('category', models.ManyToManyField(to='main.Category')),
             ],
             options={
@@ -104,9 +117,12 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='EventImage',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('path', models.ImageField(upload_to='static/image/event')),
-                ('event', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.Event')),
+                ('event', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='main.Event')),
+
             ],
             options={
                 'verbose_name': 'EventImage',
@@ -116,11 +132,13 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Comment',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('author', models.CharField(max_length=60)),
                 ('text', models.TextField()),
                 ('date', models.DateField()),
-                ('post', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='main.Post')),
+                ('post', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE, to='main.Post')),
                 ('subcomments', models.ManyToManyField(to='main.SubComment')),
             ],
             options={

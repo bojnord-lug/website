@@ -158,20 +158,27 @@ def Login(request):
     else:
         return render(request, "login_form.html", {"error": "please complate the form corectly ..."})
 
+
 def add_comment(request):
-    if request.method=="POST":
+    if request.method == "POST":
         comment_form = SubmitComment(request.POST)
         if comment_form.is_valid():
             post = get_object_or_404(Post, pk=request.POST['post'])
-            
+
             comment = Comment(author=request.POST['name'], text=request.POST['text'],
-                                post=post, approved=False)
+                              post=post, approved=False)
             comment.save()
             return HttpResponse('ok')
     return Http404()
+
 
 @csrf_exempt
 def newsletter(request):
     email = NewsLetter(email=request.body.decode(), date=datetime.now())
     email.save()
     return HttpResponse(status=200)
+
+
+def gallery(request):
+    photos = EventImage.objects.all()
+    return render(request, "gallery.html", {"photos": photos})
