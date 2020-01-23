@@ -34,7 +34,7 @@ class Authors(models.Model):
 
 class Event(models.Model):
     title = models.CharField(max_length=30)
-    event_type = models.CharField(max_length=100, default="دورهمی", null=True)
+    event_type = models.CharField(max_length=100, default="دورهمی")
     content = models.TextField()
     location = models.TextField()  # where is it
     image = models.ImageField(upload_to="static/image/event")

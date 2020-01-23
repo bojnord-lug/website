@@ -182,10 +182,7 @@ def newsletter(request):
 def update_profile(request):
     if request.user.is_authenticated:
         if request.method=='POST':
-            form = UpdateProfileForm(request.POST)
-            print(request.POST)
-            # print(form)
-            print(form.is_valid())
+            form = UpdateProfileForm(request.POST, request.FILES)
             if form.is_valid():
                 profile = Profile.objects.filter(user=request.user)
                 expertise = form.cleaned_data.get('expertise')
@@ -199,7 +196,7 @@ def update_profile(request):
                     new_profile.profession = expertise
                     new_profile.description = description
                 if form.cleaned_data['photo']:
-                    new_profile.profule_picture = form.cleaned_data['photo'].image
+                    new_profile.profile_picture = form.cleaned_data['photo']
                 new_profile.save()
                 return HttpResponse('ok')
                 # if Profile.objects.filter(user=request.user)
