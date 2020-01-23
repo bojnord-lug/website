@@ -176,17 +176,6 @@
                                             {% for presenter in event.presenters.all %} {{ presenter.first_name }}
                                             {{ presenter.last_name }}{% if not forloop.last %} و {% endif %}{% endfor %}</a></small>
                                 </div><!-- end meta -->
-                                <div class="post-sharing">
-                                    <ul class="list-inline">
-                                        <li><a href="#" class="fb-button btn btn-primary"><i class="fa fa-facebook"></i>
-                                                <span class="down-mobile">ارسال به فیسبوک</span></a></li>
-                                        <li><a href="https://twitter.com/share?text={{event.title}}&url=http://bojnordlug.ir/post?id={{event.id}}"
-                                                target="blank" class="tw-button btn btn-primary"><i
-                                                    class="fa fa-twitter"></i>
-                                                <span class="down-mobile">ارسال به توییتر</span></a></li>
-
-                                    </ul>
-                                </div><!-- end post-sharing -->
                             </div><!-- end title -->
 
                             <div class="single-post-media">
