@@ -15,5 +15,7 @@ urlpatterns = [
     path("event", views.event, name='event'),
     path("bloglist/", views.index),
     path("submit_comment", views.add_comment),
-    path("saveEmail/", views.newsletter)
+    path("saveEmail/", views.newsletter),
+    path('update-profile', views.update_profile)
+
 ]

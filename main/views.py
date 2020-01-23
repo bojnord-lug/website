@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from .forms import Log_in, Sign_in, SubmitComment
+from .forms import Log_in, Sign_in, SubmitComment, UpdateProfileForm
 from .models import Post, Profile, Event, Category, Comment, EventImage, NewsLetter
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
@@ -149,11 +149,11 @@ def Login(request):
         name = form.cleaned_data.get("username")
         paswd = form.cleaned_data.get("passwd")
         user = authenticate(request, username=name, password=paswd)
-        if user is not None and not request.user.is_authenthicated:
+        if user is not None and not request.user.is_authenticated:
             login(request, user)
             request.session["user"] = name
             return redirect("/")
-        elif request.user.is_authenthicated:
+        elif request.user.is_authenticated:
             return redirect("/")
     else:
         return render(request, "login_form.html", {"error": "please complate the form corectly ..."})
@@ -175,3 +175,30 @@ def newsletter(request):
     email = NewsLetter(email=request.body.decode(), date=datetime.now())
     email.save()
     return HttpResponse(status=200)
+
+@csrf_exempt
+def update_profile(request):
+    if request.user.is_authenticated:
+        if request.method=='POST':
+            form = UpdateProfileForm(request.POST)
+            print(request.POST)
+            # print(form)
+            print(form.is_valid())
+            if form.is_valid():
+                profile = Profile.objects.filter(user=request.user)
+                expertise = form.cleaned_data.get('expertise')
+                description=form.cleaned_data.get('description')
+
+                if not profile:
+                    new_profile = Profile(user=request.user, profession=expertise, 
+                                            description=description)
+                else:
+                    new_profile = profile[0]
+                    new_profile.profession = expertise
+                    new_profile.description = description
+                if form.cleaned_data['photo']:
+                    new_profile.profule_picture = form.cleaned_data['photo'].image
+                new_profile.save()
+                return HttpResponse('ok')
+                # if Profile.objects.filter(user=request.user)
+    return Http404()

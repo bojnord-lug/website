@@ -50,7 +50,11 @@ class Profile(models.Model):
     # to specify the profession of the user
     profession = models.CharField(max_length=20)
     # for instance SysAdmin, Programmer and etc.
-    profile_picture = models.ImageField(upload_to='profile_pictures/')
+    profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
+    description = models.TextField() # about me
+
+    def __str__(self):
+        return self.user.first_name
 
 
 class Category(models.Model):
