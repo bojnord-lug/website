@@ -163,7 +163,6 @@ def add_comment(request):
         comment_form = SubmitComment(request.POST)
         if comment_form.is_valid():
             post = get_object_or_404(Post, pk=request.POST['post'])
-
             comment = Comment(author=request.POST['name'], text=request.POST['text'],
                               post=post, approved=False)
             comment.save()

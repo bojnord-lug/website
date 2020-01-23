@@ -333,7 +333,7 @@
                                             {% endif %}
                                             <textarea class="form-control" placeholder="پیام شما"
                                                 id="comment_message"></textarea>
-                                            <button type="submit" class="btn btn-primary" id="submit">ارسال دیدگاه</button>
+                                            <button type="submit" class="btn btn-primary" id="submit-btn">ارسال دیدگاه</button>
                                         </form>
                                     </div>
                                 </div>
@@ -472,7 +472,7 @@
         <script type="text/javascript" src="{% static 'js/custom1.js'%}"></script>
     <script src="{% static 'js/sweetalert2.min.js'%}"></script>
 <script>
-    $("#submit").click(
+    $("#submit-btn").click(
     function() {
         var name = $("#comment_name").val();
         var text = $("#comment_message").val();
@@ -484,7 +484,7 @@
             data: { name: name, text: text, website: website, email: email, post: post, csrfmiddlewaretoken: '{{ csrf_token }}' },
             url: "/submit_comment",
             success: function (msg) {
-                if (msg != 'ok') {
+                if (msg == 'ok') {
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
