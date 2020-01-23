@@ -137,9 +137,6 @@
                                 <a class="nav-link" href="/gallery">گالری تصاویر</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/contact">تماس با ما</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="/about-us">درباره ما</a>
                             </li>
                             {% if request.user.is_authenticated %}
@@ -159,7 +156,7 @@
                     {% for item in Posts%}
                     <div class="{% cycle 'left-side' 'center-side' 'right-side hidden-md-down' %}">
                         <div class="masonry-box post-media">
-                            <img src="{{item.image}}" alt="" width="534" height="468">
+                            <img src="{{ item.image.url }}" alt="" width="534" height="468">
                             <div class="shadoweffect">
                                 <div class="shadow-desc">
                                     <div class="blog-meta">
@@ -211,7 +208,7 @@
                                         <small><a href="#" title="">{% if item.presenters.length > 1 %}ارائه
                                             دهندگاه: {% else %} ارائه دهنده: {% endif %}
                                             {% for presenter in item.presenters.all %} {{ presenter.first_name }}
-                                            {{ presenter.last_name }}{% if not forloop.last %}و{% endif %}{% endfor %}</a></small>
+                                            {{ presenter.last_name }}{% if not forloop.last %} و {% endif %}{% endfor %}</a></small>
                                     </div>
                                     <!-- end meta -->
                                 </div>
@@ -264,10 +261,10 @@
                                 <div class="blog-list-widget">
                                     <div class="list-group">
                                         {% for item in Posts %}
-                                        <a href="post?id={{item.id}}"
+                                        <a href="post?id={{ item.id }}"
                                             class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="{{item.image}}" alt="" height="55" width="55" class="float-left">
+                                                <img src="{{ item.image.url }}" alt="" height="55" width="55" class="float-left">
                                                 <h5 class="mb-1">{{item.title}}</h5>
                                                 <small>{{item.date}}</small>
                                             </div>
@@ -290,7 +287,7 @@
                                 <h2 class="widget-title">آلبوم تصاویر</h2>
                                 <div class="instagram-wrapper clearfix">
                                     {%for item in event_images%}
-                                    <a href="{{item.path}}"><img src="{{item.path}}" alt="" height="80" width="80"></a>
+                                    <a href="{{ item.image.url }}"><img src="{{ item.image.url }}" alt="" height="80" width="80"></a>
                                     {%endfor%}
                                 </div><!-- end Instagram wrapper -->
                             </div><!-- end widget -->

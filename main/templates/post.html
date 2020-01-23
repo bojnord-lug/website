@@ -107,7 +107,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="logo">
-                            <a href="index.html"><img src="{% static 'images/version/garden-logo.png'%}" alt=""></a>
+                            <a href="/"><img src="{% static 'images/version/garden-logo.png'%}" alt=""></a>
                         </div><!-- end logo -->
                     </div>
                 </div><!-- end row -->
@@ -127,10 +127,7 @@
                                     <a class="nav-link" href="/">صفحه اصلی <span class="sr-only">(current)</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="category.html">گالری تصاویر</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="contact.html">تماس با ما</a>
+                                    <a class="nav-link" href="/gallery">گالری تصاویر</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="/about-us">درباره ما</a>
@@ -177,7 +174,7 @@
                             </div><!-- end title -->
 
                             <div class="single-post-media">
-                                <img src="{{post.image}}" alt="" class="img-fluid">
+                                <img src="{{ post.image.url }}" alt="" class="img-fluid">
                             </div><!-- end media -->
 
                             <div class="blog-content">
@@ -226,7 +223,7 @@
                                     </div><!-- end col -->
 
                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                        <h4><a href="#">{{ post.author.first_name }}</a></h4>
+                                        <h4><a href="#">{{ post.author.first_name }} {{ post.author.last_name }}</a></h4>
                                         <p>{{ post.author.profile.profession }}</p>
 
                                         <div class="topsocial">                                            
@@ -366,9 +363,9 @@
                                         {% for item in latest_Posts %}
                                         <a href="post?id={{item.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="{{item.image}}" alt="" height="55" width="55" class="float-left">
-                                                <h5 class="mb-1">{{item.title}}</h5>
-                                                <small>{{item.date}}</small>
+                                                <img src="{{ item.image.url }}" alt="" height="55" width="55" class="float-left">
+                                                <h5 class="mb-1">{{ item.title }}</h5>
+                                                <small>{{ item.date }}</small>
                                             </div>
                                         </a>
                                         {% endfor %}

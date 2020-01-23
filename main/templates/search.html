@@ -112,7 +112,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="logo">
-                            <a href="index.html"><img src="{% static 'images/version/garden-logo.png' %}" alt=""></a>
+                            <a href="/"><img src="{% static 'images/version/garden-logo.png' %}" alt=""></a>
                         </div><!-- end logo -->
                     </div>
                 </div><!-- end row -->
@@ -134,17 +134,16 @@
                                         class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="category.html">گالری تصاویر</a>
+                                <a class="nav-link" href="/gallery">گالری تصاویر</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/contact">تماس با ما</a>
+                                <a class="nav-link" href="/about-us">درباره ما</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="/single">درباره ما</a>
-                            </li>
+                            {% if request.user.is_authenticated %}
                             <li class="nav-item">
                                 <a class="nav-link" href="/profile">پروفایل کاربری</a>
                             </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </nav>
@@ -165,7 +164,7 @@
                                     <div class="col-md-4">
                                         <div class="post-media">
                                             <a href="post?id={{item.id}}" title="">
-                                                <img src="{{item.image}}" alt="" class="img-fluid" />
+                                                <img src="{{ item.image.url }}" alt="" class="img-fluid" />
                                                 <div class="hovereffect"></div>
                                             </a>
                                         </div>
@@ -240,7 +239,7 @@
                                         <a href="post?id={{item.id}}"
                                             class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="{{item.image}}" alt="" height="55" width="55" class="float-left">
+                                                <img src="{{ item.image.url }}" alt="" height="55" width="55" class="float-left">
                                                 <h5 class="mb-1">{{item.title}}</h5>
                                                 <small>{{item.date}}</small>
                                             </div>
@@ -263,7 +262,7 @@
                                 <h2 class="widget-title">آلبوم تصاویر</h2>
                                 <div class="instagram-wrapper clearfix">
                                     {%for item in event_images%}
-                                    <a href="{{item.path}}"><img src="{{item.path}}" alt="" height="80" width="80"></a>
+                                    <a href="{{ item.image.url }}"><img src="{{ item.image.url }}" alt="" height="80" width="80"></a>
                                     {%endfor%}
                                 </div><!-- end Instagram wrapper -->
                             </div><!-- end widget -->
@@ -290,7 +289,7 @@
                     <div class="col-lg-8 offset-lg-2">
                         <div class="widget">
                             <div class="footer-text text-center">
-                                <a href="index.html"><img src="{% static 'images/version/garden-footer-logo.png'%}" alt=""
+                                <a href="/"><img src="{% static 'images/version/garden-footer-logo.png'%}" alt=""
                                         class="img-fluid"></a>
                                 <p>گروه کاربران گنو/لینوکس بجنورد یا «بجنوردلاگ» گروهی مستقل از کاربران کامپیوتر
                                     علاقه‌مند به گنو/لینوکس ساکن بجنورد است با هدف گسترش فرهنگ‌سازی در استفاده از
