@@ -134,9 +134,6 @@
                                 <a class="nav-link" href="/gallery">گالری تصاویر</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="contact.html">تماس با ما</a>
-                            </li>
-                            <li class="nav-item">
                                 <a class="nav-link" href="/about-us">درباره ما</a>
                             </li>
                             <!-- TODO -->
@@ -177,7 +174,7 @@
                                     <small><a href="" title="">{% if event.presenters.length > 1 %}ارائه
                                             دهندگاه: {% else %} ارائه دهنده: {% endif %}
                                             {% for presenter in event.presenters.all %} {{ presenter.first_name }}
-                                            {{ presenter.last_name }}{% if not forloop.last %}و{% endif %}{% endfor %}</a></small>
+                                            {{ presenter.last_name }}{% if not forloop.last %} و {% endif %}{% endfor %}</a></small>
                                 </div><!-- end meta -->
                                 <div class="post-sharing">
                                     <ul class="list-inline">
@@ -285,7 +282,7 @@
                                         <div class="blog-box">
                                             <div class="post-media">
                                                 <a href="post?id={{item.id}}" title="">
-                                                    <img src="{{item.image}}" alt="" width="357" height="205"
+                                                    <img src="{{ item.image.url }}" alt="" width="357" height="205"
                                                         class="img-fluid">
                                                     <div class="hovereffect">
                                                         <span class=""></span>
@@ -375,7 +372,7 @@
                                         <a href="post?id={{item.id}}"
                                             class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="{{item.image}}" alt="" height="55" width="55"
+                                                <img src="{{ item.image.url }}" alt="" height="55" width="55"
                                                     class="float-left">
                                                 <h5 class="mb-1">{{item.title}}</h5>
                                                 <small>{{item.date}}</small>
@@ -399,7 +396,7 @@
                                 <h2 class="widget-title">آلبوم تصاویر</h2>
                                 <div class="instagram-wrapper clearfix">
                                     {%for item in event_images%}
-                                    <a href="{{item.path}}"><img src="{{item.path}}" alt="" height="80" width="80"></a>
+                                    <a href="{{ item.image.url }}"><img src="{{ item.image.url }}" alt="" height="80" width="80"></a>
                                     {%endfor%}
                                 </div><!-- end Instagram wrapper -->
                             </div><!-- end widget -->
@@ -484,7 +481,7 @@
     <script src="{% static 'js/jquery.min.js'%}"></script>
     <script src="{% static 'js/tether.min.js'%}"></script>
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="{% static 'js/axios.min.js'%}"></script>
     <script type="text/javascript" src="{% static 'js/custom1.js'%}"></script>
 </body>
 

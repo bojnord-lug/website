@@ -129,14 +129,16 @@
                                         class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="category.html">گالری تصاویر</a>
+                                <a class="nav-link" href="/gallery">گالری تصاویر</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="contact.html">تماس با ما</a>
+                                <a class="nav-link" href="/about-us">درباره ما</a>
                             </li>
+                            {% if request.user.is_authenticated %}
                             <li class="nav-item">
-                                <a class="nav-link" href="single.html">درباره ما</a>
+                                <a class="nav-link" href="/profile">پروفایل کاربری</a>
                             </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </nav>
@@ -173,7 +175,7 @@
                                     <div class="col-md-4">
                                         <div class="post-media">
                                             <a href="post?id={{item.id}}" title="">
-                                                <img src="{{item.image}}" alt="" class="img-fluid" />
+                                                <img src="{{ item.image.url }}" alt="" class="img-fluid" />
                                                 <div class="hovereffect"></div>
                                             </a>
                                         </div>
@@ -187,7 +189,7 @@
                                         <p>{{item.content}}</p>
                                         <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i> {{ item.hit_count.hits }}</a></small>
                                         <small><a href="post?id={{item.id}}" title="">{{item.date}}</a></small>
-                                        <small><a href="#" title="">توسط: {{item.author}}</a></small>
+                                        <small><a href="#" title="">توسط: {{ item.author.first_name }} {{ item.author.last_name }}</a></small>
                                     </div>
                                     <!-- end meta -->
                                 </div>
@@ -241,7 +243,7 @@
                                         {% for item in latest_Posts %}
                                         <a href="post?id={{item.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
                                             <div class="w-100 justify-content-between">
-                                                <img src="{{item.image}}" alt="" height="55" width="55" class="float-left">
+                                                <img src="{{ item.image.url }}" alt="" height="55" width="55" class="float-left">
                                                 <h5 class="mb-1">{{item.title}}</h5>
                                                 <small>{{item.date}}</small>
                                             </div>
@@ -264,7 +266,7 @@
                                 <h2 class="widget-title">آلبوم تصاویر</h2>
                                 <div class="instagram-wrapper clearfix">
                                     {%for item in event_images%}
-                                    <a href="{{item.path}}"><img src="{{item.path}}" alt="" height="80" width="80"></a>
+                                    <a href="{{ item.image.url }}"><img src="{{ item.image.url }}" alt="" height="80" width="80"></a>
                                     {%endfor%}
                                 </div><!-- end Instagram wrapper -->
                             </div><!-- end widget -->
