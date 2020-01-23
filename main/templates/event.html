@@ -171,7 +171,7 @@
 
                                 <div class="blog-meta big-meta">
                                     <small><a href="" title="">{{event.date}}</a></small>
-                                    <small><a href="" title="">{% if event.presenters.length > 1 %}ارائه
+                                    <small><a href="" title="">{% if event.presenters.all.count > 1 %}ارائه
                                             دهندگاه: {% else %} ارائه دهنده: {% endif %}
                                             {% for presenter in event.presenters.all %} {{ presenter.first_name }}
                                             {{ presenter.last_name }}{% if not forloop.last %} و {% endif %}{% endfor %}</a></small>
@@ -228,7 +228,7 @@
                             <hr class="invis1">
 
                             <div class="custombox authorbox clearfix">
-                                <h4 class="small-title">درباره {% if event.presenters.length > 1 %}ارائه دهندگاه
+                                <h4 class="small-title">درباره {% if event.presenters.all.count > 1 %}ارائه دهندگاه
                                     {% else %} ارائه دهنده {% endif %}</h4>
                                 {% for presenter in event.presenters.all %}
                                 <div class="row">

@@ -190,7 +190,7 @@
                                 <div class="blog-box row">
                                     <div class="col-md-4">
                                         <div class="post-media">
-                                            <a href="event?id={{item.id}}" title="">
+                                            <a href="event?id={{ item.id }}" title="">
                                                 <img src="{{ item.image.url }}" alt="" class="img-fluid" />
                                                 <div class="hovereffect"></div>
                                             </a>
@@ -198,14 +198,13 @@
                                         <!-- end media -->
                                     </div>
                                     <!-- end col -->
-                                
                                     <div class="blog-meta big-meta col-md-8">
                                         <span class="bg-aqua"><a href="" title="">دورهمی</a></span>
                                         <h4><a href="event?id={{item.id}}" title="">{{item.title}}</a></h4>
-                                        <p>{{item.content}}</p>
+                                        <p>{{ item.content|truncatewords_html:50 }}</p>
                                         <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i> {% get_hit_count for item %}</a></small>
                                         <small><a href="event?id={{item.id}}" title="">{{item.date}}</a></small>
-                                        <small><a href="#" title="">{% if item.presenters.length > 1 %}ارائه
+                                        <small><a href="#" title="">{% if item.presenters.all.count > 1 %}ارائه
                                             دهندگاه: {% else %} ارائه دهنده: {% endif %}
                                             {% for presenter in item.presenters.all %} {{ presenter.first_name }}
                                             {{ presenter.last_name }}{% if not forloop.last %} و {% endif %}{% endfor %}</a></small>
