@@ -8,8 +8,8 @@ from .models import Post, Profile, Event, Category, Comment, EventImage, NewsLet
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
-from django.views.decorators.http import require_GET
+from django.views.decorators.http import require_POST, require_GET
+from django.contrib.auth.decorators import login_required
 import json
 from datetime import datetime
 
@@ -108,18 +108,17 @@ def post(request):
 
 
 def event(request):
-    event = Event.objects.get(pk=request.GET.get("id"))
+    event_ = Event.objects.get(pk=request.GET.get("id"))
+    hit_count = HitCount.objects.get_for_object(event_)
+    res = HitCountMixin.hit_count(request, hit_count)  # count hit
     latest_Posts = list(Post.objects.order_by("-date").all()[:3])
-    author_Posts = list(Post.objects.order_by(
-        "-date").filter(author=event.presenter.id)[:2])
+    author_Posts = [post for author in event_.presenters.all() for post in Post.objects.order_by("-date").filter(author=author)[:2]] 
     event_images = EventImage.objects.all()[:9]
     comments = list(Comment.objects.order_by(
-        "-date").filter(post=event.id))
-
+        "-date").filter(post=event_.id))
     most_recent_categories = sorted([i for i in Category.objects.all()],
                                     key=lambda x: x.post_set.count())[::-1][:5]
-
-    return render(request, "event.html", {"event_images": event_images, "comments": comments, "author_Posts": author_Posts, "event": event, "latest_Posts": latest_Posts, 'recent_categories': most_recent_categories})
+    return render(request, "event.html", {"event_images": event_images, "comments": comments, "author_Posts": author_Posts, "event": event_, "latest_Posts": latest_Posts, 'recent_categories': most_recent_categories, 'hits': event_.hit_count.hits})
 
 
 @require_POST
@@ -178,6 +177,7 @@ def newsletter(request):
     email.save()
     return HttpResponse(status=200)
 
+@login_required
 @csrf_exempt # more work TODO (for Mehrshad)
 def update_profile(request):
     if request.user.is_authenticated:
@@ -205,3 +205,7 @@ def update_profile(request):
 def gallery(request):
     photos = EventImage.objects.all()
     return render(request, "gallery.html", {"photos": photos})
+
+def about_us(request):
+    authors = [i.user for i in Profile.objects.filter(is_author=True)]
+    return render(request, 'about-us.htm', {'authors': authors})

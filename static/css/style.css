@@ -22,10 +22,6 @@
 /* BASIC 
 **************************************/
 
-.hide {
-  display: none;
-}
-
 body {
   direction: rtl;
   font-size: 15px;
@@ -786,8 +782,8 @@ div.tab button:hover {
   color: #111 !important;
 }
 
-.page-item{
-  margin-left:1%;
+.page-item {
+  margin-left: 1%;
 }
 .page-item:first-child .page-link {
   margin-left: 0;
@@ -1834,9 +1830,6 @@ input[type="password"] {
   cursor: pointer !important;
 }
 
-
-
-
 /* Profile container */
 .profile {
   margin: 20px 0;
@@ -1894,7 +1887,7 @@ input[type="password"] {
 .profile-userbuttons .btn:last-child {
   margin-right: 0px;
 }
-    
+
 .profile-usermenu {
   margin-top: 30px;
 }
@@ -1942,15 +1935,92 @@ input[type="password"] {
 }
 
 /* style form profile */
-.form-control:focus{
+.form-control:focus {
   border-color: #c09105;
-  box-shadow:0 0 0 .1rem #fcdc7d;
-
+  box-shadow: 0 0 0 0.1rem #fcdc7d;
 }
-.btn btn-primary{
+.btn btn-primary {
   border-color: #c09105;
-  box-shadow:0 0 0 .1rem #fcdc7d;
+  box-shadow: 0 0 0 0.1rem #fcdc7d;
 }
 
+/* ------- Gallery ------- */
+.gallery-title {
+  font-size: 36px;
+  color: #42b32f;
+  text-align: center;
+  font-weight: 500;
+  margin-bottom: 70px;
+}
+.gallery-title:after {
+  content: "";
+  position: absolute;
+  width: 7.5%;
+  left: 46.5%;
+  height: 45px;
+  border-bottom: 1px solid #5e5e5e;
+}
+.filter-button {
+  font-size: 18px;
+  border: 1px solid #42b32f;
+  border-radius: 5px;
+  text-align: center;
+  color: #42b32f;
+  margin-bottom: 30px;
+}
+.filter-button:hover {
+  font-size: 18px;
+  border: 1px solid #42b32f;
+  border-radius: 5px;
+  text-align: center;
+  color: #ffffff;
+  background-color: #42b32f;
+}
+.btn-default:active .filter-button:active {
+  background-color: #42b32f;
+  color: white;
+}
+/* style form about */
+.about-text p{
+  text-align: justify;
+}
+
+.img img{
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+  box-shadow: black; 
+  filter: url(filters.svg#grayscale); /* Firefox 3.5+ */
+  filter: gray; /* IE6-9 */
+  -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+    
+}
+.img img:hover {
+  filter: none;
+  -webkit-filter: grayscale(0);
+  -webkit-transform:scale(1.2);
+  -moz-transform:scale(1.2);
+  -o-transform:scale(1.2);
+  box-shadow:0px 0px 3px gray;
+  -webkit-box-shadow:0px 0px 30px gray;
+  -moz-box-shadow:0px 0px 30px gray;
+   opacity: 1;
+    
+  }
 
 
+.role p{
+  line-height: 1px;
+  color: #fec000;
+}
+
+.port-image {
+  width: 100%;
+}
+.gallery_product {
+  margin-bottom: 30px;
+}
+
+.mb-4 {
+  margin-bottom: 18px !important;
+}
