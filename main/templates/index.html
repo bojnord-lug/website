@@ -142,9 +142,11 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="/single">درباره ما</a>
                             </li>
+                            {% if request.user.is_authenticated %}
                             <li class="nav-item">
                                 <a class="nav-link" href="/profile">پروفایل کاربری</a>
                             </li>
+                            {% endif %}
                         </ul>
                     </div>
                 </nav>
