@@ -130,17 +130,17 @@
                         style="justify-content: center !important;">
                         <ul class="navbar-nav">
                             <li class="nav-item active">
-                                <a class="nav-link" href="/index">صفحه اصلی <span
+                                <a class="nav-link" href="#">صفحه اصلی <span
                                         class="sr-only">(current)</span></a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="category.html">گالری تصاویر</a>
+                                <a class="nav-link" href="/gallery">گالری تصاویر</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/contact">تماس با ما</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/single">درباره ما</a>
+                                <a class="nav-link" href="/about-us">درباره ما</a>
                             </li>
                             {% if request.user.is_authenticated %}
                             <li class="nav-item">
@@ -168,7 +168,7 @@
                                         {% endfor %}
                                         <h4><a href="post?id={{item.id}}" title="">{{item.title}}</a></h4>
                                         <small><a href="post?id={{item.id}}" title="">{{item.date}}</a></small>
-                                        <small><a href="#" title="">توسط {{item.author}}</a></small>
+                                        <small><a href="#" title="">توسط {{ item.author.first_name }} {{ item.author.last_name }}</a></small>
                                     </div><!-- end meta -->
                                 </div><!-- end shadow-desc -->
                             </div><!-- end shadow -->
@@ -194,7 +194,7 @@
                                     <div class="col-md-4">
                                         <div class="post-media">
                                             <a href="event?id={{item.id}}" title="">
-                                                <img src="{{item.image}}" alt="" class="img-fluid" />
+                                                <img src="{{ item.image.url }}" alt="" class="img-fluid" />
                                                 <div class="hovereffect"></div>
                                             </a>
                                         </div>
@@ -203,12 +203,15 @@
                                     <!-- end col -->
                                 
                                     <div class="blog-meta big-meta col-md-8">
-                                        <span class="bg-aqua"><a href="garden-category.html" title="">دورهمی</a></span>
+                                        <span class="bg-aqua"><a href="" title="">دورهمی</a></span>
                                         <h4><a href="event?id={{item.id}}" title="">{{item.title}}</a></h4>
                                         <p>{{item.content}}</p>
                                         <small><a href="garden-category.html" title=""><i class="fa fa-eye"></i> {% get_hit_count for item %}</a></small>
                                         <small><a href="event?id={{item.id}}" title="">{{item.date}}</a></small>
-                                        <small><a href="#" title="">ارائه: {{item.presenter}}</a></small>
+                                        <small><a href="#" title="">{% if item.presenters.length > 1 %}ارائه
+                                            دهندگاه: {% else %} ارائه دهنده: {% endif %}
+                                            {% for presenter in item.presenters.all %} {{ presenter.first_name }}
+                                            {{ presenter.last_name }}{% if not forloop.last %}و{% endif %}{% endfor %}</a></small>
                                     </div>
                                     <!-- end meta -->
                                 </div>

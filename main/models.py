@@ -13,15 +13,18 @@ class Banners(models.Model):
         return self.title
 
 
-class Event(models.Model):
+class Event(models.Model, HitCountMixin):
     title = models.CharField(max_length=30)
     event_type = models.CharField(max_length=100, default="دورهمی")
     content = models.TextField()
     location = models.TextField()  # where is it
     image = models.ImageField(upload_to="static/image/event")
-    presenter = models.ManyToManyField(User)
+    presenters = models.ManyToManyField(User)
     date = models.DateField()  # when is the event
     time = models.TimeField()  # when singup for the event finishes
+
+    hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',
+                                        related_query_name='hit_count_generic_relation')
 
     def __str__(self):
         return self.title
@@ -107,7 +110,7 @@ class SubComment(models.Model):
 
 
 class EventImage(models.Model):
-    path = models.ImageField(upload_to="static/image/event")
+    image = models.ImageField(upload_to="static/image/event")
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
 
     def __str__(self):

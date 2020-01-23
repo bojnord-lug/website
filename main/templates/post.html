@@ -133,8 +133,13 @@
                                     <a class="nav-link" href="contact.html">تماس با ما</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="single.html">درباره ما</a>
+                                    <a class="nav-link" href="/about-us">درباره ما</a>
                                 </li>
+                                {% if request.user.is_authenticated %}
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/profile">پروفایل کاربری</a>
+                                </li>
+                                {% endif %}
                             </ul>
                         </div>
                     </nav>
@@ -149,7 +154,7 @@
                     </div><!-- end col -->
                     <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">صفحه اصلی</a></li>
+                            <li class="breadcrumb-item"><a href="/">صفحه اصلی</a></li>
                             <li class="breadcrumb-item active">بلاگ</li>
                         </ol>
                     </div><!-- end col -->
@@ -165,8 +170,8 @@
                             <div class="blog-title-area">
                                 <h3>{{post.title}}</h3>
                                 <div class="blog-meta big-meta">
-                                    <small><a href="single.html" title="">{{post.date}}</a></small>
-                                    <small><a href="blog-author.html" title="">توسط {{post.author.name}}</a></small>
+                                    <small><a href="single.html" title="">{{ post.date }}</a></small>
+                                    <small><a href="blog-author.html" title="">توسط {{post.author.first_name}} {{ post.author.last_name }}</a></small>
                                     <small><a href="#" title=""><i class="fa fa-eye"></i> {{ hits }}</a></small>
                                 </div><!-- end meta -->
                             </div><!-- end title -->
@@ -217,26 +222,38 @@
                                 <h4 class="small-title">درباره نویسنده</h4>
                                 <div class="row">
                                     <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                        <img src="{{post.author.image}}" alt="" class="img-fluid rounded-circle">
+                                        <img src="{{ post.author.profile.profile_picture.url }}" alt="" class="img-fluid rounded-circle">
                                     </div><!-- end col -->
 
                                     <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                        <h4><a href="#">{{post.author.name}}</a></h4>
-                                        <p>{{post.author.specialty}}</p>
+                                        <h4><a href="#">{{ post.author.first_name }}</a></h4>
+                                        <p>{{ post.author.profile.profession }}</p>
 
-                                        <div class="topsocial">
-                                            <a href="https://facebook.com/{{post.author.facebook}}" data-toggle="tooltip" data-placement="bottom"
-                                                title="Facebook"><i class="fa fa-facebook"></i></a>
-                                            <a href="https://youtube.com/{{post.author.youtube}}" data-toggle="tooltip" data-placement="bottom" title="Youtube"><i
+                                        <div class="topsocial">                                            
+                                            {% if post.author.profile.facebook %}
+                                            <a href="https://facebook.com/{{ presenter.profile.facebook }}"
+                                                data-toggle="tooltip" data-placement="bottom" title="Facebook"><i
+                                                    class="fa fa-facebook"></i></a>
+                                            {% endif %}
+                                            {% if post.author.profile.youtube %}
+                                            <a href="https://youtube.com/{{ presenter.profile.youtube }}"
+                                                data-toggle="tooltip" data-placement="bottom" title="Youtube"><i
                                                     class="fa fa-youtube"></i></a>
-                                            <a href="#" data-toggle="tooltip" data-placement="bottom"
-                                                title="Pinterest"><i class="fa fa-pinterest"></i></a>
-                                            <a href="https://twitter.com/{{post.author.twitter}}" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i
+                                            {% endif %}
+                                            {% if post.author.profile.twitter %}
+                                            <a href="https://twitter.com/{{ presenter.profile.twitter }}"
+                                                data-toggle="tooltip" data-placement="bottom" title="Twitter"><i
                                                     class="fa fa-twitter"></i></a>
-                                            <a href="https://instagram.com/{{post.author.instagram}}" data-toggle="tooltip" data-placement="bottom"
-                                                title="Instagram"><i class="fa fa-instagram"></i></a>
-                                            <a href="{{post.author.website}}" data-toggle="tooltip" data-placement="bottom" title="Website"><i
-                                                    class="fa fa-link"></i></a>
+                                            {% endif %}
+                                            {% if post.author.profile.instagram %}
+                                            <a href="https://instagram.com/{{ presenter.profile.instagram }}"
+                                                data-toggle="tooltip" data-placement="bottom" title="Instagram"><i
+                                                    class="fa fa-instagram"></i></a>
+                                            {% endif %}
+                                            {% if post.author.profile.website %}
+                                            <a href="{{ presenter.profile.website }}" data-toggle="tooltip"
+                                                data-placement="bottom" title="Website"><i class="fa fa-link"></i></a>
+                                            {% endif %}
                                         </div><!-- end social -->
 
                                     </div><!-- end col -->
@@ -262,7 +279,7 @@
                                             <div class="blog-meta">
                                                 <h4><a href="post?id={{item.id}}" title="">{{item.title}}</a>
                                                 </h4>
-                                                <small><a href="blog-category-01.html" title="">{{item.author.name}}</a></small>
+                                                <small><a href="blog-category-01.html" title="">{{item.author.first_name}} {{ post.author.last_name }}</a></small>
                                                 <small><a href="blog-category-01.html" title="">{{item.date}}</a></small>
                                             </div><!-- end meta -->
                                         </div><!-- end blog-box -->
@@ -372,7 +389,7 @@
                                 <h2 class="widget-title">آلبوم تصاویر</h2>
                                 <div class="instagram-wrapper clearfix">
                                     {%for item in event_images%}
-                                    <a href="{{item.path}}"><img src="{{item.path}}" alt="" height="80" width="80"></a>
+                                    <a href="{{ item.image.url }}"><img src="{{ item.image.url }}" alt="" height="80" width="80"></a>
                                     {%endfor%}
                                 </div><!-- end Instagram wrapper -->
                             </div><!-- end widget -->
