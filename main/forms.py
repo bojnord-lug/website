@@ -18,7 +18,8 @@ class SubmitComment(forms.Form):
     post = forms.IntegerField()
 
 class UpdateProfileForm(forms.Form):
-    name = forms.CharField(max_length=25)
+    first_name = forms.CharField(max_length=15)
+    last_name = forms.CharField(max_length=15)
     expertise = forms.CharField(max_length=20)
     photo = forms.ImageField(required=False)
     description = forms.CharField(widget=forms.Textarea)

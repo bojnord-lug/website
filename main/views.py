@@ -194,9 +194,12 @@ def update_profile(request):
                     new_profile = profile[0]
                     new_profile.profession = expertise
                     new_profile.description = description
+                request.user.first_name = form.cleaned_data.get('first_name')
+                request.user.last_name = form.cleaned_data.get('last_name')
                 if form.cleaned_data['photo']:
                     new_profile.profile_picture = form.cleaned_data['photo']
                 new_profile.save()
+                request.user.save()
                 return HttpResponse('ok')
                 # if Profile.objects.filter(user=request.user)
     return Http404()

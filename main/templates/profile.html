@@ -223,8 +223,12 @@
                                         <form action="" method="POST" id="form-user" class="form-wrapper">
 
                                             <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
-                                                <input id="form-name" type="text" class="form-control user" name="name"
-                                                    placeholder="نام و نام خانوادگی">
+                                                <input id="form-first-name" type="text" class="form-control user" name="name"
+                                                    placeholder="نام">
+                                            </div>
+                                            <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+                                                <input id="form-last-name" type="text" class="form-control user" name="name"
+                                                    placeholder="نام خانوادگی">
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
@@ -354,12 +358,14 @@
     <script>
         $("#submit_btn").click(
             function () {
-                var name = $("#form-name").val();
+                var first_name = $("#form-first-name").val();
+                var last_name = $("#form-last-name").val();
                 var expertise = $("#form-expertise").val();
                 var description = $("#form-description").val();
                 var image = $("#file-2")[0].files[0];
                 var formData = new FormData();
-                formData.append("name", name);
+                formData.append("first_name", first_name);
+                formData.append("last_name", last_name);
                 formData.append("expertise", expertise);
                 formData.append("description", description);
                 formData.append("photo", image);
