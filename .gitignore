@@ -4,3 +4,4 @@ main/__pycache__/
 main/migrations
 LUG/__pycache__/
 media/
+.vscode/
