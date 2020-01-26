@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from .forms import Log_in, Sign_in, SubmitComment, UpdateProfileForm
+from .forms import LoginForm, SubmitComment, UpdateProfileForm
 from .models import Post, Profile, Event, Category, Comment, EventImage, NewsLetter
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
@@ -48,19 +48,25 @@ def search(request):
 
     return render(request, 'search.html', {"event_images": event_images, "Posts": all_Posts, "search_result": search_result, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages), 'recent_categories': most_recent_categories})
 
+def user_logout(request):
+    if request.user.is_authenticated:
+        logout(request)
+    return redirect('/')
 
 def login_user(request):
-    if request.method == 'POST':
-        email = request.POST.get('email')
-        password = request.POST.get('password')
-        user = authenticate(email=email, password=password)
-
-        if user and user.is_active:
-            login(request, user)
-            return HttpResponseRedirect(reverse('index'))
-
-    else:
-        return render(request, 'login.htm')
+    if request.is_ajax():
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
+            user = authenticate(request, username=name, password=password)
+            print(user)
+            if user:
+                login(request, user)
+                return HttpResponse('ok')
+            else:
+                return HttpResponse('wrong')
+    return Http404()
 
 
 def profile(request):

@@ -75,9 +75,15 @@
                                 aria-controls="collapseExample">
                                 <i class="fa fa-search"></i>
                             </a>
-                            <span class="ml-2 btn-account" role="button" data-toggle="modal" data-target="#login-modal">
+                            {% if user.is_authenticated %}
                                 <i class="fa fa-user"></i>
-                                ورود</span>
+                                <a href="/profile">{{request.session.user}}</a>
+                                <a href="/logout">خروج</a>
+                            {% else %}
+                                <span class="ml-2 btn-account" role="button" data-toggle="modal" data-target="#login-modal">
+                                    <i class="fa fa-user"></i> ورود
+                                </span>
+                            {% endif %}    
                         </div><!-- end search -->
                     </div><!-- end col -->
 
@@ -112,7 +118,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="logo">
-                            <a href="index.html"><img src="{% static 'images/version/garden-logo.png' %}" alt=""></a>
+                            <a href="/"><img src="{% static 'images/version/garden-logo.png' %}" alt=""></a>
                         </div><!-- end logo -->
                     </div>
                 </div><!-- end row -->
@@ -377,16 +383,16 @@
 
                     <!-- Begin # Login Form -->
                     <form id="login-form" class="form-wrapper">
+                        {% csrf_token %}
                         <div class="modal-body">
                             <div id="div-login-msg">
                                 <div id="icon-login-msg" class="fa fa-chevron-left"></div>
-
-                                <span id="text-login-msg">نام کاربری و رمز را وارد کنید!</span>
+                                <span id="text-login-msg">نام کاربری و رمز را وارد کنید!</span>  
                             </div>
                             <input id="login_username" class="form-control" type="text" placeholder="نام کاربری"
-                                required>
+                                required name="username">
                             <input id="login_password" class="form-control" type="password" placeholder="رمز عبور"
-                                required>
+                                required name="password">
                             <div class="checkbox mt-2">
                                 <label>
                                     <input type="checkbox"> مرا به خاطر بسپار

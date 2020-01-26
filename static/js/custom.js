@@ -83,10 +83,38 @@ $(function () {
                 var $lg_username = $('#login_username').val();
                 var $lg_password = $('#login_password').val();
                 if ($lg_username == "ERROR") {
-                    msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "error", "glyphicon-remove", "Login error");
+                    msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "error", "glyphicon-remove", "لطفا تمام فید ها را تکمیل کنید");
                 } else {
-                    msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "success", "glyphicon-ok", "Login OK");
+                    $.ajax({
+                        type: "POST",
+                        url:"/login",
+                        data: { 
+                            username:$("#login_username").val(),
+                            password:$("#login_password").val(),
+                            csrfmiddlewaretoken : $("input[name='csrfmiddlewaretoken']").val(),
+                        },
+                            success:function(response){
+                                switch(response){
+                                    case 'ok':
+                                        msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "success", "glyphicon-ok", "با موفقیت وارد سیستم شدید");
+                                        setTimeout(function(){ location.reload(); }, 1000);
+                                        
+                                        break;
+                                    case 'wrong':
+                                        msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "error", "glyphicon-remove", "نام کاربری یا رمز عبور نادرست است");
+                                        break;
+                                    default:
+                                        msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "error", "glyphicon-remove", "خطایی غیرمنتظره رخ داد");
+                                        
+                                }
+                            },
+                        error:function (){
+                            msgChange($('#div-login-msg'), $('#icon-login-msg'), $('#text-login-msg'), "error", "glyphicon-remove", "خطایی غیرمنتظره رخ داد");
+
+                        }
+                    });
                 }
+
                 return false;
                 break;
             case "lost-form":

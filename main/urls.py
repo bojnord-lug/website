@@ -16,7 +16,9 @@ urlpatterns = [
     path("saveEmail/", views.newsletter),
     path('update-profile', views.update_profile),
     path("gallery/", views.gallery),
-    path('about-us/', views.about_us)
+    path('about-us/', views.about_us),
+    path('logout', views.user_logout),
+    path('login', views.login_user)
 ]
 
 if settings.DEBUG:
