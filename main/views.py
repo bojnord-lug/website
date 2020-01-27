@@ -3,8 +3,9 @@ from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from .forms import LoginForm, SubmitComment, UpdateProfileForm
+from .forms import LoginForm, SubmitComment, UpdateProfileForm, CaptchaPasswordResetForm
 from .models import Post, Profile, Event, Category, Comment, EventImage, NewsLetter
+from django.conf import settings
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
 from django.views.decorators.csrf import csrf_exempt
@@ -12,9 +13,7 @@ from django.views.decorators.http import require_POST, require_GET
 from django.contrib.auth.decorators import login_required
 import json
 from datetime import datetime
-
-# hit_count = HitCount.objects.get_for_object(Post)
-
+from django.contrib.auth.views import PasswordResetView
 
 @csrf_exempt
 def index(request):
@@ -29,7 +28,7 @@ def index(request):
     most_recent_categories = sorted([i for i in Category.objects.all()],
                                     key=lambda x: x.post_set.count())[::-1][:5]
 
-    return render(request, 'index.html', {"event_images": event_images, "Posts": all_Posts, "all_events": all_events, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages), 'recent_categories': most_recent_categories})
+    return render(request, 'index.html', {"event_images": event_images, "Posts": all_Posts, "all_events": all_events, "page_obj": page.object_list, "num_pages": range(page_obj.num_pages), 'recent_categories': most_recent_categories, 'token': settings.RECAPTCHA_SITE_KEY})
 
 
 @csrf_exempt
@@ -217,3 +216,6 @@ def gallery(request):
 def about_us(request):
     authors = [i.user for i in Profile.objects.filter(is_author=True)]
     return render(request, 'about-us.htm', {'authors': authors})
+
+class CaptchaPasswordResetView(PasswordResetView):
+    form_class = CaptchaPasswordResetForm

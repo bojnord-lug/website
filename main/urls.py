@@ -1,8 +1,9 @@
 from django.conf.urls.static import static
-from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
+from django.contrib.auth.views import PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 from django.urls import path, include
 from django.conf import settings
 from . import views
+from .views import CaptchaPasswordResetView as PasswordResetView
 
 urlpatterns = [
     path('', views.index, name='index'),

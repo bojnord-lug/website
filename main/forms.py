@@ -1,5 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
+from django.contrib.auth.forms import PasswordResetForm
+from django.conf import settings
+import requests
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=20)
@@ -18,3 +21,20 @@ class UpdateProfileForm(forms.Form):
     expertise = forms.CharField(max_length=20)
     photo = forms.ImageField(required=False)
     description = forms.CharField(widget=forms.Textarea)
+
+class CaptchaPasswordResetForm(PasswordResetForm):
+    recaptcha = forms.CharField(widget=forms.Textarea)
+
+    def clean_recaptcha(self):
+        captcha = self.cleaned_data['recaptcha']
+        secret_key = settings.RECAPTCHA_SECRET_KEY
+
+        # captcha verification
+        data = {
+            'response': captcha,
+            'secret': secret_key
+        }
+        resp = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+        result_json = resp.json()
+        if not result_json.get('success'):
+            raise forms.ValidationError("the user is a robot")

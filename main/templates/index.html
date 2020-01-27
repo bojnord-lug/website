@@ -415,6 +415,9 @@
                     <!-- Begin | Lost Password Form -->
                     <form id="lost-form" style="display:none;" class="form-wrapper">
                         {% csrf_token %}
+                        <input type="hidden" id="sitekey" value="{{ token }}">
+                        <input type="hidden" id="g-recaptcha-response" name="g-recaptcha-response">
+                        <input type="hidden" name="action" value="validate_captcha">
                         <div class="modal-body">
                             <div id="div-lost-msg">
                                 <div id="icon-lost-msg" class="fa fa-chevron-left"></div>
@@ -473,6 +476,7 @@
     <script src="{% static 'js/jquery.min.js'%}"></script>
     <script src="{% static 'js/tether.min.js'%}"></script>
     <script src="{% static 'js/bootstrap.min.js'%}"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render={{ token }}"></script>
     <script src="{% static 'js/custom.js'%}"></script>
     <script src="{% static 'js/axios.min.js'%}"></script>
     <script type="text/javascript" src="{% static 'js/custom1.js'%}"></script>

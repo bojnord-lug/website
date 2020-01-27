@@ -118,7 +118,7 @@ $(function () {
                 return false;
                 break;
             case "lost-form":
-                msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "success", "glyphicon-info-sign", "لطفا صبر کنید", true);
+                msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "success", "glyphicon-ok", "لطفا صبر کنید", true);
                 
                 $.when(reset_password()).done(function(){
                     return false;
@@ -172,13 +172,12 @@ $(function () {
         $divTag.addClass($divClass);
         $iconTag.removeClass("glyphicon-chevron-right");
         $iconTag.addClass($iconClass + " " + $divClass);
+        $iconTag.removeClass($iconClass + " " + $divClass);
         if (!$showtime){
             setTimeout(function () {
                 msgFade($textTag, $msgOld);
                 $divTag.removeClass($divClass);
                 $iconTag.addClass("glyphicon-chevron-right");
-
-                $iconTag.removeClass($iconClass + " " + $divClass);
             }, $msgShowTime);
         }
     }
@@ -192,16 +191,28 @@ $(function () {
                 url: "/reset-password",
                 data: {
                     "email": $('#lost_email').val(),
-                    "csrfmiddlewaretoken": csrf
+                    "csrfmiddlewaretoken": csrf,
+                    "recaptcha": $("#g-recaptcha-response").val()
                 },
                 success: function(){
                     msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "success", "glyphicon-ok", "ایمیل بازیابی با موفقیت ارسال شد");
+                    setTimeout(function (){
+                        modalAnimate($formLost, $formLogin);
+                    }, 2000);
                 },
                 error: function(){
-                    msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "error", "glyphicon-remove", "مشکلی رخ داد");
+                    msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "error", "glyphicon-remove", "خطایی رخ داد مجددا تلاش فرمایید", true);
                 }
             });
         }
         return false;
     }
+});
+grecaptcha.ready(function() {
+    // do request for recaptcha token
+    // response is promise with passed token
+    grecaptcha.execute($("#sitekey").val(), {action:'validate_captcha'}).then(function(token) {
+            // add token value to form
+        document.getElementById('g-recaptcha-response').value = token;
+    });
 });
