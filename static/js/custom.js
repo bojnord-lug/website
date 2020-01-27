@@ -118,14 +118,13 @@ $(function () {
                 return false;
                 break;
             case "lost-form":
-                var $ls_email = $('#lost_email').val();
-                if ($ls_email == "ERROR") {
-                    msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "error", "glyphicon-remove", "Send error");
-                } else {
-                    msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "success", "glyphicon-ok", "Send OK");
-                }
-                return false;
+                msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "success", "glyphicon-info-sign", "لطفا صبر کنید", true);
+                
+                $.when(reset_password()).done(function(){
+                    return false;
+                });
                 break;
+
             case "register-form":
                 var $rg_username = $('#register_username').val();
                 var $rg_email = $('#register_email').val();
@@ -167,17 +166,42 @@ $(function () {
         });
     }
 
-    function msgChange($divTag, $iconTag, $textTag, $divClass, $iconClass, $msgText) {
+    function msgChange($divTag, $iconTag, $textTag, $divClass, $iconClass, $msgText, $showtime=false) {
         var $msgOld = $divTag.text();
         msgFade($textTag, $msgText);
         $divTag.addClass($divClass);
         $iconTag.removeClass("glyphicon-chevron-right");
         $iconTag.addClass($iconClass + " " + $divClass);
-        setTimeout(function () {
-            msgFade($textTag, $msgOld);
-            $divTag.removeClass($divClass);
-            $iconTag.addClass("glyphicon-chevron-right");
-            $iconTag.removeClass($iconClass + " " + $divClass);
-        }, $msgShowTime);
+        if (!$showtime){
+            setTimeout(function () {
+                msgFade($textTag, $msgOld);
+                $divTag.removeClass($divClass);
+                $iconTag.addClass("glyphicon-chevron-right");
+
+                $iconTag.removeClass($iconClass + " " + $divClass);
+            }, $msgShowTime);
+        }
+    }
+    function reset_password(){
+        var $ls_email = $('#lost_email').val();
+        var csrf = $("input[name='csrfmiddlewaretoken']").val();
+        if ($ls_email == "ERROR") {
+        } else {
+            $.ajax({
+                type: "POST",
+                url: "/reset-password",
+                data: {
+                    "email": $('#lost_email').val(),
+                    "csrfmiddlewaretoken": csrf
+                },
+                success: function(){
+                    msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "success", "glyphicon-ok", "ایمیل بازیابی با موفقیت ارسال شد");
+                },
+                error: function(){
+                    msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "error", "glyphicon-remove", "مشکلی رخ داد");
+                }
+            });
+        }
+        return false;
     }
 });

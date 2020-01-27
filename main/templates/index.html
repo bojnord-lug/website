@@ -414,6 +414,7 @@
 
                     <!-- Begin | Lost Password Form -->
                     <form id="lost-form" style="display:none;" class="form-wrapper">
+                        {% csrf_token %}
                         <div class="modal-body">
                             <div id="div-lost-msg">
                                 <div id="icon-lost-msg" class="fa fa-chevron-left"></div>
