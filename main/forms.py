@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.forms import PasswordResetForm, UserCreationForm
 from django.conf import settings
 import requests
 
@@ -37,4 +37,15 @@ class CaptchaPasswordResetForm(PasswordResetForm):
         resp = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
         result_json = resp.json()
         if not result_json.get('success'):
-            raise forms.ValidationError("the user is a robot")
+            raise forms.ValidationError("درخواست تغییر رمز توسط یک ربات ارسال شده است")
+
+class UserRegistrationForm(UserCreationForm):
+    first_name = forms.CharField(max_length=20)
+    last_name = forms.CharField(max_length=20)
+    expertise = forms.CharField(max_length=15)
+    email = forms.EmailField()
+
+    def clean_email(self):
+        if User.objects.filter(email=self.cleaned_data['email']):
+            raise forms.ValidationError("حسابی با این ایمیل موجود است")
+        return self.cleaned_data['email']

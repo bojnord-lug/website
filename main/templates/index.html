@@ -393,11 +393,6 @@
                                 required name="username">
                             <input id="login_password" class="form-control" type="password" placeholder="رمز عبور"
                                 required name="password">
-                            <div class="checkbox mt-2">
-                                <label>
-                                    <input type="checkbox"> مرا به خاطر بسپار
-                                </label>
-                            </div>
                         </div>
                         <div class="modal-footer">
                             <div class="w-100">
@@ -439,16 +434,24 @@
 
                     <!-- Begin | Register Form -->
                     <form id="register-form" style="display:none;" class="form-wrapper">
+                        {% csrf_token %}
                         <div class="modal-body">
                             <div id="div-register-msg">
                                 <div id="icon-register-msg" class="fa fa-chevron-left"></div>
                                 <span id="text-register-msg">ثبت نام در سایت!</span>
                             </div>
+                            <input class="form-control" type="text" id="register_first_name" required placeholder="نام">
+                            <input type="text" id="register_last_name" required placeholder="نام خانوادگی" class="form-control">
+                            <input type="text" id="register_expertise" required placeholder="مهارت" class="form-control">
+
                             <input id="register_username" class="form-control" type="text"
                                 placeholder="نام کاربری" required>
                             <input id="register_email" class="form-control" type="text" placeholder="ایمیل" required>
                             <input id="register_password" class="form-control" type="password" placeholder="رمز عبور"
                                 required>
+                            <input id="register_password_confirm" class="form-control" type="password" placeholder="تکرار رمز عبور"
+                                required>
+                            <div id="incorrect-pass"></h3>
                         </div>
                         <div class="modal-footer pt-0">
                             <div class="w-100">

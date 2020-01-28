@@ -77,6 +77,25 @@ $(function () {
     var $msgAnimateTime = 150;
     var $msgShowTime = 2000;
 
+    function password_check(){
+        var pass1 = $("#register_password").val();
+        var pass2 = $("#register_password_confirm").val();
+        if (pass1 != pass2){
+            $('#incorrect-pass').value = "پسوورد ها مطابقات ندارند";
+            $('#incorrect-pass').css('display', 'block');
+        }else{
+            $('#incorrect-pass').css('display', 'none');
+        }
+    }
+
+    // $('#register_password').on("change", function(){
+    //     password_check();
+    // });
+
+    // $('#register_password_confirm').on("change", function(){
+    //     password_check();
+    // });
+
     $("form").submit(function () {
         switch (this.id) {
             case "login-form":
@@ -129,15 +148,45 @@ $(function () {
                 var $rg_username = $('#register_username').val();
                 var $rg_email = $('#register_email').val();
                 var $rg_password = $('#register_password').val();
+                var $rg_password2 = $('#register_password_confirm').val();
+                var $rg_first_name = $("#register_first_name").val();
+                var $rg_last_name = $("#register_last_name").val();
+                var $rg_expertise = $("#register_expertise").val();
+                
+
                 if ($rg_username == "ERROR") {
-                    msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "error", "glyphicon-remove", "Register error");
+                    msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "error", "glyphicon-remove", "خطایی رخ داد");
+                    return false;
                 } else {
-                    msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "success", "glyphicon-ok", "Register OK");
+                    $.ajax({
+                        type: "POST",
+                        url: "/register",
+                        data: {
+                            email: $rg_email,
+                            username: $rg_username,
+                            password1: $rg_password,
+                            password2: $rg_password2,
+                            first_name: $rg_first_name,
+                            last_name: $rg_last_name,
+                            expertise: $rg_expertise,
+                            csrfmiddlewaretoken: $("input[name='csrfmiddlewaretoken']").val()
+                        },
+                        success:function(response){
+                            if(response=="success"){
+                                msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "success", "glyphicon-ok", "حساب با موفقیت ساخته شد");
+                                modalAnimate($formRegister, $formLogin);
+                                return false;
+                            }
+                            msgChange($('#div-register-msg'), $('#icon-register-msg'), $('#text-register-msg'), "error", "glyphicon-remove", response);
+                            return false;
+                        }
+                    });
+                    return false;
                 }
-                return false;
                 break;
+
             default:
-                return false;
+                return true;
         }
         return false;
     });

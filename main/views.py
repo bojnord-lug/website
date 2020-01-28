@@ -3,7 +3,7 @@ from django.core.paginator import Paginator
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from .forms import LoginForm, SubmitComment, UpdateProfileForm, CaptchaPasswordResetForm
+from .forms import LoginForm, SubmitComment, UpdateProfileForm, CaptchaPasswordResetForm, UserRegistrationForm
 from .models import Post, Profile, Event, Category, Comment, EventImage, NewsLetter
 from django.conf import settings
 from hitcount.models import HitCount
@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required
 import json
 from datetime import datetime
 from django.contrib.auth.views import PasswordResetView
+from PIL import Image
 
 @csrf_exempt
 def index(request):
@@ -219,3 +220,24 @@ def about_us(request):
 
 class CaptchaPasswordResetView(PasswordResetView):
     form_class = CaptchaPasswordResetForm
+
+def register(request):
+    if request.method=='POST' and request.is_ajax(): 
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            user = User.objects.create_user(form.cleaned_data.get('username'), 
+                                    form.cleaned_data.get('email'),
+                                    form.cleaned_data.get('password1'))
+            user.first_name = form.cleaned_data.get('first_name')
+            user.last_name = form.cleaned_data.get('last_name')
+            print(form.cleaned_data.get('password'))
+            # user.email = form.cleaned_data.get('email')
+            # user.set_password(form.cleaned_data.get('password1'))
+            user.save(form.cleaned_data.get('password'))
+            profile = Profile(user=user, profession=form.cleaned_data.get('expertise'))
+            profile.save()
+            return HttpResponse('success')
+        else:
+            print(form.errors.as_data)
+            return HttpResponse(list(form.errors.as_data().values())[0][0].message)
+    return Http404()

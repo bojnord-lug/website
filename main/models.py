@@ -37,9 +37,9 @@ class Profile(models.Model):
     profession = models.CharField(max_length=20)
 
     # for instance SysAdmin, Programmer and etc.
-    profile_picture = models.ImageField(upload_to='profile_pictures/', null=True, blank=True)
+    profile_picture = models.ImageField(upload_to='profile_pictures/', default='profile_pictures/default.png')
 
-    description = models.TextField() # about me
+    description = models.TextField(default="") # about me
 
     # start socialmedia accounts
     facebook = models.CharField(max_length=30, null=True, blank=True)
