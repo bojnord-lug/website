@@ -6,3 +6,4 @@ LUG/__pycache__/
 media/
 .vscode/
 LUG/settings.py
+env/
