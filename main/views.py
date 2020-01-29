@@ -1,23 +1,39 @@
-from django.shortcuts import render, redirect, reverse, HttpResponseRedirect, Http404, get_object_or_404
-from django.core.paginator import Paginator
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.models import User
-from django.http import HttpResponse
-from .forms import LoginForm, SubmitComment, UpdateProfileForm, CaptchaPasswordResetForm, UserRegistrationForm
-from .models import Post, Profile, Event, Category, Comment, EventImage, NewsLetter
+import json, requests
+from datetime import datetime
+
 from django.conf import settings
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.contrib.auth.views import PasswordResetView
+from django.core.paginator import Paginator
+from django.http import HttpResponse
+from django.shortcuts import (Http404, HttpResponseRedirect, get_object_or_404,
+                              redirect, render, reverse)
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_GET, require_POST
 from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST, require_GET
-from django.contrib.auth.decorators import login_required
-import json
-from datetime import datetime
-from django.contrib.auth.views import PasswordResetView
 from PIL import Image
+
+from .forms import (CaptchaPasswordResetForm, LoginForm, SubmitComment,
+                    UpdateProfileForm, UserRegistrationForm)
+from .models import (Category, Comment, Event, EventImage, NewsLetter, Post,
+                     Profile)
+
 
 @csrf_exempt
 def index(request):
+    if request.GET.get('login'):
+        messages.add_message(request, messages.SUCCESS, "{} عزیز، شما با \
+            موفقیت وارد سیستم شدید".format(request.user.first_name))
+
+    if request.GET.get('logout'):
+        messages.add_message(request, messages.INFO, "شما از حساب خود خارج شدید")
+        
+    if request.GET.get('password-reset'):
+        messages.add_message(request, messages.SUCCESS, "گذرواژه شما با موفقیت تغییر کرد")
     all_Posts = list(Post.objects.order_by("-date").all()[:3])
     all_events = list(Event.objects.order_by("-date").all())
     event_images = EventImage.objects.all()[:9]
@@ -51,7 +67,7 @@ def search(request):
 def user_logout(request):
     if request.user.is_authenticated:
         logout(request)
-    return redirect('/')
+    return redirect('/?logout=true')
 
 def login_user(request):
     if request.is_ajax():
@@ -163,11 +179,27 @@ def Login(request):
     else:
         return render(request, "login_form.html", {"error": "please complate the form corectly ..."})
 
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]
+    else:
+        ip = request.META.get('REMOTE_ADDR')
+    return ip
 
 def add_comment(request):
     if request.method == "POST":
         comment_form = SubmitComment(request.POST)
         if comment_form.is_valid():
+            url = "https://www.google.com/recaptcha/api/siteverify"
+            params = {
+                'secret': settings.RECAPTCHA_SECRET_KEY_V2,
+                'response': request.POST.get('captcha'),
+                'remoteip': get_client_ip(request)
+            }
+            verify_rs = requests.get(url, params=params, verify=True).json()
+            if not verify_rs['success']:
+                return HttpResponse('captcha')
             post = get_object_or_404(Post, pk=request.POST['post'])
             comment = Comment(author=request.POST['name'], text=request.POST['text'],
                               post=post, approved=False)

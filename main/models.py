@@ -89,7 +89,7 @@ class Comment(models.Model):
     author = models.CharField(max_length=60)
     text = models.TextField()
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    date = models.DateField(auto_now=True)
+    date = jmodels.jDateField(auto_now=True)
     approved = models.BooleanField(default=False, verbose_name='تایید شده')
 
     def __str__(self):

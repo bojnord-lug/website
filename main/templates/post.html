@@ -315,24 +315,25 @@
                                 <h4 class="small-title">دیدگاه جدید</h4>
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <form class="form-wrapper">
+                                        <form id="new-comment" class="form-wrapper">
                                             {% if not request.user.is_authenticated %}
                                             <input type="text" class="form-control" placeholder="نام شما"
-                                                id="comment_name">
+                                            id="comment_name">
                                             <input type="text" class="form-control" placeholder="ایمیل"
-                                                id="comment_email">
+                                            id="comment_email">
                                             <input type="text" class="form-control" placeholder="وب سایت"
-                                                id="comment_website">
+                                            id="comment_website">
                                             {% else %}
                                             <input type="text" class="hide" value="{{ request.user.first_name }}"
-                                                id="comment_name">
+                                            id="comment_name">
                                             <input type="text" class="hide" value="{{ request.user.email }}"
-                                                id="comment_email">
+                                            id="comment_email">
                                             <input type="text" value="" class="hide"
-                                                id="comment_website">
+                                            id="comment_website">
                                             {% endif %}
                                             <textarea class="form-control" placeholder="پیام شما"
-                                                id="comment_message"></textarea>
+                                            id="comment_message"></textarea>
+                                            <div class="g-recaptcha" data-sitekey="6Ldm3dMUAAAAAODnrvSccuuIeGbKNCU6T6rfZomw"></div>
                                             <button type="submit" class="btn btn-primary" id="submit-btn">ارسال دیدگاه</button>
                                         </form>
                                     </div>
@@ -471,33 +472,60 @@
         <script src="{% static 'js/axios.min.js'%}"></script>
         <script type="text/javascript" src="{% static 'js/custom1.js'%}"></script>
     <script src="{% static 'js/sweetalert2.min.js'%}"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
 <script>
-    $("#submit-btn").click(
+    $("#new-comment").submit(
     function() {
         var name = $("#comment_name").val();
         var text = $("#comment_message").val();
         var website = $("#comment_website").val();
         var email = $("#comment_email").val();
-        var post = {{ post.id }};
+        var post = "{{ post.id }}";
+        if (!grecaptcha.getResponse()){
+            Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'خطایی رخ داد',
+                        text: 'لطفا کپچای گوگل را تکمیل نمایید',
+                        footer: 'با تشکر از شما',
+                        showConfirmButton: false,
+                        timer: 4000
+                    });
+        }
         $.ajax({
             type: "POST",
-            data: { name: name, text: text, website: website, email: email, post: post, csrfmiddlewaretoken: '{{ csrf_token }}' },
+            data: { name: name, text: text, website: website, email: email, post: post, csrfmiddlewaretoken: '{{ csrf_token }}',
+                    captcha: grecaptcha.getResponse()},
             url: "/submit_comment",
             success: function (msg) {
                 if (msg == 'ok') {
                     Swal.fire({
                         position: 'top-end',
                         icon: 'success',
-                        timer: 5000,
                         title: 'دیدگاه شما با موفقیت ارسال شد',
                         text: 'دیدگاه شما پس از بررسی در وبسایت قرار میگیرد',
                         footer: 'با تشکر از شما',
                         showConfirmButton: false,
-                        timer: 1500
+                        timer: 4000
+                    });
+                }else if(msg=="captcha"){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'خطایی رخ داد',
+                        text: 'مطمئن شوید فیلد مربوط به گوگل را تیک زده اید',
+                        footer: 'با تشکر از شما',
+                        showConfirmButton: false,
+                        timer: 4000
                     });
                 }
+            },
+            error: function(){
+
             }
         });
+        return false;
     });
 </script>
 

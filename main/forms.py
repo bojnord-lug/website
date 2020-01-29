@@ -10,10 +10,11 @@ class LoginForm(forms.Form):
 
 class SubmitComment(forms.Form):
     name = forms.CharField(max_length=20)
-    text = forms.Textarea()
+    text = forms.CharField(widget=forms.Textarea)
     email = forms.EmailField()
     website = forms.CharField(max_length=30, required=False)    
     post = forms.IntegerField()
+    captcha = forms.CharField(widget=forms.Textarea)
 
 class UpdateProfileForm(forms.Form):
     first_name = forms.CharField(max_length=15)
