@@ -70,7 +70,7 @@ class Post(models.Model, HitCountMixin):
     title = models.CharField(max_length=50, blank=False, null=False)
     text = models.TextField()
     image = models.ImageField(upload_to="posts/image")
-    date = models.DateField()
+    date = jmodels.jDateField(auto_now=True)
     category = models.ManyToManyField(Category)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     hit_count_generic = GenericRelation(HitCount, object_id_field='object_pk',
