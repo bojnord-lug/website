@@ -79,7 +79,7 @@
                             <a href="/profile">{{ request.user.first_name }} {{ request.user.last_name }}</a>
                             {% else %}
                             <span class="ml-2 btn-account" role="button" data-toggle="modal" data-target="#login-modal">
-                                <i class="fa fa-user"></i> ورود
+                                <i class="fa fa-user"></i> ورود / ثبت نام
                             </span>
                             {% endif %}    
                         </div><!-- end search -->
@@ -92,42 +92,42 @@
                         <div class="topsocial">
                             <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i
                                 class="fa fa-facebook"></i></a>
-                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Youtube"><i
-                                    class="fa fa-youtube"></i></a>
-                                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i
-                                        class="fa fa-pinterest"></i></a>
-                                        <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i
-                                            class="fa fa-twitter"></i></a>
-                                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Flickr"><i
-                                                class="fa fa-flickr"></i></a>
-                                                <a href="#" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i
-                                                    class="fa fa-instagram"></i></a>
-                                                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Google+"><i
-                                                        class="fa fa-google-plus"></i></a>
-                                                    </div><!-- end social -->
-                                                </div><!-- end col -->
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Youtube"><i
+                                class="fa fa-youtube"></i></a>
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i
+                                class="fa fa-pinterest"></i></a>
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i
+                                class="fa fa-twitter"></i></a>
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Flickr"><i
+                                class="fa fa-flickr"></i></a>
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i
+                                class="fa fa-instagram"></i></a>
+                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Google+"><i
+                                class="fa fa-google-plus"></i></a>
+                        </div><!-- end social -->
+                    </div><!-- end col -->
                                                 
-                                            </div><!-- end row -->
-                                        </div><!-- end header-logo -->
-                                    </div><!-- end topbar -->
+                </div><!-- end row -->
+            </div><!-- end header-logo -->
+        </div><!-- end topbar -->
                                     
-                                    <div class="header-section">
-                                        {% if messages %}
-                                        {% for message in messages %}
-                                        <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-center" role="alert">
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            {{ message }}
-                                        </div>
-                                        {% endfor %}
-                                        {% endif %}
-                                        <div class="container">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="logo">
-                                                        <a href="/"><img src="{% static 'images/version/garden-logo.png' %}" alt=""></a>
-                                                    </div><!-- end logo -->
-                                                </div>
-                                            </div><!-- end row -->
+        <div class="header-section">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show text-center" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                {{ message }}
+                        </div>
+                {% endfor %}
+            {% endif %}
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="logo">
+                            <a href="/"><img src="{% static 'images/version/garden-logo.png' %}" alt=""></a>
+                        </div><!-- end logo -->
+                    </div>
+                </div><!-- end row -->
             </div><!-- end header-logo -->
         </div><!-- end header -->
         
