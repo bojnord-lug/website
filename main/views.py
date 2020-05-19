@@ -270,6 +270,5 @@ def register(request):
             profile.save()
             return HttpResponse('success')
         else:
-            print(form.errors.as_data)
-            return HttpResponse(list(form.errors.as_data().values())[0][0].message)
+            return HttpResponse(list(form.errors.as_data().values())[0][0])
     return Http404()
