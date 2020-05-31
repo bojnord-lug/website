@@ -5,6 +5,9 @@ from hitcount.models import HitCountMixin, HitCount
 from django.contrib.contenttypes.fields import GenericRelation
 
 
+from django.db.models.signals import post_save
+from .tasks import event_send_email, post_send_email
+
 class Banners(models.Model):
     title = models.CharField(max_length=100)
     image = models.ImageField(upload_to="static/image/banners")
@@ -28,6 +31,15 @@ class Event(models.Model, HitCountMixin):
 
     def __str__(self):
         return self.title
+
+
+def Event_send_email(sender, instance , **kwargs):
+    event_send_email(instance.id, instance.title)
+post_save.connect(Event_send_email, sender=Event)
+
+
+
+
 
 
 class Profile(models.Model):
@@ -85,6 +97,16 @@ class Post(models.Model, HitCountMixin):
         ordering = ['date']
 
 
+
+def Post_send_email(sender, instance , **kwargs):
+    post_send_email(instance.id, instance.title)
+post_save.connect(Post_send_email, sender=Post)
+
+
+
+
+
+
 class Comment(models.Model):
     author = models.CharField(max_length=60)
     text = models.TextField()
@@ -128,3 +150,8 @@ class NewsLetter(models.Model):
     class Meta:
         verbose_name = 'NewsLetter'
         verbose_name_plural = 'NewsLetters'
+
+    def __str__(self):
+        return self.email
+        
+
