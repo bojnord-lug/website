@@ -165,7 +165,7 @@ def Signin(request):
 @require_POST
 @csrf_exempt
 def Login(request):
-    form = Log_in(request.POST)
+    form = LoginForm(request.POST)
     if form.is_valid():
         name = form.cleaned_data.get("username")
         paswd = form.cleaned_data.get("passwd")
