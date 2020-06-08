@@ -1,535 +1,228 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
 
-<!-- Basic -->
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
+{% block content %}
+<section class="section wb">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <div class="page-wrapper">
+                    <div class="blog-title-area">
+                        <h3>{{post.title}}</h3>
+                        <div class="blog-meta big-meta">
+                            <small><a href="single.html" title="">{{ post.date }}</a></small>
+                            <small><a href="blog-author.html" title="">توسط {{post.author.first_name}} {{ post.author.last_name }}</a></small>
+                            <small><a href="#" title=""><i class="fa fa-eye"></i> {{ hits }}</a></small>
+                        </div><!-- end meta -->
+                    </div><!-- end title -->
 
-<!-- Mobile Metas -->
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+                    <div class="single-post-media">
+                        <img src="{{ post.image.url }}" alt="" class="img-fluid">
+                    </div><!-- end media -->
 
-<!-- Site Metas -->
-<title>گروه کاربران گنو لینوکس بجنورد</title>
-<meta name="keywords" content="">
-<meta name="description" content="">
-<meta name="author" content="">
+                    <div class="blog-content">
+                        <div class="pp">
+                            <p>{{post.text}}</p>
+                        </div><!-- end pp -->
 
-<!-- Site Icons -->
-<link rel="shortcut icon" href="{% static 'images/favicon.png'%}" type="image/x-icon" />
-<link rel="apple-touch-icon" href="{% static 'images/apple-touch-icon.png'%}">
+                    </div><!-- end content -->
 
-<!-- Design fonts -->
-<link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700" rel="stylesheet">
-
-<!-- Bootstrap core CSS -->
-<link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet">
-
-<!-- Custom font -->
-<link href="{% static 'css/fonts.css'%}" rel="stylesheet">
-
-<!-- FontAwesome Icons core CSS -->
-<link href="{% static 'css/font-awesome.min.css'%}" rel="stylesheet">
-
-<!-- Custom styles for this template -->
-<link href="{% static 'css/style.css'%}" rel="stylesheet">
-
-<!-- Responsive styles for this template -->
-<link href="{% static 'css/responsive.css'%}" rel="stylesheet">
-
-<!-- Colors for this template -->
-<link href="{% static 'css/colors.css'%}" rel="stylesheet">
-
-<!-- Version Garden CSS for this template -->
-<link href="{% static 'css/version/garden.css'%}" rel="stylesheet">
-
-<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-</head>
-
-<body>
-
-    <div id="wrapper">
-        <div class="collapse top-search" id="collapseExample">
-            <div class="card card-block">
-                <div class="newsletter-widget text-center">
-                    <form id="topform" action="/search" method="GET" class="form-inline">
-                        <input name="search_term" type="text" class="form-control" placeholder="دنبال چی میگردی؟" style="color: white;">
-                        <button  onclick="document.getElementById('topform').submit();" type="submit" class="btn btn-primary"><i class="fa fa-search"></i></button>
-                    </form>
-                </div><!-- end newsletter -->
-            </div>
-        </div><!-- end top-search -->
-
-        <div class="topbar-section">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                        <div class="topsearch text-right">
-                            <a data-toggle="collapse" href="#collapseExample" aria-expanded="false"
-                                aria-controls="collapseExample">
-                                <i class="fa fa-search"></i>
-                            </a>
-                        </div><!-- end search -->
-                    </div><!-- end col -->
-
-                    <div class="col-lg-4 hidden-md-down">
-                    </div><!-- end col -->
-
-                    <div class="col-lg-4 col-md-6 col-sm-6 hidden-xs-down">
-                        <div class="topsocial">
-                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i
-                                    class="fa fa-facebook"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Youtube"><i
-                                    class="fa fa-youtube"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i
-                                    class="fa fa-pinterest"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i
-                                    class="fa fa-twitter"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Flickr"><i
-                                    class="fa fa-flickr"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i
-                                    class="fa fa-instagram"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="bottom" title="Telegram"><i
-                                    class="fa fa-telegram"></i></a>
-                        </div><!-- end social -->
-                    </div><!-- end col -->
-
-                </div><!-- end row -->
-            </div><!-- end header-logo -->
-        </div><!-- end topbar -->
-
-        <div class="header-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="logo">
-                            <a href="/"><img src="{% static 'images/version/garden-logo.png'%}" alt=""></a>
-                        </div><!-- end logo -->
-                    </div>
-                </div><!-- end row -->
-            </div><!-- end header-logo -->
-        </div><!-- end header -->
-
-        <header class="header">
-                <div class="container">
-                    <nav class="navbar navbar-expand-lg navbar-light">
-                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-                            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse" id="navbarNavDropdown" style="justify-content: center !important;">
-                            <ul class="navbar-nav">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/">صفحه اصلی <span class="sr-only">(current)</span></a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/gallery">گالری تصاویر</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/about-us">درباره ما</a>
-                                </li>
-                                {% if request.user.is_authenticated %}
-                                <li class="nav-item">
-                                    <a class="nav-link" href="/profile">پروفایل کاربری</a>
-                                </li>
-                                {% endif %}
-                            </ul>
-                        </div>
-                    </nav>
-                </div><!-- end container -->
-            </header><!-- end header -->
-
-        <div class="page-title wb">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-                        <h2><i class="fa fa-leaf bg-green"></i> بلاگ</h2>
-                    </div><!-- end col -->
-                    <div class="col-lg-4 col-md-4 col-sm-12 hidden-xs-down hidden-sm-down">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/">صفحه اصلی</a></li>
-                            <li class="breadcrumb-item active">بلاگ</li>
-                        </ol>
-                    </div><!-- end col -->
-                </div><!-- end row -->
-            </div><!-- end container -->
-        </div><!-- end page-title -->
-
-        <section class="section wb">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-                        <div class="page-wrapper">
-                            <div class="blog-title-area">
-                                <h3>{{post.title}}</h3>
-                                <div class="blog-meta big-meta">
-                                    <small><a href="single.html" title="">{{ post.date }}</a></small>
-                                    <small><a href="blog-author.html" title="">توسط {{post.author.first_name}} {{ post.author.last_name }}</a></small>
-                                    <small><a href="#" title=""><i class="fa fa-eye"></i> {{ hits }}</a></small>
-                                </div><!-- end meta -->
-                            </div><!-- end title -->
-
-                            <div class="single-post-media">
-                                <img src="{{ post.image.url }}" alt="" class="img-fluid">
-                            </div><!-- end media -->
-
-                            <div class="blog-content">
-                                <div class="pp">
-                                    <p>{{post.text}}</p>
-                                </div><!-- end pp -->
-
-                            </div><!-- end content -->
-
-                            <div class="blog-title-area">
-                                <div class="tag-cloud-single">
-                                    <span>تگ‌ها</span>
-                                {% for tag in categories %}
-                                    <small><a href="category?id={{ tag.id }}" title="">{{ tag.title }}</a></small>
-                                {% endfor %}
-                                </div><!-- end meta -->
+                    <div class="blog-title-area">
+                        <div class="tag-cloud-single">
+                            <span>تگ‌ها</span>
+                        {% for tag in categories %}
+                            <small><a href="category?id={{ tag.id }}" title="">{{ tag.title }}</a></small>
+                        {% endfor %}
+                        </div><!-- end meta -->
+                        
+                        <div class="post-sharing">
+                            <ul class="list-inline">
+                                <li><a href="#" class="fb-button btn btn-primary"  data-show-count="false"><i class="fa fa-facebook"></i>
+                                        <span class="down-mobile">ارسال به فیسبوک</span></a></li>
+                                <li><a href="https://twitter.com/share?text={{post.title}}&url=http://bojnordlug.ir/post?id={{post.id}}" target="blank" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i>
+                                        <span class="down-mobile">ارسال به توییتر</span></a></li>
                                 
-                                <div class="post-sharing">
-                                    <ul class="list-inline">
-                                        <li><a href="#" class="fb-button btn btn-primary"  data-show-count="false"><i class="fa fa-facebook"></i>
-                                                <span class="down-mobile">ارسال به فیسبوک</span></a></li>
-                                        <li><a href="https://twitter.com/share?text={{post.title}}&url=http://bojnordlug.ir/post?id={{post.id}}" target="blank" class="tw-button btn btn-primary"><i class="fa fa-twitter"></i>
-                                                <span class="down-mobile">ارسال به توییتر</span></a></li>
-                                       
-                                    </ul>
-                                </div><!-- end post-sharing -->
-                            </div><!-- end title -->
+                            </ul>
+                        </div><!-- end post-sharing -->
+                    </div><!-- end title -->
 
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="banner-spot clearfix">
-                                        <div class="banner-img">
-                                            <img src="{% static 'upload/banner_01.jpg'%}" alt="" class="img-fluid">
-                                        </div><!-- end banner-img -->
-                                    </div><!-- end banner -->
-                                </div><!-- end col -->
-                            </div><!-- end row -->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="banner-spot clearfix">
+                                <div class="banner-img">
+                                    <img src="{% static 'upload/banner_01.jpg'%}" alt="" class="img-fluid">
+                                </div><!-- end banner-img -->
+                            </div><!-- end banner -->
+                        </div><!-- end col -->
+                    </div><!-- end row -->
 
-                            <hr class="invis1">
+                    <hr class="invis1">
 
-                            <div class="custombox authorbox clearfix">
-                                <h4 class="small-title">درباره نویسنده</h4>
-                                <div class="row">
-                                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
-                                        <img src="{{ post.author.profile.profile_picture.url }}" alt="" class="img-fluid rounded-circle">
-                                    </div><!-- end col -->
+                    <div class="custombox authorbox clearfix">
+                        <h4 class="small-title">درباره نویسنده</h4>
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
+                                <img src="{{ post.author.profile.profile_picture.url }}" alt="" class="img-fluid rounded-circle">
+                            </div><!-- end col -->
 
-                                    <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
-                                        <h4><a href="#">{{ post.author.first_name }} {{ post.author.last_name }}</a></h4>
-                                        <p>{{ post.author.profile.profession }}</p>
+                            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
+                                <h4><a href="#">{{ post.author.first_name }} {{ post.author.last_name }}</a></h4>
+                                <p>{{ post.author.profile.profession }}</p>
+                                <!-- TODO: Add author's description here -->
+                                </div><!-- end social -->
 
-                                        <div class="topsocial">                                            
-                                            {% if post.author.profile.facebook %}
-                                            <a href="https://facebook.com/{{ presenter.profile.facebook }}"
-                                                data-toggle="tooltip" data-placement="bottom" title="Facebook"><i
-                                                    class="fa fa-facebook"></i></a>
-                                            {% endif %}
-                                            {% if post.author.profile.youtube %}
-                                            <a href="https://youtube.com/{{ presenter.profile.youtube }}"
-                                                data-toggle="tooltip" data-placement="bottom" title="Youtube"><i
-                                                    class="fa fa-youtube"></i></a>
-                                            {% endif %}
-                                            {% if post.author.profile.twitter %}
-                                            <a href="https://twitter.com/{{ presenter.profile.twitter }}"
-                                                data-toggle="tooltip" data-placement="bottom" title="Twitter"><i
-                                                    class="fa fa-twitter"></i></a>
-                                            {% endif %}
-                                            {% if post.author.profile.instagram %}
-                                            <a href="https://instagram.com/{{ presenter.profile.instagram }}"
-                                                data-toggle="tooltip" data-placement="bottom" title="Instagram"><i
-                                                    class="fa fa-instagram"></i></a>
-                                            {% endif %}
-                                            {% if post.author.profile.website %}
-                                            <a href="{{ presenter.profile.website }}" data-toggle="tooltip"
-                                                data-placement="bottom" title="Website"><i class="fa fa-link"></i></a>
-                                            {% endif %}
-                                        </div><!-- end social -->
+                            </div><!-- end col -->
+                        </div><!-- end row -->
+                    </div><!-- end author-box -->
 
-                                    </div><!-- end col -->
-                                </div><!-- end row -->
-                            </div><!-- end author-box -->
+                    <hr class="invis1">
 
-                            <hr class="invis1">
-
-                            <div class="custombox clearfix">
-                                <h4 class="small-title">شاید برایتان جالب باشد</h4>
-                                <div class="row">
-                                    {%for item in author_Posts%}
-                                    <div class="col-lg-6">
-                                        <div class="blog-box">
-                                            <div class="post-media">
-                                                <a href="post?id={{item.id}}" title="">
-                                                    <img src="{{ item.image.url }}" alt="" width="357" height="205" class="img-fluid">
-                                                    <div class="hovereffect">
-                                                        <span class=""></span>
-                                                    </div><!-- end hover -->
-                                                </a>
-                                            </div><!-- end media -->
-                                            <div class="blog-meta">
-                                                <h4><a href="post?id={{item.id}}" title="">{{item.title}}</a>
-                                                </h4>
-                                                <small><a href="blog-category-01.html" title="">{{item.author.first_name}} {{ post.author.last_name }}</a></small>
-                                                <small><a href="blog-category-01.html" title="">{{item.date}}</a></small>
-                                            </div><!-- end meta -->
-                                        </div><!-- end blog-box -->
-                                    </div><!-- end col -->
-                                    {%endfor%}
-                                </div><!-- end row -->
-                            </div><!-- end custom-box -->
-
-                            <hr class="invis1">
-
-                            <div class="custombox clearfix">
-                                <h4 class="small-title">{{comments|length}} دیدگاه</h4>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="comments-list">
-                                            {%for item in comments%}
-                                            <div class="media">
-                                                <a class="media-left" href="#">
-                                                    <img src="{% static 'upload/authorComment.svg'%}" alt="" class="rounded-circle">
-                                                </a>
-                                                <div class="media-body">
-                                                    <h4 class="media-heading user_name">{{item.author}} <small>{{item.date}} روز قبل</small></h4>
-                                                    <p>{{item.text}}</p>
-                                                    <a href="#" class="btn btn-primary btn-sm">پاسخ</a>
-                                                </div>
-                                            </div>
-                                            {%endfor%}
-                                        </div>
-                                    </div><!-- end col -->
-                                </div><!-- end row -->
-                            </div><!-- end custom-box -->
-
-                            <hr class="invis1">
-
-                            <div class="custombox clearfix">
-                                <h4 class="small-title">دیدگاه جدید</h4>
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <form id="new-comment" class="form-wrapper">
-                                            {% if not request.user.is_authenticated %}
-                                            <input type="text" class="form-control" placeholder="نام شما"
-                                            id="comment_name">
-                                            <input type="text" class="form-control" placeholder="ایمیل"
-                                            id="comment_email">
-                                            <input type="text" class="form-control" placeholder="وب سایت"
-                                            id="comment_website">
-                                            {% else %}
-                                            <input type="text" class="hide" value="{{ request.user.first_name }}"
-                                            id="comment_name">
-                                            <input type="text" class="hide" value="{{ request.user.email }}"
-                                            id="comment_email">
-                                            <input type="text" value="" class="hide"
-                                            id="comment_website">
-                                            {% endif %}
-                                            <textarea class="form-control" placeholder="پیام شما"
-                                            id="comment_message"></textarea>
-                                            <div class="g-recaptcha" data-sitekey="6Ldm3dMUAAAAAODnrvSccuuIeGbKNCU6T6rfZomw"></div>
-                                            <button type="submit" class="btn btn-primary" id="submit-btn">ارسال دیدگاه</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- end page-wrapper -->
-                    </div><!-- end col -->
-
-                    <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-                        <div class="sidebar">
-                            <div class="widget">
-                                <h2 class="widget-title">جستجو</h2>
-                                <form id="myform" action="/search" method="GET" class="form-inline search-form">
-                            
-                                    <div class="form-group">
-                                        <input name="search_term" type="text" class="form-control" placeholder="جستجو در سایت" />
-                                    </div>
-                                    <button onclick="document.getElementById('myform').submit();" type="submit" class="btn btn-primary"><i
-                                            class="fa fa-search"></i></button>
-                            
-                                </form>
-                            </div><!-- end widget -->
-
-                            <div class="widget">
-                                <h2 class="widget-title">پست های اخیر</h2>
-                                <div class="blog-list-widget">
-                                    <div class="list-group">
-                                        {% for item in latest_Posts %}
-                                        <a href="post?id={{item.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
-                                            <div class="w-100 justify-content-between">
-                                                <img src="{{ item.image.url }}" alt="" height="55" width="55" class="float-left">
-                                                <h5 class="mb-1">{{ item.title }}</h5>
-                                                <small>{{ item.date }}</small>
-                                            </div>
+                    <div class="custombox clearfix">
+                        <h4 class="small-title">شاید برایتان جالب باشد</h4>
+                        <div class="row">
+                            {%for item in author_Posts%}
+                            <div class="col-lg-6">
+                                <div class="blog-box">
+                                    <div class="post-media">
+                                        <a href="post?id={{item.id}}" title="">
+                                            <img src="{{ item.image.url }}" alt="" width="357" height="205" class="img-fluid">
+                                            <div class="hovereffect">
+                                                <span class=""></span>
+                                            </div><!-- end hover -->
                                         </a>
-                                        {% endfor %}
+                                    </div><!-- end media -->
+                                    <div class="blog-meta">
+                                        <h4><a href="post?id={{item.id}}" title="">{{item.title}}</a>
+                                        </h4>
+                                        <small><a href="blog-category-01.html" title="">{{item.author.first_name}} {{ post.author.last_name }}</a></small>
+                                        <small><a href="blog-category-01.html" title="">{{item.date}}</a></small>
+                                    </div><!-- end meta -->
+                                </div><!-- end blog-box -->
+                            </div><!-- end col -->
+                            {%endfor%}
+                        </div><!-- end row -->
+                    </div><!-- end custom-box -->
+
+                    <hr class="invis1">
+
+                    <div class="custombox clearfix">
+                        <h4 class="small-title">{{comments|length}} دیدگاه</h4>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="comments-list">
+                                    {%for item in comments%}
+                                    <div class="media">
+                                        <a class="media-left" href="#">
+                                            <img src="{% static 'upload/authorComment.svg'%}" alt="" class="rounded-circle">
+                                        </a>
+                                        <div class="media-body">
+                                            <h4 class="media-heading user_name">{{item.author}} <small>{{item.date}} روز قبل</small></h4>
+                                            <p>{{item.text}}</p>
+                                            <a href="#" class="btn btn-primary btn-sm">پاسخ</a>
+                                        </div>
                                     </div>
-                                </div><!-- end blog-list -->
-                            </div><!-- end widget -->
-
-                            <div class="widget">
-                                <h2 class="widget-title">بنر مناسبتی (جشن ۳ سالگی)</h2>
-                                <div class="banner-spot clearfix">
-                                    <div class="banner-img">
-                                        <img src="{% static 'upload/banner_04.jpg'%}" alt="" class="img-fluid">
-                                    </div><!-- end banner-img -->
-                                </div><!-- end banner -->
-                            </div><!-- end widget -->
-
-                            <div class="widget">
-                                <h2 class="widget-title">آلبوم تصاویر</h2>
-                                <div class="instagram-wrapper clearfix">
-                                    {%for item in event_images%}
-                                    <a href="{{ item.image.url }}"><img src="{{ item.image.url }}" alt="" height="80" width="80"></a>
                                     {%endfor%}
-                                </div><!-- end Instagram wrapper -->
-                            </div><!-- end widget -->
-
-                            <div class="widget">
-                                <h2 class="widget-title">بهترین دسته بندی ها</h2>
-                                <div class="link-widget">
-                                    <ul>
-                                        {% for category in recent_categories %}
-                                        <li><a href="category?id={{ category.id }}">{{ category.title }}<span>({{ category.post_set.count }})</span></a></li>
-                                        {% endfor %}
-                                    </ul>
-                                </div><!-- end link-widget -->
-                            </div><!-- end widget -->
-                        </div><!-- end sidebar -->
-                    </div><!-- end col -->
-                </div><!-- end row -->
-            </div><!-- end container -->
-        </section>
-
-        <footer class="footer">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8 offset-lg-2">
-                        <div class="widget">
-                            <div class="footer-text text-center">
-                                <a href="index.html"><img src="{% static 'images/version/garden-footer-logo.png'%}" alt=""
-                                        class="img-fluid"></a>
-                                <p>گروه کاربران گنو/لینوکس بجنورد یا «بجنوردلاگ» گروهی مستقل از کاربران کامپیوتر
-                                    علاقه‌مند به گنو/لینوکس ساکن بجنورد است با هدف گسترش فرهنگ‌سازی در استفاده از
-                                    نرم‌افزار‌های آزاد و متن باز، آموزش ابزار گنو/لینوکس و پشتیبانی و کمک به توسعه
-                                    نرم‌افزارهای آزاد و متن باز.</p>
-                                <div class="social">
-                                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Facebook"><i
-                                            class="fa fa-facebook"></i></a>
-                                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Twitter"><i
-                                            class="fa fa-twitter"></i></a>
-                                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Instagram"><i
-                                            class="fa fa-instagram"></i></a>
-                                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Telegram"><i
-                                            class="fa fa-telegram"></i></a>
-                                    <a href="#" data-toggle="tooltip" data-placement="bottom" title="Pinterest"><i
-                                            class="fa fa-pinterest"></i></a>
                                 </div>
+                            </div><!-- end col -->
+                        </div><!-- end row -->
+                    </div><!-- end custom-box -->
 
-                                <hr class="invis">
+                    <hr class="invis1">
 
-                                <div class="newsletter-widget text-center">
-                                    <form class="form-inline">
-                                        <input id="newsletterEmail" type="text" class="form-control" placeholder="ایمیل خود را وارد کنید">
-                                        <button onclick="saveEmail()" type="button" class="btn btn-primary"> <i class="fa fa-envelope-open-o"></i> عضویت در
-                                            خبرنامه</button>
-                                    </form>
-                                </div><!-- end newsletter -->
-                            </div><!-- end footer-text -->
-                        </div><!-- end widget -->
-                    </div><!-- end col -->
-                </div>
-
-                <div class="row">
-                    <div class="col-md-12 text-center">
-                        <br>
-                        <br>
-                        <div class="copyright">طراحی و پیاده سازی توسط: <a href="http://bojnourdlig.ir">گروهی از برنامه
-                                نویسان لاگ بجنورد</a>
+                    <div class="custombox clearfix">
+                        <h4 class="small-title">دیدگاه جدید</h4>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <form id="new-comment" class="form-wrapper">
+                                    {% if not request.user.is_authenticated %}
+                                    <input type="text" class="form-control" placeholder="نام شما"
+                                    id="comment_name">
+                                    <input type="text" class="form-control" placeholder="ایمیل"
+                                    id="comment_email">
+                                    <input type="text" class="form-control" placeholder="وب سایت"
+                                    id="comment_website">
+                                    {% else %}
+                                    <input type="text" class="hide" value="{{ request.user.first_name }}"
+                                    id="comment_name">
+                                    <input type="text" class="hide" value="{{ request.user.email }}"
+                                    id="comment_email">
+                                    <input type="text" value="" class="hide"
+                                    id="comment_website">
+                                    {% endif %}
+                                    <textarea class="form-control" placeholder="پیام شما"
+                                    id="comment_message"></textarea>
+                                    <div class="g-recaptcha" data-sitekey="6Ldm3dMUAAAAAODnrvSccuuIeGbKNCU6T6rfZomw"></div>
+                                    <button type="submit" class="btn btn-primary" id="submit-btn">ارسال دیدگاه</button>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div><!-- end container -->
-        </footer><!-- end footer -->
+                </div><!-- end page-wrapper -->
+            </div><!-- end col -->
 
-        <div class="dmtop"></div>
+            <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <div class="sidebar">
+                    <div class="widget">
+                        <h2 class="widget-title">جستجو</h2>
+                        <form id="myform" action="/search" method="GET" class="form-inline search-form">
+                    
+                            <div class="form-group">
+                                <input name="search_term" type="text" class="form-control" placeholder="جستجو در سایت" />
+                            </div>
+                            <button onclick="document.getElementById('myform').submit();" type="submit" class="btn btn-primary"><i
+                                    class="fa fa-search"></i></button>
+                    
+                        </form>
+                    </div><!-- end widget -->
 
-    </div><!-- end wrapper -->
+                    <div class="widget">
+                        <h2 class="widget-title">پست های اخیر</h2>
+                        <div class="blog-list-widget">
+                            <div class="list-group">
+                                {% for item in latest_Posts %}
+                                <a href="post?id={{item.id}}" class="list-group-item list-group-item-action flex-column align-items-start">
+                                    <div class="w-100 justify-content-between">
+                                        <img src="{{ item.image.url }}" alt="" height="55" width="55" class="float-left">
+                                        <h5 class="mb-1">{{ item.title }}</h5>
+                                        <small>{{ item.date }}</small>
+                                    </div>
+                                </a>
+                                {% endfor %}
+                            </div>
+                        </div><!-- end blog-list -->
+                    </div><!-- end widget -->
 
-    <!-- Core JavaScript
-        ================================================== -->
-        <script src="{% static 'js/jquery.min.js'%}"></script>
-        <script src="{% static 'js/tether.min.js'%}"></script>
-        <script src="{% static 'js/bootstrap.min.js'%}"></script>
-        <script src="{% static 'js/custom.js'%}"></script>
-        <script src="{% static 'js/axios.min.js'%}"></script>
-        <script type="text/javascript" src="{% static 'js/custom1.js'%}"></script>
-    <script src="{% static 'js/sweetalert2.min.js'%}"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                    <div class="widget">
+                        <h2 class="widget-title">بنر مناسبتی (جشن ۳ سالگی)</h2>
+                        <div class="banner-spot clearfix">
+                            <div class="banner-img">
+                                <img src="{% static 'upload/banner_04.jpg'%}" alt="" class="img-fluid">
+                            </div><!-- end banner-img -->
+                        </div><!-- end banner -->
+                    </div><!-- end widget -->
 
-<script>
-    $("#new-comment").submit(
-    function() {
-        var name = $("#comment_name").val();
-        var text = $("#comment_message").val();
-        var website = $("#comment_website").val();
-        var email = $("#comment_email").val();
-        var post = "{{ post.id }}";
-        if (!grecaptcha.getResponse()){
-            Swal.fire({
-                        position: 'top-end',
-                        icon: 'error',
-                        title: 'خطایی رخ داد',
-                        text: 'لطفا کپچای گوگل را تکمیل نمایید',
-                        footer: 'با تشکر از شما',
-                        showConfirmButton: false,
-                        timer: 4000
-                    });
-        }
-        $.ajax({
-            type: "POST",
-            data: { name: name, text: text, website: website, email: email, post: post, csrfmiddlewaretoken: '{{ csrf_token }}',
-                    captcha: grecaptcha.getResponse()},
-            url: "/submit_comment",
-            success: function (msg) {
-                if (msg == 'ok') {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: 'دیدگاه شما با موفقیت ارسال شد',
-                        text: 'دیدگاه شما پس از بررسی در وبسایت قرار میگیرد',
-                        footer: 'با تشکر از شما',
-                        showConfirmButton: false,
-                        timer: 4000
-                    });
-                }else if(msg=="captcha"){
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'error',
-                        title: 'خطایی رخ داد',
-                        text: 'مطمئن شوید فیلد مربوط به گوگل را تیک زده اید',
-                        footer: 'با تشکر از شما',
-                        showConfirmButton: false,
-                        timer: 4000
-                    });
-                }
-            },
-            error: function(){
+                    <div class="widget">
+                        <h2 class="widget-title">آلبوم تصاویر</h2>
+                        <div class="instagram-wrapper clearfix">
+                            {%for item in event_images%}
+                            <a href="{{ item.image.url }}"><img src="{{ item.image.url }}" alt="" height="80" width="80"></a>
+                            {%endfor%}
+                        </div><!-- end Instagram wrapper -->
+                    </div><!-- end widget -->
 
-            }
-        });
-        return false;
-    });
-</script>
-
-
-</body>
-
-</html>
+                    <div class="widget">
+                        <h2 class="widget-title">بهترین دسته بندی ها</h2>
+                        <div class="link-widget">
+                            <ul>
+                                {% for category in recent_categories %}
+                                <li><a href="category?id={{ category.id }}">{{ category.title }}<span>({{ category.post_set.count }})</span></a></li>
+                                {% endfor %}
+                            </ul>
+                        </div><!-- end link-widget -->
+                    </div><!-- end widget -->
+                </div><!-- end sidebar -->
+            </div><!-- end col -->
+        </div><!-- end row -->
+    </div><!-- end container -->
+</section>
+{% endblock %}
