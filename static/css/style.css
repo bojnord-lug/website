@@ -2028,3 +2028,13 @@ input[type="password"] {
 .mb-4 {
   margin-bottom: 18px !important;
 }
+
+.bio{
+  text-align: justify;
+}
+.job-title h4,small{
+  display: inline;
+}
+.job-title small{
+  margin-right: 5px;
+}
