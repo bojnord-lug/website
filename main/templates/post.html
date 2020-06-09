@@ -119,9 +119,8 @@
                                             <img src="{% static 'upload/authorComment.svg'%}" alt="" class="rounded-circle">
                                         </a>
                                         <div class="media-body">
-                                            <h4 class="media-heading user_name">{{item.author}} <small>{{item.date}} روز قبل</small></h4>
+                                            <h4 class="media-heading user_name">{{item.author}} <small>{{item.date}}</small></h4>
                                             <p>{{item.text}}</p>
-                                            <a href="#" class="btn btn-primary btn-sm">پاسخ</a>
                                         </div>
                                     </div>
                                     {%endfor%}
@@ -154,7 +153,7 @@
                                     {% endif %}
                                     <textarea class="form-control" placeholder="پیام شما"
                                     id="comment_message"></textarea>
-                                    <div class="g-recaptcha" data-sitekey="6Ldm3dMUAAAAAODnrvSccuuIeGbKNCU6T6rfZomw"></div>
+                                    <div class="g-recaptcha" data-sitekey="6LfVgrEUAAAAAGae5LzDPc9DP9Gy165snGVdgX5-"></div>
                                     <button type="submit" class="btn btn-primary" id="submit-btn">ارسال دیدگاه</button>
                                 </form>
                             </div>
@@ -228,4 +227,66 @@
         </div><!-- end row -->
     </div><!-- end container -->
 </section>
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{% static 'js/sweetalert2.min.js'%}"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+<script>
+$("#new-comment").submit(
+function() {
+    var name = $("#comment_name").val();
+    var text = $("#comment_message").val();
+    var website = $("#comment_website").val();
+    var email = $("#comment_email").val();
+    var post = "{{ post.id }}";
+    if (!grecaptcha.getResponse()){
+        Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'خطایی رخ داد',
+                    text: 'لطفا کپچای گوگل را تکمیل نمایید',
+                    footer: 'با تشکر از شما',
+                    showConfirmButton: false,
+                    timer: 4000
+                });
+    }
+    $.ajax({
+        type: "POST",
+        data: { name: name, text: text, website: website, email: email, post: post, csrfmiddlewaretoken: '{{ csrf_token }}',
+                captcha: grecaptcha.getResponse()},
+        url: "/submit_comment",
+        success: function (msg) {
+            if (msg == 'ok') {
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'دیدگاه شما با موفقیت ارسال شد',
+                    text: 'دیدگاه شما پس از بررسی در وبسایت قرار میگیرد',
+                    footer: 'با تشکر از شما',
+                    showConfirmButton: false,
+                    timer: 4000
+                });
+            }else if(msg=="captcha"){
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'خطایی رخ داد',
+                    text: 'مطمئن شوید فیلد مربوط به گوگل را تیک زده اید',
+                    footer: 'با تشکر از شما',
+                    showConfirmButton: false,
+                    timer: 4000
+                });
+            }
+        },
+        error: function(){
+
+        }
+    });
+    return false;
+});
+</script>
+
 {% endblock %}
