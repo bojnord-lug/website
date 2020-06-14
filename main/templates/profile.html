@@ -41,22 +41,26 @@
                                                         <a href="#">
                                                             <i class="fa fa-user"></i>
                                                             پروفایل </a>
+                                                    </li>
+
+                                                    {% if request.user.profile.is_author %}
+                                                        
+                                                        <li class="enabeled">
+                                                            <a href="/new-post">
+                                                                <i class="fa fa-file-text"></i>
+                                                                ثبت پست جدید </a>
                                                         </li>
+                                                        <li class="enabeled">
+                                                            <a href="#">
+                                                            <i class="fa fa-copy"></i>
+                                                            پست های من </a>
+                                                        </li>
+                                                    {% endif %}
                                                     <li>
-                                                    <li class="enabeled">
-                                                        <a href="/new-post">
-                                                            <i class="fa fa-file-text"></i>
-                                                            ثبت پست جدید </a>
-                                                            <li class="enabeled">
-                                                                <a href="#">
-                                                                <i class="fa fa-copy"></i>
-                                                                پست های من </a>
-                                                            </li>
-                                                        <li>
-                                                            <a href="/logout">
-                                                                <i class="fa fa-sign-out"></i>
-                                                                خروج از حساب </a>
-                                                        </li>                                                </ul>
+                                                        <a href="/logout">
+                                                            <i class="fa fa-sign-out"></i>
+                                                            خروج از حساب </a>
+                                                    </li>                                                </ul>
                                             </div>
                                             <!-- END MENU -->
                                         </div>
