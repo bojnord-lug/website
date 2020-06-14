@@ -86,7 +86,10 @@ def login_user(request):
 
 
 def profile(request):
-    return render(request, "profile.html")
+    if request.user.is_authenticated:
+        return render(request, "profile.html")
+    else:
+        return Http404()  # TODO: Render a more gentle page.
 
 
 def contact(request):
@@ -270,6 +273,7 @@ def register(request):
             profile.save()
             return HttpResponse('success')
         else:
+            print(form.errors.as_data().values())
             return HttpResponse(list(form.errors.as_data().values())[0][0])
     return Http404()
 
