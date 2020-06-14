@@ -277,5 +277,5 @@ def new_post(request):
     if request.method=='GET':
         if request.user.is_authenticated:
             if request.user.profile.is_author:
-                return render(request, 'new_post.html')
+                return render(request, 'new_post.html', {'categories': Category.objects.all()})
         return Http404()
