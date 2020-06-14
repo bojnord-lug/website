@@ -283,3 +283,17 @@ def new_post(request):
             if request.user.profile.is_author:
                 return render(request, 'new_post.html', {'categories': Category.objects.all()})
         return Http404()
+    elif request.method=='POST':
+        if request.user.is_authenticated:
+            if request.user.profile.is_author:
+                new_post = AddPostForm(request.POST, request.FILES)
+                if new_post.is_valid():
+                    print('dalli')
+                    np = new_post.save(commit=False)
+                    np.author = request.user
+                    np.save()
+                    return render(request, 'new_post.html', {'categories': Category.objects.all(), 'posted': True})
+                else:
+                    return HttpResponse('error')
+
+        return Http404()

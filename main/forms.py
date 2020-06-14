@@ -56,7 +56,7 @@ class UserRegistrationForm(UserCreationForm):
             raise forms.ValidationError("حسابی با این ایمیل موجود است")
         return self.cleaned_data['email']
     
-def AddPostForm(ModelForm):
+class AddPostForm(ModelForm):
     class Meta:
         model = Post
         fields = ['title', 'text', 'image', 'category']
