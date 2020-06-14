@@ -47,22 +47,24 @@
                                                             پروفایل </a>
                                                         </li>
                                                     <li>
+                                                    {% if request.user.profile.is_author %}
                                                     <li class="enabeled active">
                                                         <a href="#">
                                                             <i class="fa fa-file-text"></i>
                                                             ثبت پست جدید </a>
-                                                            <li class="enabeled">
-                                                                <a href="#">
-                                                                <i class="fa fa-copy"></i>
-                                                                پست های من </a>
-                                                            </li>
-                                                        <li>
-                                                            <a href="/logout">
-                                                                <i class="fa fa-sign-out"></i>
-                                                                خروج از حساب </a>
-                                                        </li>
-                                                    </ul>
-                                                </div>
+                                                    <li class="enabeled">
+                                                        <a href="#">
+                                                        <i class="fa fa-copy"></i>
+                                                        پست های من </a>
+                                                    </li>
+                                                    {% endif %}
+                                                    <li>
+                                                        <a href="/logout">
+                                                            <i class="fa fa-sign-out"></i>
+                                                            خروج از حساب </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                             <!-- END MENU -->
                                         </div>
                                     </div>
@@ -119,7 +121,6 @@
                                                 <div class="col-lg-6 col-sm-6 col-md-6 col-xs-6 cat-pos">
                                                     <select name="states" id="select_cat"
                                                         multiple="multiple" style="display: none;">
-                                                        <!-- TODO: Get these from server -->
                                                         {% for category in categories %}
                                                         <option value="{{ category.id }}">{{ category.title }}</option>
                                                         {% endfor %}
