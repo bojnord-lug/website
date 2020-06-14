@@ -1,8 +1,13 @@
 from django import forms
+from django.forms import ModelForm
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import PasswordResetForm, UserCreationForm
 from django.conf import settings
+
+from .models import Post
+
 import requests
+
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=20)
@@ -50,3 +55,8 @@ class UserRegistrationForm(UserCreationForm):
         if User.objects.filter(email=self.cleaned_data['email']):
             raise forms.ValidationError("حسابی با این ایمیل موجود است")
         return self.cleaned_data['email']
+    
+def AddPostForm(ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'text', 'image', 'category']

@@ -18,7 +18,7 @@ from hitcount.views import HitCountMixin
 from PIL import Image
 
 from .forms import (CaptchaPasswordResetForm, LoginForm, SubmitComment,
-                    UpdateProfileForm, UserRegistrationForm)
+                    UpdateProfileForm, UserRegistrationForm, AddPostForm)
 from .models import (Category, Comment, Event, EventImage, NewsLetter, Post,
                      Profile)
 
@@ -272,3 +272,10 @@ def register(request):
         else:
             return HttpResponse(list(form.errors.as_data().values())[0][0])
     return Http404()
+
+def new_post(request):
+    if request.method=='GET':
+        if request.user.is_authenticated:
+            if request.user.profile.is_author:
+                return render(request, 'new_post.html')
+        return Http404()
