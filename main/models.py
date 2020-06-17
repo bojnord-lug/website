@@ -98,9 +98,9 @@ class Post(models.Model, HitCountMixin):
 
 
 
-def Post_send_email(sender, instance , **kwargs):
-    post_send_email(instance.id, instance.title)
-post_save.connect(Post_send_email, sender=Post)
+# def Post_send_email(sender, instance , **kwargs):
+#     post_send_email(instance.id, instance.title)
+# post_save.connect(Post_send_email, sender=Post)
 
 
 

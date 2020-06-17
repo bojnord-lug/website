@@ -22,6 +22,8 @@ from .forms import (CaptchaPasswordResetForm, LoginForm, SubmitComment,EdirForm,
 from .models import (Category, Comment, Event, EventImage, NewsLetter, Post,
                      Profile)
 
+from .tasks import post_send_email
+
 
 @csrf_exempt
 def index(request):
@@ -298,11 +300,16 @@ def new_post(request):
                     for i in new_post.cleaned_data.get('category')[:]:
                         post.category.add(i)
                     post.save()
+                    res = post_send_email.delay(post.id, post.title)
                     return render(request, 'new_post.html', {'categories': Category.objects.all(), 'posted': True})
                 else:
-                    return HttpResponse('error')
+                    return HttpResponse('pleas complate all of field')
 
         return Http404()
+
+
+
+
 
 
 
@@ -335,7 +342,6 @@ def delelte_post(request, id):
         
 
 def edit_post(request, id):
-
     post = Post.objects.filter(id=id)[0]
     user = User.objects.filter(username=request.user.username)[0]
     if post.author == user:
@@ -349,8 +355,6 @@ def edit_post(request, id):
                 post.text =edit.cleaned_data.get('text')   
                 post.image = edit.cleaned_data.get('image')
                 post.category.set(edit.cleaned_data.get('category')[:])
-                # for i in :
-                #     post.category.add(i)
                 post.save()
                 return render(request, 'new_post.html', {'categories': Category.objects.all(), 'posted': True})
     return HttpResponse("wrong")
@@ -358,3 +362,8 @@ def edit_post(request, id):
 
 
 
+
+
+
+
+#rSv[m9}umT9.cs.L
