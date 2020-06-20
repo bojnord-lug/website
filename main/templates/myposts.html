@@ -135,7 +135,7 @@
                 function delete_post(id){
                 ans = confirm(" مطمئن هستید که می خواهید این پست را حذف کنید ؟");
                 if (ans == true ){
-                    x = "/deletepost/"+id
+                    x = "/delete-post/"+id
                     $.ajax({
                         type: "POST",
                         url: x,
