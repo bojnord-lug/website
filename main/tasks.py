@@ -2,7 +2,10 @@ from __future__ import absolute_import, unicode_literals
 from celery import shared_task
 from django.core.mail import send_mail
 from LUG.settings import EMAIL_HOST_USER
-# from main.models import NewsLetter
+
+# recipient = [ i.email for i in  NewsLetter.objects.all()]
+
+
 
 @shared_task
 def event_send_email(id, event):
@@ -10,7 +13,7 @@ def event_send_email(id, event):
         subject = event,
         message = " \n  http://127.0.0.1:8000/event?id={}بجنورد لاگ قراره که یه ایونت برگزار کنه . اگه می خوای بدونی چه خبره بیا به این لینک".format(id),
         from_email= EMAIL_HOST_USER,
-        recipient_list = ['mahmoodabdali79@gmail.com'],
+        recipient_list = ['ridod79996@tywmp.com',],
         fail_silently=False,
         )
 

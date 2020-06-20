@@ -6,7 +6,7 @@ from django.contrib.contenttypes.fields import GenericRelation
 
 
 from django.db.models.signals import post_save
-from .tasks import event_send_email, post_send_email
+from .tasks import event_send_email
 
 class Banners(models.Model):
     title = models.CharField(max_length=100)
@@ -95,15 +95,6 @@ class Post(models.Model, HitCountMixin):
         verbose_name = 'Post'
         verbose_name_plural = 'Posts'
         ordering = ['date']
-
-
-
-# def Post_send_email(sender, instance , **kwargs):
-#     post_send_email(instance.id, instance.title)
-# post_save.connect(Post_send_email, sender=Post)
-
-
-
 
 
 
