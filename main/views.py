@@ -279,6 +279,7 @@ def register(request):
             return HttpResponse(list(form.errors.as_data().values())[0][0])
     return Http404()
 
+  
 def new_post(request):
     if request.method=='GET':
         if request.user.is_authenticated:
@@ -307,44 +308,30 @@ def new_post(request):
 
         return Http404()
 
-
-
-
-
-
-
-
-
-
-def my_post(request):
+      
+def my_posts(request):
     if request.user.is_authenticated:
-        user = User.objects.filter(username=request.user.username)[0]
-        posts = Post.objects.filter(author=user)
-        #posts[0].category.distinct()[0].title
-        return render(request, 'mypost.html', {'posts':posts})
-    return HttpResponse("wrong")
+        if user.profile.is_author:
+            posts = Post.objects.filter(author=request.user)
+            return render(request, 'mypost.html', {'posts':posts})
+    return Http404()
 
-
-
-
-
-
+  
 @require_POST
 @csrf_exempt
 def delelte_post(request, id):
     if request.method == 'POST' and request.user.is_authenticated:
-        user = User.objects.filter(username=request.user.username)[0]
-        post = Post.objects.filter(id=id)[0]
-        if post.author == user :
-            post.delete()
-            return HttpResponse(" پست با موفقیت حذف شد")
-    return HttpResponse("wrong")
+        if request.user.profile.is_author:
+            post = Post.objects.filter(id=id)[0]
+            if post.author == request.user:
+                post.delete()
+                return HttpResponse(" پست با موفقیت حذف شد")
+    return Http404()
         
 
 def edit_post(request, id):
     post = Post.objects.filter(id=id)[0]
-    user = User.objects.filter(username=request.user.username)[0]
-    if post.author == user:
+    if post.author == request.useruser:
         if request.method == 'GET':
             return render(request, 'new_post.html',{'post':post,'categories': Category.objects.all(), 'type':"edit"})
         elif request.method == 'POST':
@@ -357,13 +344,4 @@ def edit_post(request, id):
                 post.category.set(edit.cleaned_data.get('category')[:])
                 post.save()
                 return render(request, 'new_post.html', {'categories': Category.objects.all(), 'posted': True})
-    return HttpResponse("wrong")
-
-
-
-
-
-
-
-
-#rSv[m9}umT9.cs.L
+    return Http404()
