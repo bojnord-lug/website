@@ -38,36 +38,30 @@
                                            
                                             <div class="profile-usermenu">
                                                 <ul class="nav" style="direction: rtl;display: block;">
-                                                    <li >
-                                                        <a href=" ">
-                                                        <i class="fa fa-home"></i>
-                                                        صفحه اصلی </a>
-                                                    </li>
-                                                    <li class="enabeled">
-                                                        <a href="new-post">
-                                                        <i class="fa fa-file-text"></i>
-                                                        افزودن پست جدید</a>
-                                                    </li>
-                                                    <li class="enabeled active">
-                                                        <a href="mypost">
-                                                        <i class="fa fa-copy"></i>
-                                                        لیست پست های من </a>
-                                                    </li>
                                                     <li class="enabeled">
                                                         <a href="#">
-                                                        <i class="fa fa-user"></i>
-                                                        تنظیمات </a>
+                                                            <i class="fa fa-user"></i>
+                                                            پروفایل </a>
                                                     </li>
+
+                                                    {% if request.user.profile.is_author %}
+                                                        
+                                                        <li class="enabeled">
+                                                            <a href="/new-post">
+                                                                <i class="fa fa-file-text"></i>
+                                                                ثبت پست جدید </a>
+                                                        </li>
+                                                        <li class="enabeled active">
+                                                            <a href="/my-posts">
+                                                            <i class="fa fa-copy"></i>
+                                                            پست های من </a>
+                                                        </li>
+                                                    {% endif %}
                                                     <li>
-                                                        <a href="#" >
-                                                        <i class="fa fa-tasks"></i>
-                                                        فعالیت ها </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                        <i class="fa fa-flag"></i>
-                                                        پشتیبانی </a>
-                                                    </li>
+                                                        <a href="/logout">
+                                                            <i class="fa fa-sign-out"></i>
+                                                            خروج از حساب </a>
+                                                    </li> 
                                                 </ul>
                                             </div>
                                             <!-- END MENU -->
