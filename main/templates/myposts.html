@@ -1,0 +1,153 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block nav_profile %}
+<li class="nav-item active">
+    <a class="nav-link" href="#">پروفایل کاربری</a>
+</li>
+{% endblock nav_profile %}
+   
+
+{% block content %} 
+        <section class="section wb">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-4 col-md-12 col-sm-12 col-xs-12">
+                        <div class="sidebar">                          
+                            <div class="container">
+                                <div class="row profile" >
+                                    <div class="col-md-12" style="border-left: 1px solid #eeeeee;">
+                                        <div class="profile-sidebar">
+                                            <!-- SIDEBAR USERPIC -->
+                                            <div class="profile-userpic" >
+                                                <center><img src="{{ request.user.profile.profile_picture.url }}" class="img-fluid"
+                                                    style="width: 100px;height: 100px;border-radius: 50%;" alt="">
+                                                </center>
+                                            </div>
+                                            <!-- END SIDEBAR USERPIC -->
+                                            <!-- SIDEBAR USER TITLE -->
+                                            <div class="profile-usertitle">
+                                                <div class="profile-usertitle-name">
+                                                {{user.username}}
+                                                </div>
+                                                <div class="profile-usertitle-job">
+                                                    {{ request.user.profile.profession }}
+                                                </div>
+                                            </div>
+                                           
+                                            <div class="profile-usermenu">
+                                                <ul class="nav" style="direction: rtl;display: block;">
+                                                    <li class="enabeled">
+                                                        <a href="#">
+                                                            <i class="fa fa-user"></i>
+                                                            پروفایل </a>
+                                                    </li>
+
+                                                    {% if request.user.profile.is_author %}
+                                                        
+                                                        <li class="enabeled">
+                                                            <a href="/new-post">
+                                                                <i class="fa fa-file-text"></i>
+                                                                ثبت پست جدید </a>
+                                                        </li>
+                                                        <li class="enabeled active">
+                                                            <a href="/my-posts">
+                                                            <i class="fa fa-copy"></i>
+                                                            پست های من </a>
+                                                        </li>
+                                                    {% endif %}
+                                                    <li>
+                                                        <a href="/logout">
+                                                            <i class="fa fa-sign-out"></i>
+                                                            خروج از حساب </a>
+                                                    </li> 
+                                                </ul>
+                                            </div>
+                                            <!-- END MENU -->
+                                        </div>
+                                    </div>                            
+                                </div>
+                            </div>                                                         
+                        </div><!-- end sidebar -->
+                    </div><!-- end col -->
+                    <div class="col-lg-8 col-md-12 col-sm-12 col-xs-12">
+                        <div class="page-wrapper" >
+                            <div class="blog-list clearfix">
+                                <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+                                    <h4>لیست پست های من</h4>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="profile-content">
+                                        <table class="table table-sm table-striped">
+                                            <thead>
+                                              <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">عنوان</th>
+                                                <th scope="col">متن کوتاه</th>
+                                                <th scope="col">دسته بندی</th>
+                                                <th scope="col">عملیات</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                                
+                                                {% for post in posts %}
+                                                <tr>
+                                                    <th scope="row">{{ forloop.counter }}</th>
+                                                    <td><a href="post?id={{post.id}}">{{post.title}}</a></td>
+                                                    <td>{{post.text|truncatewords:6}}
+                                                    </td>
+                                                    <td><a href="category?id={{post.category.distinct.0.id}}">{{post.category.distinct.0}}</a> </td>
+                                                    <td>
+                                                        <span><a href="edit-post/{{post.id}}"><i onclick="edit()" class="fa fa-edit pointer"></i></a></span>
+                                                        <span><i onclick="delete_post('{{post.id}}')" class="fa fa-trash pointer"></i></span>
+                                                    </td>
+                                                  </tr>
+                                                  {% empty %}
+                                                    <li>شما هیچ پستی ندارید .</li>
+                                                {%endfor%}
+
+                                              
+                                            </tbody>
+                                          </table>
+                                    </div>
+                                </div>
+                    
+
+                              
+                            </div><!-- end blog-list -->
+                        </div><!-- end page-wrapper -->
+
+
+                    </div><!-- end col -->
+
+                
+                </div><!-- end row -->
+            </div><!-- end container -->
+        </section>
+
+        {% endblock content %} 
+
+        {% block scripts %}
+
+        <script type="text/javascript">
+
+                function delete_post(id){
+                ans = confirm(" مطمئن هستید که می خواهید این پست را حذف کنید ؟");
+                if (ans == true ){
+                    x = "/delete-post/"+id
+                    $.ajax({
+                        type: "POST",
+                        url: x,
+                        success: function () {
+                            alert("پست حذف شد");
+                        },
+                        error: function(){
+                            alert("پست حذف نشد . دوباره تلاش کنید")
+                            }
+                        });
+                }
+            }
+            
+        </script>
+        {% endblock scripts %}

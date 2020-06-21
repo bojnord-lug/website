@@ -49,11 +49,11 @@
                                                     <li>
                                                     {% if request.user.profile.is_author %}
                                                     <li class="enabeled active">
-                                                        <a href="#">
+                                                        <a href="/new-post">
                                                             <i class="fa fa-file-text"></i>
                                                             ثبت پست جدید </a>
                                                     <li class="enabeled">
-                                                        <a href="#">
+                                                        <a href="/my-posts">
                                                         <i class="fa fa-copy"></i>
                                                         پست های من </a>
                                                     </li>
@@ -82,21 +82,29 @@
                         
                                 <div class="col-md-9">
                                     <div class="profile-content">
-                                        <form action="" method="POST" id="form-user" class="form-wrapper" enctype="multipart/form-data">
+                                        {% if type %}
+                                            <form action="" method="POST" id="form-user" class="form-wrapper" enctype="multipart/form-data">
+                                        {% else %}
+                                            <form action="" method="POST" id="form-user" class="form-wrapper" enctype="multipart/form-data">
+                                        {% endif %}
                                             {% csrf_token %}
                                             <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
+                                                {% if type %}
+                                                <h4>ویرایش پست</h4>
+                                                {% else %}
                                                 <h4>افزودن پست جدید</h4>
+                                                {% endif %}
                                             </div>
                                             <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
 
                                                 <input type="text" class="form-control user" name="title"
-                                                    placeholder="عنوان">
+                                                    placeholder="{{post.title}}">
                                             </div>
                                             <div class="row">
                                                 <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                                     <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                                         <textarea name="text" class="form-control"
-                                                            placeholder="متن"></textarea>
+                                                            placeholder="{{post.text|truncatewords:30}}"></textarea>
                                                     </div>
                                                     <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12"
                                                         style="float: right;">
@@ -126,7 +134,7 @@
                                                         
                                                     </select>
                                                 </div>
-                                            </div>
+                                            </div><br>
                                             <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12">
                                                 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i>
                                                     ثبت</button> </div>

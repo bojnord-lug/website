@@ -26,7 +26,11 @@ urlpatterns = [
     path('reset-password/done', PasswordResetDoneView.as_view(), name="password_reset_done"),
     path('reset-password/confirm/<uidb64>/<token>', PasswordResetConfirmView.as_view(template_name='password-reset.htm', success_url='/?password-reset=true'), name='password_reset_confirm'),
     path('reset-password/complete', PasswordResetCompleteView.as_view(), name="password_reset_complete"),
-    path('new-post', views.new_post)
+    path('new-post', views.new_post, name='new_post'),
+    path('edit-post/<int:id>', views.edit_post, name='edit_post'),
+    path('delete-post/<int:id>', views.delelte_post, name='delete_post'),
+    path('my-posts', views.my_posts, name='mypost'),
+
 ]
 
 if settings.DEBUG:

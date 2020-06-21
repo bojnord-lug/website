@@ -17,10 +17,12 @@ from hitcount.models import HitCount
 from hitcount.views import HitCountMixin
 from PIL import Image
 
-from .forms import (CaptchaPasswordResetForm, LoginForm, SubmitComment,
+from .forms import (CaptchaPasswordResetForm, LoginForm, SubmitComment,EdirForm,
                     UpdateProfileForm, UserRegistrationForm, AddPostForm)
 from .models import (Category, Comment, Event, EventImage, NewsLetter, Post,
                      Profile)
+
+from .tasks import post_send_email
 
 
 @csrf_exempt
@@ -251,7 +253,7 @@ def gallery(request):
 
 def about_us(request):
     authors = [i.user for i in Profile.objects.filter(is_author=True)]
-    return render(request, 'about-us.htm', {'authors': authors})
+    return render(request, 'about-us.html', {'authors': authors})
 
 class CaptchaPasswordResetView(PasswordResetView):
     form_class = CaptchaPasswordResetForm
@@ -277,6 +279,7 @@ def register(request):
             return HttpResponse(list(form.errors.as_data().values())[0][0])
     return Http404()
 
+  
 def new_post(request):
     if request.method=='GET':
         if request.user.is_authenticated:
@@ -289,11 +292,56 @@ def new_post(request):
                 new_post = AddPostForm(request.POST, request.FILES)
                 if new_post.is_valid():
                     print('dalli')
-                    np = new_post.save(commit=False)
-                    np.author = request.user
-                    np.save()
+                    post = Post.objects.create(
+                        title = new_post.cleaned_data.get('title'),
+                        text = new_post.cleaned_data.get('text'),
+                        image = new_post.cleaned_data.get('image'),
+                        author = request.user 
+                    )
+                    for i in new_post.cleaned_data.get('category')[:]:
+                        post.category.add(i)
+                    post.save()
+                    res = post_send_email.delay(post.id, post.title)
                     return render(request, 'new_post.html', {'categories': Category.objects.all(), 'posted': True})
                 else:
-                    return HttpResponse('error')
+                    return HttpResponse('pleas complate all of field')
 
         return Http404()
+
+      
+def my_posts(request):
+    if request.user.is_authenticated:
+        if user.profile.is_author:
+            posts = Post.objects.filter(author=request.user)
+            return render(request, 'mypost.html', {'posts':posts})
+    return Http404()
+
+  
+@require_POST
+@csrf_exempt
+def delelte_post(request, id):
+    if request.method == 'POST' and request.user.is_authenticated:
+        if request.user.profile.is_author:
+            post = Post.objects.filter(id=id)[0]
+            if post.author == request.user:
+                post.delete()
+                return HttpResponse(" پست با موفقیت حذف شد")
+    return Http404()
+        
+
+def edit_post(request, id):
+    post = Post.objects.filter(id=id)[0]
+    if post.author == request.useruser:
+        if request.method == 'GET':
+            return render(request, 'new_post.html',{'post':post,'categories': Category.objects.all(), 'type':"edit"})
+        elif request.method == 'POST':
+            edit = AddPostForm(request.POST, request.FILES)
+            if edit.is_valid():
+                print('editing')
+                post.title = edit.cleaned_data.get('title')
+                post.text =edit.cleaned_data.get('text')   
+                post.image = edit.cleaned_data.get('image')
+                post.category.set(edit.cleaned_data.get('category')[:])
+                post.save()
+                return render(request, 'new_post.html', {'categories': Category.objects.all(), 'posted': True})
+    return Http404()
