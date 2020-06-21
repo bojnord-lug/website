@@ -291,7 +291,6 @@ def new_post(request):
             if request.user.profile.is_author:
                 new_post = AddPostForm(request.POST, request.FILES)
                 if new_post.is_valid():
-                    print('dalli')
                     post = Post.objects.create(
                         title = new_post.cleaned_data.get('title'),
                         text = new_post.cleaned_data.get('text'),
@@ -301,9 +300,13 @@ def new_post(request):
                     for i in new_post.cleaned_data.get('category')[:]:
                         post.category.add(i)
                     post.save()
-                    res = post_send_email.delay(post.id, post.title)
+                    print('redirecting')
+
+                    # res = post_send_email.delay(post.id, post.title) # TODO: check this
+                    return HttpResponseRedirect('my-posts')
                     return render(request, 'new_post.html', {'categories': Category.objects.all(), 'posted': True})
                 else:
+                    print(new_post.errors.as_data())
                     return HttpResponse('pleas complate all of field')
 
         return Http404()
@@ -311,9 +314,9 @@ def new_post(request):
       
 def my_posts(request):
     if request.user.is_authenticated:
-        if user.profile.is_author:
+        if request.user.profile.is_author:
             posts = Post.objects.filter(author=request.user)
-            return render(request, 'mypost.html', {'posts':posts})
+            return render(request, 'myposts.html', {'posts':posts})
     return Http404()
 
   

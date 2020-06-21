@@ -82,11 +82,7 @@
                         
                                 <div class="col-md-9">
                                     <div class="profile-content">
-                                        {% if type %}
-                                            <form action="" method="POST" id="form-user" class="form-wrapper" enctype="multipart/form-data">
-                                        {% else %}
-                                            <form action="" method="POST" id="form-user" class="form-wrapper" enctype="multipart/form-data">
-                                        {% endif %}
+                                        <form action="" method="POST" id="form-user" class="form-wrapper" enctype="multipart/form-data">
                                             {% csrf_token %}
                                             <div class="col-lg-6 col-sm-6 col-md-6 col-xs-12">
                                                 {% if type %}

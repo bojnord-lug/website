@@ -136,6 +136,8 @@ $(function () {
 
                 return false;
                 break;
+            case 'form-user':
+                return true;
             case "lost-form":
                 msgChange($('#div-lost-msg'), $('#icon-lost-msg'), $('#text-lost-msg'), "success", "glyphicon-ok", "لطفا صبر کنید", true);
                 
