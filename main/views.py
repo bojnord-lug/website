@@ -304,9 +304,7 @@ def new_post(request):
 
                     # res = post_send_email.delay(post.id, post.title) # TODO: check this
                     return HttpResponseRedirect('my-posts')
-                    return render(request, 'new_post.html', {'categories': Category.objects.all(), 'posted': True})
                 else:
-                    print(new_post.errors.as_data())
                     return HttpResponse('pleas complate all of field')
 
         return Http404()
