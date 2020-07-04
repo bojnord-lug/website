@@ -1,18 +1,42 @@
-  version: '3'
-    
-  services:
-    db:
-      image: postgres
-      environment:
-        - POSTGRES_DB=postgres
-        - POSTGRES_USER=postgres
-        - POSTGRES_PASSWORD=postgres
-    web:
-      build: .
-      command: python manage.py runserver 0.0.0.0:8000
-      volumes:
-        - .:/lug-website
-      ports:
-        - "8000:8000"
-      depends_on:
-        - db
+version: '3.6'
+  
+services:
+  db:
+    restart: always
+    image: postgres
+    container_name: bojnordlug_db
+    volumes: 
+      - type: volume
+        source: bojnord_lug_db
+        target: /var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=blpaygahhbs
+      - POSTGRES_USER=blkrbr
+      - POSTGRES_PASSWORD=C6McpCsgMcYKeLt
+
+  web:
+    build: .
+    restart: always
+    image: bojnordlug:1.0.0
+    container_name: bojnordlug_web
+    command: python manage.py runserver 0.0.0.0:8000
+    environment:
+      - VIRTUAL_HOST=bojnordlug.ir
+    volumes: 
+      - type: volume
+        source: bojnord_lug_web
+        target: /usr/src/app/public
+
+    ports:
+      - "8000"
+    depends_on:
+      - db
+
+volumes:
+  bojnord_lug_web:
+  bojnord_lug_db:
+  
+networks:
+        default:
+                external:
+                        name: internal_net
