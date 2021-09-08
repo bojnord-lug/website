@@ -12,7 +12,7 @@ get==2019.4.13
 idna==2.9
 jdatetime==3.6.2
 kombu==4.6.8
-Pillow==7.1.2
+Pillow==8.3.2
 post==2019.4.13
 public==2019.4.13
 pytz==2020.1
