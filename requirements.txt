@@ -2,7 +2,7 @@ psycopg2-binary==2.8.5
 amqp==2.5.2
 asgiref==3.2.7
 billiard==3.6.3.0
-celery==4.4.2
+celery==5.2.2
 certifi==2020.4.5.1
 chardet==3.0.4
 Django==2.2.13
